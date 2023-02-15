@@ -11,6 +11,9 @@ export default function AIForm() {
     const [loading, setLoading] = useState(false);
     const temp = 0
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
       const fetchData = async (prompt, temperature, title, tone) => {
           setLoading(true);
           if(!aiPrompt && !title){
@@ -19,7 +22,7 @@ export default function AIForm() {
             return
           }
           try {
-              const result = await axios.post('http://localhost:3001/chat', {
+              const result = await axios.post(`${API_URL}/chat`, {
                   prompt: `Write a creative, SEO friendly product description for the product ${title} in a ${tone}. This is what the product does: ${prompt}. This is a Shopify product and I need an optimal description for that platform. Include a list of keywords I can use for SEO.`,
                   temperature: temperature,
               });

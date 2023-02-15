@@ -10,6 +10,9 @@ export default function YTDescriptionForm() {
     const [loading, setLoading] = useState(false);
     const temp = 0
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
     const fetchData = async (prompt, temperature, tone) => {
         setLoading(true);
         if(!aiPrompt){
@@ -18,7 +21,7 @@ export default function YTDescriptionForm() {
           return
         }
         try {
-            const result = await axios.post('http://localhost:3001/chat', {
+            const result = await axios.post(`${API_URL}/chat`, {
                 prompt: `Create a list of 3 unique, ${tone} descriptions for Youtube videos that rank well in search for the topic: "${prompt}". The description should aim to effectively communicate the value of the video to the target audience and optimize for search engines. It needs to be at least 3 sentences long.`,
                 temperature: temperature,
             });

@@ -9,6 +9,9 @@ export default function AIForm() {
     const [loading, setLoading] = useState(false);
     const temp = 0
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
       const fetchData = async (prompt, temperature) => {
         // Sets loading while function runs
           setLoading(true);
@@ -21,7 +24,7 @@ export default function AIForm() {
         // Post request to server for ChatGPT API
         // Also stores results in state variable 
           try {
-              const result = await axios.post('http://localhost:3001/chat', {
+              const result = await axios.post(`${API_URL}/chat`, {
                   prompt: `Give 3-5 creative ideas for a product name based on this description: ${prompt}`,
                   temperature: temperature,
               });

@@ -10,6 +10,9 @@ export default function YTTitleForm() {
     const [loading, setLoading] = useState(false);
     const temp = 0
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
     const fetchData = async (prompt, temperature, tone) => {
         setLoading(true);
         if(!aiPrompt){
@@ -18,7 +21,7 @@ export default function YTTitleForm() {
           return
         }
         try {
-            const result = await axios.post('http://localhost:3001/chat', {
+            const result = await axios.post(`${API_URL}/chat`, {
                 prompt: `Generate 10 potential titles for a ${tone} YouTube video on the topic: "${prompt}". Consider titles that are concise, attention-grabbing, and accurately reflect the content of the video. Aim to include keywords relevant to the topic and make the titles search engine optimized for ranking on YouTube.`,
                 temperature: temperature,
             });

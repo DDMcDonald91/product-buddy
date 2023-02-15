@@ -8,6 +8,9 @@ export default function ImageForm() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
     const fetchData = async (prompt) => {
         setLoading(true);
 
@@ -18,7 +21,7 @@ export default function ImageForm() {
         }
 
         try {
-            const result = await axios.post('http://localhost:3001/image', {
+            const result = await axios.post(`${API_URL}/image`, {
                 prompt: `${prompt}.`,
             });
             console.log(result.data);

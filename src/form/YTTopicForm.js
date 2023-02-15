@@ -9,6 +9,9 @@ export default function YTScriptForm() {
     const [loading, setLoading] = useState(false);
     const temp = 0
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
     const fetchData = async (prompt, temperature) => {
         setLoading(true);
         if(!aiPrompt){
@@ -17,7 +20,7 @@ export default function YTScriptForm() {
           return
         }
         try {
-            const result = await axios.post('http://localhost:3001/chat', {
+            const result = await axios.post(`${API_URL}/chat`, {
                 prompt: `Generate a list of 10 unique and engaging YouTube video ideas revolving around this topic: ${prompt} Consider topics that are relevant, trending, and have potential for creative expression. The ideas should be suitable for a variety of audiences and video formats (e.g. vlog, tutorial, review).`,
                 temperature: temperature,
             });

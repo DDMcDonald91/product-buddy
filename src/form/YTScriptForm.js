@@ -10,6 +10,9 @@ export default function YTScriptForm() {
     const [loading, setLoading] = useState(false);
     const temp = 0
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
     const fetchData = async (prompt, temperature, tone) => {
         setLoading(true);
         if(!aiPrompt){
@@ -18,7 +21,7 @@ export default function YTScriptForm() {
           return
         }
         try {
-            const result = await axios.post('http://localhost:3001/chat', {
+            const result = await axios.post(`${API_URL}/chat`, {
                 prompt: `Create an outline for a ${tone} YouTube video on the topic: "${prompt}". The outline should include an introduction, key sections, and a conclusion. Think about incorporating visually engaging elements and keeping the overall length of the video in mind (aim for around 5-10 minutes).`,
                 temperature: temperature,
             });

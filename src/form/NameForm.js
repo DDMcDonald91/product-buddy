@@ -9,6 +9,9 @@ export default function NameForm() {
     const [loading, setLoading] = useState(false);
     const temp = 0
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
       const fetchData = async (prompt, temperature) => {
         // Sets loading while function runs
           setLoading(true);
@@ -21,7 +24,7 @@ export default function NameForm() {
         // Post request to server for ChatGPT API
         // Also stores result in state variable 
           try {
-              const result = await axios.post('http://localhost:3001/chat', {
+              const result = await axios.post(`${API_URL}/chat`, {
                   prompt: `Give 5-7 creative, clever and thoughtful ideas for a business name based on this description of what the business does: ${prompt} Try not to be repetetive in your naming suggestions and double check to make sure any suggestion isn't a business name that is already in use. `,
                   temperature: temperature,
               });
