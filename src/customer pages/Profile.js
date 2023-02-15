@@ -14,6 +14,9 @@ export default function Profile() {
     const usersCollectionRef = collection(db, "users")
     const [docSnap, setDocSnap] = useState(null)
 
+    //API
+    const API_URL = process.env.REACT_APP_API_URL
+
     useEffect(() => {
         async function account(){
              // Checks for user 
@@ -85,7 +88,7 @@ export default function Profile() {
         </>
         :
         <>
-        <Form action="http://localhost:3001/create-portal-session" method="POST">
+        <Form action={`${API_URL}/create-portal-session`} method="POST">
         <input type="hidden" id="session-id" name="session_id" value={sessionID}
         />
         <Button id="checkout-and-portal-button" type="submit">
