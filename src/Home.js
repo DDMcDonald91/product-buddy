@@ -37,10 +37,10 @@ export default function Home() {
       <h1>Leave the writing up to Keni.</h1>
         <h3>Keni is the AI Content Generator assistant created for content creators and entrepreneurs that helps scale business higher and faster. Break through creative blocks to create amazing, original content 10X faster.</h3>
         <Row className='mt-5 mb-5'>
-          <Col xs={12} md={6}>
+          <Col xs={12} lg={6}>
             <Container style={{backgroundImage: `url(${image_1})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '100%', width: '100%', borderRadius: '0.375rem'}}></Container>
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} lg={6}>
             <Row xs={1} md={2} className="g-4">
             {FeaturesData.slice(4, 9).map((item, index) => (
                 <Col>
@@ -89,7 +89,7 @@ export default function Home() {
 
       <Container>
         <Row className='mt-5 mb-5'>
-          <Col xs={12} md={6}>
+          <Col xs={12} lg={6}>
             <Row xs={1} md={2} className="g-4">
               {FeaturesData.slice(0, 4).map((item, index) => (
                 <Col>
@@ -103,7 +103,7 @@ export default function Home() {
               ))}
             </Row>
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} lg={6}>
             <Container style={{backgroundImage: `url(${image_3})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '100%', width: '100%', borderRadius: '0.375rem', backgroundPosition: 'center'}}></Container>
           </Col>
         </Row>
