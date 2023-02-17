@@ -66,7 +66,7 @@ export default function Profile() {
             console.log(result.data);
             console.log(result);
         } catch (err) {
-            console.log(error);
+            console.log(err);
         }
     }
    /*
