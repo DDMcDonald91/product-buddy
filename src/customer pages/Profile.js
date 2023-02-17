@@ -107,9 +107,8 @@ export default function Profile() {
         <Button id="checkout-and-portal-button" type="submit">
           Manage your billing information
         </Button>
-        <br />
-        <Button onClick={test}>Test Button</Button>
         </Form>
+        <Button onClick={test}>Test Button</Button>
         </>
         }
     </Container>
