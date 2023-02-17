@@ -56,6 +56,19 @@ export default function Profile() {
     account()
     }, [!currentUser, !docSnap, !sessionID])
 
+    // API Test 
+    const test = async () => {
+        const data = "something"
+        try {
+            const result = await axios.post(`${API_URL}/test`, {
+                testEvent: data,
+            });
+            console.log(result.data);
+            console.log(result);
+        } catch (err) {
+            console.log(error);
+        }
+    }
    /*
     useEffect(() => {
         async function check(){
@@ -94,6 +107,8 @@ export default function Profile() {
         <Button id="checkout-and-portal-button" type="submit">
           Manage your billing information
         </Button>
+        <br />
+        <Button onClick={test}>Test Button</Button>
         </Form>
         </>
         }
