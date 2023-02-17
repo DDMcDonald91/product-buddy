@@ -101,7 +101,7 @@ export default function Profile() {
         </>
         :
         <>
-        <Form action={`${API_URL}/create-portal-session`} method="POST">
+        <Form action={`${API_URL}/create-portal-session`} method="POST" target="_blank">
         <input type="hidden" id="session-id" name="session_id" value={sessionID}
         />
         <Button id="checkout-and-portal-button" type="submit">
