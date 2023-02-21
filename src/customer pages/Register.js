@@ -40,7 +40,7 @@ export default function Register() {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            // ...
+            // Create user account in Firebase database
             try {
                 setDoc(doc(db, 'users', user.uid), {
                     firstName,
@@ -48,27 +48,22 @@ export default function Register() {
                     email,
                     accountID: user.uid,
                     sessionId: "",
-                  })
+                  });
+                // Confirm new user in console
                 console.log("new user added", user.uid);
-                setStripeUser(user.uid)
+                // Add stripe data to user account
+                axios.post(`${API_URL}/create-customer`, {
+                    name: firstName + " " + lastName,
+                    customerEmail: email,
+                    user: user.uid,
+                })
+                // Confirm added doc
                 console.log(stripeUser)
               } catch (e) {
                 console.error("Error adding document: ", e);
                 alert("There has been a error")
                 return
               }
-              
-            // Try creating account
-            try {
-                axios.post(`${API_URL}/create-customer`, {
-                    name: firstName + " " + lastName,
-                    customerEmail: email,
-                    user: user.uid,
-                })
-            } catch (error) {
-                console.log('Registration failed:', error)
-                return
-            }
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -78,7 +73,7 @@ export default function Register() {
         });
         console.log('view user:', user)
 
-        // navigate('/profile')
+        navigate('/profile')
     }
 
   return (
