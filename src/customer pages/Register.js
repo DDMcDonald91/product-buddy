@@ -75,7 +75,7 @@ export default function Register() {
             console.log('Registration failed:', error)
             return
         }
-        navigate('/profile')
+        // navigate('/profile')
     }
 
   return (
