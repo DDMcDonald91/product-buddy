@@ -57,7 +57,18 @@ export default function Register() {
                 alert("There has been a error")
                 return
               }
-              setUser(user)
+              
+            // Try creating account
+            try {
+                axios.post(`${API_URL}/create-customer`, {
+                    name: firstName + " " + lastName,
+                    customerEmail: email,
+                    user: user.uid,
+                })
+            } catch (error) {
+                console.log('Registration failed:', error)
+                return
+            }
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -67,20 +78,6 @@ export default function Register() {
         });
         console.log('view user:', user)
 
-
-         // Try creating account
-         try {
-            await axios.post(`${API_URL}/create-customer`, {
-                name: firstName + " " + lastName,
-                customerEmail: email,
-                user: user.uid,
-            })
-            console.log(stripeUser)
-            console.log(user)
-        } catch (error) {
-            console.log('Registration failed:', error)
-            return
-        }
         // navigate('/profile')
     }
 
