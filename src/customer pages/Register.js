@@ -49,7 +49,7 @@ export default function Register() {
                     sessionId: "",
                   })
                 setStripeUser(user.uid)
-                console.log("new user added");
+                console.log("new user added", stripeUser);
               } catch (e) {
                 console.error("Error adding document: ", e);
                 alert("There has been a error")
