@@ -52,14 +52,13 @@ export default function Register() {
                 console.log("new user added", user.uid);
                 setStripeUser(user.uid)
                 console.log(stripeUser)
-                setUser(user)
               } catch (e) {
                 console.error("Error adding document: ", e);
                 alert("There has been a error")
                 return
               }
-
-              console.log('setting state outside try catch:', stripeUser)
+              setUser(user)
+              console.log('view user:', user)
 
         })
         .catch((error) => {
@@ -74,9 +73,10 @@ export default function Register() {
             await axios.post(`${API_URL}/create-customer`, {
                 name: firstName + " " + lastName,
                 customerEmail: email,
-                user: stripeUser,
+                user: user.uid,
             })
             console.log(stripeUser)
+            console.log(user)
         } catch (error) {
             console.log('Registration failed:', error)
             return
