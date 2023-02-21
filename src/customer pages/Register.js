@@ -67,7 +67,7 @@ export default function Register() {
          try {
             await axios.post(`${API_URL}/create-customer`, {
                 name: firstName + " " + lastName,
-                email,
+                customerEmail: email,
                 user: stripeUser,
             })
         } catch (error) {
