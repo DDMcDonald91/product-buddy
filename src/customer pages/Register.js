@@ -14,7 +14,7 @@ export default function Register() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
 
-    const [stripeUser,setStripeUser] = useState('')
+    const [stripeUser, setStripeUser] = useState('')
     const auth = getAuth();
     const usersCollectionRef = collection(db, "users")
     const navigate = useNavigate();
