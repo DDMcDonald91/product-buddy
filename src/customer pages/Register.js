@@ -14,7 +14,8 @@ export default function Register() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
 
-    const [stripeUser, setStripeUser] = useState('')
+    const [stripeUser, setStripeUser] = useState(null)
+    const [user, setUser] = useState(null)
     const auth = getAuth();
     const usersCollectionRef = collection(db, "users")
     const navigate = useNavigate();
@@ -48,17 +49,17 @@ export default function Register() {
                     accountID: user.uid,
                     sessionId: "",
                   })
-console.log('setting state x3 in try catch:', user.uid)
                 console.log("new user added", user.uid);
+                setStripeUser(user.uid)
+                console.log(stripeUser)
+                setUser(user)
               } catch (e) {
                 console.error("Error adding document: ", e);
                 alert("There has been a error")
                 return
               }
 
-              setStripeUser(user.uid)
-
-              console.log('setting state outside try catch:', user.uid)
+              console.log('setting state outside try catch:', stripeUser)
 
         })
         .catch((error) => {
@@ -73,7 +74,7 @@ console.log('setting state x3 in try catch:', user.uid)
             await axios.post(`${API_URL}/create-customer`, {
                 name: firstName + " " + lastName,
                 customerEmail: email,
-                user: stripeUser,
+                user: user.uid,
             })
             console.log(stripeUser)
         } catch (error) {
