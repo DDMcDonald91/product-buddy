@@ -14,6 +14,8 @@ export default function Profile() {
     const auth = getAuth();
     const usersCollectionRef = collection(db, "users")
     const [docSnap, setDocSnap] = useState(null)
+    const [event, setEventSnap] = useState(null)
+
 
 
     //API
@@ -33,7 +35,8 @@ export default function Profile() {
                 console.log(currentUser.email)
             } else {
                 // User is signed out
-                console.log('Redirecting to Home page...')
+                console.log('Nobody signed in.')
+                return
             }
             });
 
@@ -51,10 +54,24 @@ export default function Profile() {
             // doc.data() will be undefined in this case
             console.log("No such document!");
             }
+
+        const eventRef = doc(db, 'event', stripeId);
+        setEventSnap(await getDoc(eventRef))
+      } else {
+        console.log('No user data')
+        return
       }
+
+        if (eventSnap) {
+            console.log(eventSnap)
+        }
     }
     account()
     }, [!currentUser, !docSnap, !sessionID])
+
+    useEffect(() => {
+
+    }, [])
         
     if(!currentUser){
         return(
