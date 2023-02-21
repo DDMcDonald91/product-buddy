@@ -14,7 +14,7 @@ export default function Profile() {
     const auth = getAuth();
     const usersCollectionRef = collection(db, "users")
     const [docSnap, setDocSnap] = useState(null)
-    const [event, setEventSnap] = useState(null)
+    const [eventSnap, setEventSnap] = useState(null)
 
 
 
