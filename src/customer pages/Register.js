@@ -58,8 +58,6 @@ export default function Register() {
                 return
               }
               setUser(user)
-              console.log('view user:', user)
-
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -67,6 +65,8 @@ export default function Register() {
             // ..
             console.log(errorCode, errorMessage)
         });
+        console.log('view user:', user)
+
 
          // Try creating account
          try {
