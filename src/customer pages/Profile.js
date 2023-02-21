@@ -80,7 +80,6 @@ export default function Profile() {
           Manage your billing information
         </Button>
         </Form>
-        <Button onClick={test}>Test Button</Button>
         </>
         }
     </Container>
