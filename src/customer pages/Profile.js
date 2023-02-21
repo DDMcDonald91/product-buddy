@@ -71,9 +71,6 @@ export default function Profile() {
     account()
     }, [!currentUser, !docSnap, !sessionID])
 
-    useEffect(() => {
-
-    }, [])
         
     if(!currentUser){
         return(
