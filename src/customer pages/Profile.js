@@ -14,7 +14,6 @@ export default function Profile() {
     const usersCollectionRef = collection(db, "users")
     const [docSnap, setDocSnap] = useState(null)
 
-    const navigate = useNavigate()
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
