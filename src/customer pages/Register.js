@@ -49,12 +49,20 @@ export default function Register() {
                     sessionId: "",
                   })
                 setStripeUser(user.uid)
+                setStripeUser(user.uid)
+                setStripeUser(user.uid)
+console.log('setting state x3 in try catch:', stripeUser)
                 console.log("new user added", stripeUser);
               } catch (e) {
                 console.error("Error adding document: ", e);
                 alert("There has been a error")
                 return
               }
+
+              setStripeUser(user.uid)
+
+              console.log('setting state outside try catch:', stripeUser)
+
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -62,9 +70,6 @@ export default function Register() {
             // ..
             console.log(errorCode, errorMessage)
         });
-        setStripeUser(user.uid)
-        setStripeUser(user.uid)
-
 
          // Try creating account
          try {
