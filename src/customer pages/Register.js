@@ -62,6 +62,9 @@ export default function Register() {
             // ..
             console.log(errorCode, errorMessage)
         });
+        setStripeUser(user.uid)
+        setStripeUser(user.uid)
+
 
          // Try creating account
          try {
