@@ -11,8 +11,10 @@ import * as AiIcons from "react-icons/ai";
 import * as TiIcons from "react-icons/ti";
 
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function Home() {
+
   return (
     <Container align='center' fluid style={{maxWidth: '70rem'}}>
 
@@ -61,22 +63,7 @@ export default function Home() {
       </Container>
 
       <Container id="about-container">
-        <Nav justify variant="tabs" defaultActiveKey="/home">
-          <Nav.Item>
-            <Nav.Link href="/home">Active</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="link-1">Loooonger NavLink</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="link-2">Link</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="disabled" disabled>
-              Disabled
-            </Nav.Link>
-          </Nav.Item>
-        </Nav>
+              
       </Container>
 
       <Container className='mt-5 mb-5'>
@@ -108,7 +95,7 @@ export default function Home() {
           </Col>
         </Row>
       </Container>
-
+      
       <Container className='mt-5 mb-5'>
         <h1 style={{marginBottom: '-2.5px'}}>Perfect For Any Platform</h1>
         <h3>Create faster social media captions, product descriptions, SEO keywords, and more!</h3>
