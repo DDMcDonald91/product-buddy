@@ -70,6 +70,7 @@ export default function Register() {
                 customerEmail: email,
                 user: stripeUser,
             })
+            console.log(user)
         } catch (error) {
             console.log('Registration failed:', error)
             return
