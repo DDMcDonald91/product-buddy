@@ -39,7 +39,6 @@ export default function Register() {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            setStripeUser(user.uid)
             // ...
             try {
                 setDoc(doc(db, 'users', user.uid), {
@@ -49,6 +48,7 @@ export default function Register() {
                     accountID: user.uid,
                     sessionId: "",
                   })
+                setStripeUser(user.uid)
                 console.log("new user added");
               } catch (e) {
                 console.error("Error adding document: ", e);
