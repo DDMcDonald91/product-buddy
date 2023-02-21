@@ -9,6 +9,7 @@ import axios from 'axios';
 export default function Profile() {
     const [currentUser, setCurrentUser] = useState(null);
     const [sessionID, setSessionID] = useState(null)
+    const [stripeId, setStripeId] = useState(null)
 
     const auth = getAuth();
     const usersCollectionRef = collection(db, "users")
@@ -43,6 +44,7 @@ export default function Profile() {
             if (docSnap) {
             console.log("Document data:", docSnap.data());
             setSessionID(docSnap.data().sessionId)
+            setStripeId(docSnap.data().customerData.id)
             console.log(sessionID);
             return
             } else {
@@ -72,7 +74,7 @@ export default function Profile() {
         :
         <>
         <Form action={`${API_URL}/create-portal-session`} method="POST">
-        <input type="hidden" id="session-id" name="session_id" value={sessionID}
+        <input type="hidden" id="session-id" name="session_id" value={stripeId}
         />
         <Button id="checkout-and-portal-button" type="submit">
           Manage your billing information
