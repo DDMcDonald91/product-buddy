@@ -64,6 +64,8 @@ export default function Profile() {
 
         if (eventSnap) {
             console.log(eventSnap)
+        } else {
+            console.log("Event not logged...")
         }
     }
     account()
