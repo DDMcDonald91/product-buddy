@@ -4,6 +4,7 @@ import { db } from "../Firebase";
 import { Container, Form, Button } from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Register() {
     const [email, setEmail] = useState('')
@@ -13,9 +14,12 @@ export default function Register() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
 
+    const [stripeUser,setStripeUser] = useState('')
     const auth = getAuth();
     const usersCollectionRef = collection(db, "users")
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL
+
 
     // Register the user
     const register = async (e) => {
@@ -35,6 +39,7 @@ export default function Register() {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
+            setStripeUser(user.uid)
             // ...
             try {
                 setDoc(doc(db, 'users', user.uid), {
@@ -50,7 +55,6 @@ export default function Register() {
                 alert("There has been a error")
                 return
               }
-            navigate('/profile')
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -58,6 +62,19 @@ export default function Register() {
             // ..
             console.log(errorCode, errorMessage)
         });
+
+         // Try creating account
+         try {
+            await axios.post(`${API_URL}/create-customer`, {
+                name: firstName + " " + lastName,
+                email,
+                user: stripeUser,
+            })
+        } catch (error) {
+            console.log('Registration failed:', error)
+            return
+        }
+        navigate('/profile')
     }
 
   return (

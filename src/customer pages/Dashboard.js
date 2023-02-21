@@ -42,7 +42,7 @@ export default function Dashboard() {
                 {DashboardData.map((item, index) => {
                     return(
                         <Col xs={12} md={4} lg={3} className='p-1' key={index}>
-                            <ProductCard title={item.title} description={item.description} link={item.link} />
+                            <ProductCard title={item.title} description={item.description} link={item.link} bg={item.color} />
                         </Col>
                     )
                 })}
