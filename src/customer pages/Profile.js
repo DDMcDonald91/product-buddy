@@ -58,8 +58,8 @@ export default function Profile() {
         const eventRef = doc(db, 'events', stripeId);
         setEventSnap(await getDoc(eventRef))
         console.log(stripeId)
-        console.log('event snap:', eventSnap);
-        console.log('doc snap:', docSnap);
+        console.log('event snap:', eventSnap.data());
+        console.log('doc snap:', docSnap.data());
       } else {
         console.log('No user data')
         return
