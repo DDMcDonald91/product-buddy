@@ -55,7 +55,7 @@ export default function Profile() {
             console.log("No such document!");
             }
 
-        const eventRef = doc(db, 'event', stripeId);
+        const eventRef = doc(db, 'events', stripeId);
         setEventSnap(await getDoc(eventRef))
         console.log(stripeId)
         console.log('event snap:', eventSnap);
