@@ -59,6 +59,7 @@ export default function Profile() {
         setEventSnap(await getDoc(eventRef))
         console.log(stripeId)
         console.log('event snap:', eventSnap);
+        console.log('doc snap:', docSnap);
       } else {
         console.log('No user data')
         return
