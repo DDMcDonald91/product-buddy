@@ -50,7 +50,6 @@ export default function Profile() {
             setStripeId(docSnap.data().customerData.id)
             console.log('session id:', sessionID);
             console.log('stripe id:', stripeId);
-            return
             } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
