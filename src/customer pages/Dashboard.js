@@ -57,7 +57,7 @@ export default function Dashboard() {
         }
     account()
     status()
-    }, [])
+    }, [!currentUser, !docSnap, !eventSnap])
 
     if(!currentUser) {
         return(
