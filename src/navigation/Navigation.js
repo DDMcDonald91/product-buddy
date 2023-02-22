@@ -114,7 +114,7 @@ export default function Navigation() {
             <h3 style={{color: 'white'}}>Find your usecase:</h3>
         </div>
         <Container>
-          {eventSnap.accountStatus != "active" || "trialing" ?
+          {!currentUser ?
           <>
           </>
           :
