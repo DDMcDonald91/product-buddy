@@ -74,7 +74,7 @@ export default function Profile() {
       }
     }
     account()
-    }, [!currentUser, !docSnap, !sessionID, !stripeId])
+    }, [!currentUser, !docSnap, !sessionID, !stripeId, !eventSnap])
 
 
         
