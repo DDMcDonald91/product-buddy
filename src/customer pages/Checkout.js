@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { Container, Card, Button, Form } from 'react-bootstrap'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { collection, addDoc, updateDoc, setDoc, doc } from "firebase/firestore"; 
+import { doc, getDoc, collection } from "firebase/firestore";
+
 import { db } from "../Firebase";
 
 export default function Checkout() {
@@ -13,7 +14,6 @@ export default function Checkout() {
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
     const auth = getAuth();
-    const navigate = useNavigate()
 
     useEffect(() => {
         const accountUpdate = async () => {
