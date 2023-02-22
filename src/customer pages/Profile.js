@@ -86,9 +86,9 @@ export default function Profile() {
         </>
         :
         <>
-        {!accountStatus ? 
+        {!eventSnap.accountStatus ? 
             <>
-                <Container fluid bg='warning'><p>{accountStatus}</p></Container>
+                <Container fluid bg='warning'><p>{eventSnap.accountStatus}</p></Container>
             </>
             :
             <></>
