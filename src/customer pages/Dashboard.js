@@ -4,7 +4,7 @@ import ProductCard from '../generators/ProductCard'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'; 
 import { DashboardData } from '../assets/components/DashboardData';
-import {doc } from "firebase/firestore"; 
+import {doc, getDoc } from "firebase/firestore"; 
 import { db } from "../Firebase";
 import WeatherBar from '../assets/components/WeatherBar';
 
@@ -34,12 +34,9 @@ export default function Dashboard() {
         const account = async () => {
             if(currentUser) {
                 // Get events doc from Firebase database
-                console.log(currentUser)
                 const docRef = await doc(db, 'users', currentUser.uid);
                 const usersDoc = await getDoc(docRef);
                 setDocSnap(usersDoc.data());
-                console.log(docSnap);
-                setSessionID(docSnap.sessionId)
             } else {
                 console.log('No user data')
             }
