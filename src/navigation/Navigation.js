@@ -113,19 +113,9 @@ export default function Navigation() {
             <h3 style={{color: 'white'}}>Find your usecase:</h3>
         </div>
         <Container>
-          {accountStatus != null || 'active' || 'trialing' ? 
+          {accountStatus !== 'active' || 'trialing' ? 
           <>
-            <li>
-                <Link to='/register' className='nav-text'>
-                  <Button className='mt-1 mb-1' variant="primary">Sign Up</Button>
-                </Link>
-              </li>
-              <li>
-                <Link to='/login' className='nav-text'>
-                  <Button className='mt-1 mb-1' variant="primary">Login</Button>
-                </Link>
-              </li>
-            </>
+          </>
           :
           <>
           {SidebarData.map((item, index) => {
