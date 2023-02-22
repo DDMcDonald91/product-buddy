@@ -113,7 +113,7 @@ export default function Navigation() {
             <h3 style={{color: 'white'}}>Find your usecase:</h3>
         </div>
         <Container>
-          {accountStatus !== 'active' || 'trialing' ? 
+          {accountStatus != 'active' || 'trialing' ? 
           <>
           </>
           :
