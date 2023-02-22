@@ -17,7 +17,9 @@ export default function Checkout() {
 
     useEffect(() => {
         const accountUpdate = async () => {
+            // Set loading screen while function starts
             setLoading(true)
+            // Find user from Firebase
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                   // User is signed in, see docs for a list of available properties
@@ -27,21 +29,15 @@ export default function Checkout() {
                   setCurrentUser(user)
                   console.log("User is signed in:", user, uid);
                 } else {
-                    console.log('Something weird is happening...')
+                    console.log('No user signed in from checkout...')
                 }
               });
-    
+            //Finds user Stripe id from Firebase database  
             const docRef = await doc(db, 'users', currentUser.uid);
             setDocSnap(await getDoc(docRef));
-                
-                if (docSnap) {
-                    console.log("Document data:", docSnap.data());
-                    setStripeId(docSnap.data().customerData.id)
-                    console.log('stripe id:', stripeId);
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
+            setStripeId(docSnap.data().customerData.id)
+            console.log(docSnap.data(), stripeId)
+            // Turn off loading screen for user
             setLoading(false)
         }
         accountUpdate()

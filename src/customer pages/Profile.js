@@ -9,21 +9,17 @@ import axios from 'axios';
 export default function Profile() {
     const [currentUser, setCurrentUser] = useState(null);
     const [sessionID, setSessionID] = useState(null)
-    const [stripeId, setStripeId] = useState(null)
 
     const auth = getAuth();
-    const usersCollectionRef = collection(db, "users")
     const [docSnap, setDocSnap] = useState(null)
     const [eventSnap, setEventSnap] = useState(null)
-
-
+    const [accountStatus, setAccountStatus] = useState(null)
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
     useEffect(() => {
-        async function account(){
-             // Checks for user 
+        // Checks for user from Firebase
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
@@ -39,70 +35,74 @@ export default function Profile() {
                 return
             }
             });
-
-        if(currentUser) {
-         const docRef = await doc(db, 'users', currentUser.uid);
-         const userDoc = await getDoc(docRef);
-         setDocSnap(userDoc);
-            
-            if (docSnap) {
-                console.log("Document data:", docSnap.data());
-                setSessionID(docSnap.data().sessionId)
-                setStripeId(docSnap.data().customerData.id)
-                console.log('session id:', sessionID);
-                console.log('stripe id:', stripeId);
+        // Function to find user account
+        const account = async () => {
+            if(currentUser) {
+                // Get events doc from Firebase database
+                console.log(currentUser)
+                const docRef = await doc(db, 'users', currentUser.uid);
+                const usersDoc = await getDoc(docRef);
+                setDocSnap(usersDoc.data());
+                console.log(docSnap);
+                setSessionID(docSnap.sessionId)
             } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
+                console.log('No user data')
             }
-
-        const eventRef = await doc(db, 'events', stripeId);
-        const eventDoc = await getDoc(eventRef);
-        setEventSnap(eventDoc.data())
-
-        console.log(stripeId)
-        console.log('event snap:', eventSnap);
-        console.log('doc snap:', docSnap.data());
-        
-        if (eventSnap) {
-            console.log(eventSnap)
-        } else {
-            console.log("nope")
         }
-      } else {
-        console.log('No user data')
-        return
-      }
-    }
+        // Function to find user account status
+        const status = async () => {
+            if(docSnap) {
+                // Get events doc from Firebase database
+                console.log(docSnap.customerData.id)
+                const docRef = await doc(db, 'events', docSnap.customerData.id);
+                const eventsDoc = await getDoc(docRef);
+                setEventSnap(eventsDoc.data());
+                console.log(eventSnap);
+                setAccountStatus(eventSnap.accountStatus)
+            } else {
+                console.log('No user data')
+            }
+        }
     account()
-    }, [!currentUser, !docSnap, !sessionID, !stripeId, !eventSnap])
+    status()
+    }, [!currentUser, !docSnap, !eventSnap])
 
 
         
-    if(!currentUser, !eventSnap){
+    if(!currentUser){
         return(
-            <Container className='page'>
+            <Container className='page mt-5'>
                 <p>No User Logged In...</p>
             </Container>
         )
     }
 
   return (
-    <Container className='page'>
+    <Container className='page mt-5'>
         <h1>Profile</h1>
         {!sessionID ? 
         <>
-        <Checkout />
+            <Checkout />
         </>
         :
         <>
-        <Form action={`${API_URL}/create-portal-session`} method="POST">
-        <input type="hidden" id="session-id" name="session_id" value={sessionID}
-        />
-        <Button id="checkout-and-portal-button" type="submit">
-          Manage your billing information
-        </Button>
-        </Form>
+        {!accountStatus ? 
+            <>
+                <Container fluid bg='warning'><p>{accountStatus}</p></Container>
+            </>
+            :
+            <></>
+        }
+        <Container>
+            <h2>Welcome back {docSnap.firstName}!</h2>
+            <Form action={`${API_URL}/create-portal-session`} method="POST">
+            <input type="hidden" id="session-id" name="session_id" value={sessionID}
+            />
+            <Button id="checkout-and-portal-button" type="submit">
+            Manage your billing information
+            </Button>
+            </Form>
+        </Container>
         </>
         }
     </Container>
