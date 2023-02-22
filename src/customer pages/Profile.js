@@ -48,7 +48,8 @@ export default function Profile() {
             console.log("Document data:", docSnap.data());
             setSessionID(docSnap.data().sessionId)
             setStripeId(docSnap.data().customerData.id)
-            console.log(sessionID);
+            console.log('session id:', sessionID);
+            console.log('stripe id:', stripeId);
             return
             } else {
             // doc.data() will be undefined in this case
@@ -57,6 +58,7 @@ export default function Profile() {
 
         const eventRef = doc(db, 'event', stripeId);
         setEventSnap(await getDoc(eventRef))
+        console.log('event snap:', eventSnap);
       } else {
         console.log('No user data')
         return
