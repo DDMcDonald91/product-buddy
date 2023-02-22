@@ -38,7 +38,6 @@ export default function Profile() {
         const account = async () => {
             if(currentUser) {
                 // Get events doc from Firebase database
-                console.log(currentUser)
                 const docRef = await doc(db, 'users', currentUser.uid);
                 const usersDoc = await getDoc(docRef);
                 setDocSnap(usersDoc.data());
@@ -86,12 +85,11 @@ export default function Profile() {
         :
         <>
         {accountStatus ? 
-                <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{accountStatus}</h5></Container>
+            <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{accountStatus}</h5></Container>
             :
-                <>
-                <div>
-                </div>
-                </>
+            <>
+                <div></div>
+            </>
         }
         <Container>
             <h2>Welcome back {docSnap.firstName}!</h2>

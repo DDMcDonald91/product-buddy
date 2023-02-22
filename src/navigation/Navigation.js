@@ -28,47 +28,57 @@ export default function Navigation() {
     const showSidebar = () => setSidebar(!sidebar);
     const [loggedIn, setLoggedIn] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
-    const [sessionId, setSessionID] = useState(null);
     const [docSnap, setDocSnap] = useState(null);
-
+    const [eventSnap, setEventSnap] = useState(null);
+    const [setAccountStatus, accountStatus] = useState(null)
 
     const auth = getAuth()
     const navigate = useNavigate()
 
     useEffect(() => {
+      // Checks for user
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          // ...
+          setLoggedIn(true)
+          setCurrentUser(user)
+          console.log("User is signed in:", user.email)
+        } else{
+            console.log("No user logged in")
+        }
+      });
+      // Searches for account data in Firebase database
       const accountCheck = async () => {
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            // ...
-            setLoggedIn(true)
-            setCurrentUser(user)
-            console.log("User is signed in:", user.email)
-          } else{
-              console.log("No user logged in")
-          }
-        });
-
         if(currentUser) {
           //const docRef = query(usersCollectionRef, where("email", "==", currentUser.email));
           const docRef = doc(db, 'users', currentUser.uid);
-          setDocSnap(await getDoc(docRef));
-         
-             if (docSnap) {
-             console.log("Document data:", docSnap);
-             console.log(docSnap.data())
-             setSessionID(await docSnap.data().sessionId)
-             console.log(sessionId)
-             return
-             } else {
-             // doc.data() will be undefined in this case
-             console.log("No such document!");
-             }
+          const usersDoc = await getDoc(docRef);
+          setDocSnap(usersDoc.data());;
+          console.log(docSnap)
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
         }
+      
+        // Function to find user account status
+        const status = async () => {
+          if(docSnap) {
+              // Get events doc from Firebase database
+              const docRef = await doc(db, 'events', docSnap.customerData.id);
+              const eventsDoc = await getDoc(docRef);
+              setEventSnap(eventsDoc.data());
+              console.log(eventSnap);
+              setAccountStatus(eventSnap.accountStatus)
+          } else {
+              console.log('No user data')
+          }
       }
       accountCheck()
-  }, [sessionId])
+      status()
+  }, [])
 
     const logout = () => {
       signOut(auth)
@@ -103,9 +113,19 @@ export default function Navigation() {
             <h3 style={{color: 'white'}}>Find your usecase:</h3>
         </div>
         <Container>
-          {sessionId == '' ?
+          {accountStatus != null || 'active' || 'trialing' ? 
           <>
-          </>
+            <li>
+                <Link to='/register' className='nav-text'>
+                  <Button className='mt-1 mb-1' variant="primary">Sign Up</Button>
+                </Link>
+              </li>
+              <li>
+                <Link to='/login' className='nav-text'>
+                  <Button className='mt-1 mb-1' variant="primary">Login</Button>
+                </Link>
+              </li>
+            </>
           :
           <>
           {SidebarData.map((item, index) => {
