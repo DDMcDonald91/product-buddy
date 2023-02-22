@@ -42,7 +42,8 @@ export default function Profile() {
 
         if(currentUser) {
          const docRef = await doc(db, 'users', currentUser.uid);
-         setDocSnap(await getDoc(docRef));
+         const userDoc = await getDoc(docRef);
+         setDocSnap(userDoc);
             
             if (docSnap) {
                 console.log("Document data:", docSnap.data());
@@ -56,10 +57,17 @@ export default function Profile() {
             }
 
         const eventRef = await doc(db, 'events', stripeId);
-        setEventSnap(await getDoc(eventRef))
+        const eventDoc = await getDoc(eventRef);
+        setEventSnap(eventDoc)
         console.log(stripeId)
         console.log('event snap:', eventSnap.data());
         console.log('doc snap:', docSnap.data());
+        
+        if (eventSnap) {
+            console.log(eventSnap)
+        } else {
+            console.log("nope")
+        }
       } else {
         console.log('No user data')
         return
@@ -67,6 +75,7 @@ export default function Profile() {
     }
     account()
     }, [!currentUser, !docSnap, !sessionID, !stripeId])
+
 
         
     if(!currentUser){
