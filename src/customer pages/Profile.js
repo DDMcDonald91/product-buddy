@@ -89,7 +89,9 @@ export default function Profile() {
         {eventSnap.accountStatus ? 
                 <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{eventSnap.accountStatus}</h5></Container>
             :
-                <></>
+                <>
+                <div>
+                    </div></>
         }
         <Container>
             <h2>Welcome back {docSnap.firstName}!</h2>
