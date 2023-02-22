@@ -61,7 +61,7 @@ export default function Profile() {
         setEventSnap(eventDoc.data())
 
         console.log(stripeId)
-        console.log('event snap:', eventSnap.data());
+        console.log('event snap:', eventSnap);
         console.log('doc snap:', docSnap.data());
         
         if (eventSnap) {
