@@ -69,7 +69,7 @@ export default function Profile() {
         }
     }
     account()
-    }, [!currentUser, !docSnap, !sessionID])
+    }, [!currentUser, !docSnap, !sessionID, !stripeId])
 
         
     if(!currentUser){

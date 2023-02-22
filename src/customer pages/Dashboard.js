@@ -4,6 +4,7 @@ import ProductCard from '../generators/ProductCard'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'; 
 import { DashboardData } from '../assets/components/DashboardData';
+import WeatherBar from '../assets/components/WeatherBar';
 
 export default function Dashboard() {
     const [currentUser, setCurrentUser] = useState(null)
@@ -35,6 +36,7 @@ export default function Dashboard() {
 
   return (
     <Container align='center' className='page'>
+        <WeatherBar />
         <p>Welcome Back {currentUser.email}</p>
         <h1>What can Keni help you with today?</h1>
         <Container className='mt-5'>
