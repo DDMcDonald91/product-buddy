@@ -91,7 +91,9 @@ export default function Profile() {
                 <Container fluid bg='warning'><p>{eventSnap.accountStatus}</p></Container>
             </>
             :
-            <></>
+            <>
+                            <Container fluid bg='warning'><p>{eventSnap.accountStatus}</p></Container>
+</>
         }
         <Container>
             <h2>Welcome back {docSnap.firstName}!</h2>
