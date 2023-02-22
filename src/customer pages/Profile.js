@@ -65,7 +65,7 @@ export default function Profile() {
         }
     account()
     status()
-    }, [!currentUser, !docSnap, !eventSnap])
+    }, [!currentUser, !docSnap, !eventSnap, !accountStatus])
 
 
         
@@ -86,12 +86,13 @@ export default function Profile() {
         </>
         :
         <>
-        {eventSnap.accountStatus ? 
-                <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{eventSnap.accountStatus}</h5></Container>
+        {accountStatus ? 
+                <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{accountStatus}</h5></Container>
             :
                 <>
                 <div>
-                    </div></>
+                </div>
+                </>
         }
         <Container>
             <h2>Welcome back {docSnap.firstName}!</h2>
