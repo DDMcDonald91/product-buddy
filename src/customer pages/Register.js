@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc, updateDoc, setDoc, doc } from "firebase/firestore"; 
+import { collection, setDoc, doc } from "firebase/firestore"; 
 import { db } from "../Firebase";
 import { Container, Form, Button } from 'react-bootstrap';
 import { useState, useEffect } from "react";
