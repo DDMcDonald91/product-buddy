@@ -72,6 +72,7 @@ export default function Navigation() {
               setEventSnap(eventsDoc.data());
               console.log(eventSnap);
               setAccountStatus(eventSnap.accountStatus)
+              console.log(accountStatus)
           } else {
               console.log('No user data')
           }
@@ -113,7 +114,7 @@ export default function Navigation() {
             <h3 style={{color: 'white'}}>Find your usecase:</h3>
         </div>
         <Container>
-          {accountStatus != 'active' || 'trialing' ? 
+          {eventSnap.accountStatus != "active" || "trialing" ?
           <>
           </>
           :
