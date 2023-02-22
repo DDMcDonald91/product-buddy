@@ -78,7 +78,7 @@ export default function Profile() {
 
 
         
-    if(!currentUser){
+    if(!currentUser, !eventSnap){
         return(
             <Container className='page'>
                 <p>No User Logged In...</p>
