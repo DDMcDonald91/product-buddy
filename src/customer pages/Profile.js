@@ -57,17 +57,12 @@ export default function Profile() {
 
         const eventRef = doc(db, 'event', stripeId);
         setEventSnap(await getDoc(eventRef))
+        console.log(stripeId)
         console.log('event snap:', eventSnap);
       } else {
         console.log('No user data')
         return
       }
-
-        if (eventSnap) {
-            console.log(eventSnap)
-        } else {
-            console.log("Event not logged...")
-        }
     }
     account()
     }, [!currentUser, !docSnap, !sessionID, !stripeId])
