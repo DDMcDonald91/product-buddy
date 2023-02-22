@@ -41,21 +41,21 @@ export default function Profile() {
             });
 
         if(currentUser) {
-         const docRef = doc(db, 'users', currentUser.uid);
+         const docRef = await doc(db, 'users', currentUser.uid);
          setDocSnap(await getDoc(docRef));
         
-            if (docSnap) {
+        if (docSnap) {
             console.log("Document data:", docSnap.data());
             setSessionID(docSnap.data().sessionId)
             setStripeId(docSnap.data().customerData.id)
             console.log('session id:', sessionID);
             console.log('stripe id:', stripeId);
-            } else {
+        } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
-            }
+        }
 
-        const eventRef = doc(db, 'events', stripeId);
+        const eventRef = await doc(db, 'events', stripeId);
         setEventSnap(await getDoc(eventRef))
         console.log(stripeId)
         console.log('event snap:', eventSnap.data());
