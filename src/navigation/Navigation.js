@@ -78,7 +78,7 @@ export default function Navigation() {
       }
       accountCheck()
       status()
-  }, [accountStatus, currentUser])
+  }, [!accountStatus, currentUser])
 
     const logout = () => {
       signOut(auth)
