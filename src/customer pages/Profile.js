@@ -69,7 +69,7 @@ export default function Profile() {
     }, [!currentUser, !docSnap, !sessionID, !stripeId])
 
         
-    if(!currentUser, !docSnap, !sessionID){
+    if(!currentUser, !sessionID){
         return(
             <Container className='page'>
                 <p>No User Logged In...</p>
