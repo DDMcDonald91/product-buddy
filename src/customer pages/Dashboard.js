@@ -66,7 +66,7 @@ export default function Dashboard() {
     if(currentUser){
         retrieveAccountDetails()
     }
-   }, [currentUser, accountStatus])
+   }, [currentUser, !accountStatus])
 
     if(!currentUser) {
         return(
