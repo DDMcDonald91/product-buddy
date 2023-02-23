@@ -25,9 +25,9 @@ export function UserContextProvider({ children }) {
                 const uid = user.uid;
                 // ...
                 setCurrentUser(user)
-                setLoading(false)
                 console.log(user, uid)
                 console.log(currentUser.email)
+                setLoading(false)
             } else {
                 // User is signed out
                 console.log('Nobody signed in.')
@@ -79,7 +79,6 @@ export function UserContextProvider({ children }) {
             const usersDoc = await getDoc(docRef);
             setDocSnap(usersDoc.data());
             setSessionID(docSnap.sessionId);
-            setLoading(false);
             console.log(docSnap, sessionID);
         } else {
             console.log('Error searching for user data.')
