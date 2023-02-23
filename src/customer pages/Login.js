@@ -10,7 +10,7 @@ export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState()
-    //const [loggedIn, setLoggedIn] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     //const auth = getAuth();
 
@@ -27,11 +27,13 @@ export default function Login() {
             alert('Please enter in all of your information.')
             return
         }
+        setLoading(true)
         try {
-            await login(email, password)
+            await login(e, email, password)
         } catch (error) {
             setErrorMessage("Login error.")
         }
+        setLoading(false)
     }
 /*
     const login = (e, email, password) => {
@@ -81,6 +83,7 @@ export default function Login() {
                     Submit
                 </Button>
             </Form>
+            <br />
             {errorMessage ? <p>{errorMessage}</p> : <></>}
         </Container>
     </Container>
