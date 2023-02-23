@@ -11,7 +11,7 @@ export function UserContextProvider({ children }) {
     const [loading, setLoading] = useState(true)
     const [currentUser, setCurrentUser] = useState(null);
     const [docSnap, setDocSnap] = useState(null);
-    const [sessionId, setSessionID] = useState(null);
+    const [sessionID, setSessionID] = useState(null);
     const [eventSnap, setEventSnap] = useState(null);
     const [accountStatus, setAccountStatus] = useState(null);
 
@@ -36,7 +36,7 @@ export function UserContextProvider({ children }) {
             });
         retrieveUser()
         retrieveAccountDetails()
-    }, [!sessionId])
+    }, [!sessionID])
 
     // login user
     const login = (e, email, password) => {
@@ -79,7 +79,7 @@ export function UserContextProvider({ children }) {
             const usersDoc = await getDoc(docRef);
             setDocSnap(usersDoc.data());
             setSessionID(docSnap.sessionId)
-            console.log(docSnap, sessionId);
+            console.log(docSnap, sessionID);
         } else {
             console.log('Error searching for user data.')
         }
