@@ -30,6 +30,11 @@ export function UserContextProvider({ children }) {
     // login user
     const login = (e, email, password) => {
         e.preventDefault();
+
+        if(!email || !password) {
+            alert('Please enter in all of your information.')
+            return
+        }
         
         // login user w/ firebase function then sets the user
         signInWithEmailAndPassword(auth, email, password)
@@ -44,6 +49,7 @@ export function UserContextProvider({ children }) {
             const errorMessage = error.message;
             // ..
             console.log("Login error:",errorCode, errorMessage)
+            alert("Login error.")
         });
     }
 

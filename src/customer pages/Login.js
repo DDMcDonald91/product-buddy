@@ -1,38 +1,36 @@
 import { Container, Form, Button } from 'react-bootstrap';
 import { useState, useEffect } from "react";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { UserContextData } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
+    const {currentUser, login} = UserContextData()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loggedIn, setLoggedIn] = useState(false)
+    const [errorMessage, setErrorMessage] = useState()
+    //const [loggedIn, setLoggedIn] = useState(false)
 
-    const auth = getAuth();
+    //const auth = getAuth();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            const uid = user.uid;
-            // ...
-            setLoggedIn(true)
-            console.log(user, uid)
-            navigate("/profile");
-        } else {
-            // User is signed out
-            // ...
-            setLoggedIn(false)
-            console.log('No user logged in currently.')
+        if(currentUser) {
+            navigate('/profile')
         }
-        });
     }, [])
 
-    const login = (e) => {
+    const tryLogin = () => {
+        try {
+            login(email, password)
+        } catch (error) {
+            setErrorMessage("Error logging in. Refresh page and try again.")
+        }
+    }
+/*
+    const login = (e, email, password) => {
         e.preventDefault();
 
         if(loggedIn === true) {
@@ -59,11 +57,12 @@ export default function Login() {
             console.log(errorCode, errorMessage)
         });
     }
+    */
 
   return (
     <Container className='page'>
         <Container style={{maxWidth: '50rem'}} className='justify-content-center align-content-center d-flex'>
-            <Form onSubmit={login}>
+            <Form onSubmit={tryLogin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="Enter email" onChange={e => {setEmail(e.target.value)}} />
@@ -78,6 +77,7 @@ export default function Login() {
                     Submit
                 </Button>
             </Form>
+            {errorMessage ? <p>{errorMessage}</p> : <></>}
         </Container>
     </Container>
   )
