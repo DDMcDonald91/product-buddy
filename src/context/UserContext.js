@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext(null)
 
-export function userContextProvider({ children }) {
+export function UserContextProvider({ children }) {
     // global user states
     const auth = getAuth();
     const [loading, setLoading] = useState(true)
@@ -95,7 +95,7 @@ export function userContextProvider({ children }) {
     }
 
     return (
-        <userContext.Provider value={
+        <UserContext.Provider value={
             {
             currentUser,
             login,
@@ -104,7 +104,7 @@ export function userContextProvider({ children }) {
             sessionId,
             accountStatus
             }
-        }>{!loading && children}</userContext.Provider>
+        }>{!loading && children}</UserContext.Provider>
     )
 }
 
