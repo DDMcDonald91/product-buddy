@@ -6,7 +6,7 @@ import axios from "axios";
 export default function WeatherBar() {
     // Weather API Data
     const [weather, setWeather] = useState(null)
-    const [currentLocation, setCurrentLocation] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
     const [lat, setLat] = useState()
     const [long, setLong] = useState()
 
@@ -14,32 +14,41 @@ export default function WeatherBar() {
         // find user location via latitude and longitude
         setLoading(true)
         navigator.geolocation.getCurrentPosition(function(position) {
-          setLat(position.coords.latitude);
-          setLong(position.coords.longitude);
+          setLat(position.coords.latitude.toString());
+          setLong(position.coords.longitude.toString());
         });
       
         console.log("Latitude is:", lat)
         console.log("Longitude is:", long)
-
-        const options = {
-            method: 'GET',
-            url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-            params: {q: lat,long},
-            headers: {
-              'X-RapidAPI-Key': '61254c1e4cmshcc74a38697e3b87p12bb76jsn4854c036d859',
-              'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-            }
-          };
-          
-          axios.request(options).then(function (response) {
-              setWeather(response.data);
-              console.log(weather);
-          }).catch(function (error) {
-              console.error(error);
-          });
-          setLoading(false)
+        
+        if(lat && long) {
+          try {
+            weatherCheck()
+          } catch (error) {
+            setErrorMessage('Location currently unavailable.')
+          }
+        }
 
     }, [!lat, !long])
+
+    const weatherCheck = async () => {
+      const options = {
+        method: 'GET',
+        url: 'https://weatherapi-com.p.rapidapi.com/current.json',
+        params: {q: lat,long},
+        headers: {
+          'X-RapidAPI-Key': '61254c1e4cmshcc74a38697e3b87p12bb76jsn4854c036d859',
+          'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+        }
+      };
+      
+      axios.request(options).then(function (response) {
+          setWeather(response.data);
+          console.log(weather);
+      }).catch(function (error) {
+          console.error(error);
+      });
+    }
 
   return (
     <Container>
