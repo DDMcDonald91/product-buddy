@@ -53,12 +53,12 @@ export default function WeatherBar() {
   return (
     <Container>
       {!weather ? 
-      <><p>location currently unavailable</p></> 
+      <><Spinner /></> 
       : 
       <>
-      <Container fluid className='p-3' style={{background: 'black', color: 'white'}}>
+      <Container fluid className='p-1 mt-3' style={{background: 'black', color: 'white', borderRadius: '.375rem', border: '1px solid white'}}>
         <p>Location: {weather.location.name}, {weather.location.region}</p>
-        <p>It's {weather.current.condition.text} the temperature is: {weather.current.temp_f}</p>
+        <p>It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f}</p>
       </Container>
       </>}
     </Container>
