@@ -29,25 +29,22 @@ export default function WeatherBar() {
             setErrorMessage('Location currently unavailable.')
           }
         }
-
+        setLoading(false)
     }, [!lat, !long])
 
     const weatherCheck = async () => {
       const options = {
         method: 'GET',
-        url: `https://weatherapi-com.p.rapidapi.com/current.json?q=${lat}%2${long}`,
         headers: {
           'X-RapidAPI-Key': '61254c1e4cmshcc74a38697e3b87p12bb76jsn4854c036d859',
           'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
         }
       };
       
-      axios.request(options).then(function (response) {
-          setWeather(response.data);
-          console.log(weather);
-      }).catch(function (error) {
-          console.error(error);
-      });
+      fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${lat}%2${long}`, options)
+        .then(response => response.json())
+        .then(response => setWeather(response))
+        .catch(err => console.error(err));
     }
 
   return (
