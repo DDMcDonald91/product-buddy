@@ -27,7 +27,7 @@ export function UserContextProvider({ children }) {
         retrieveAccountDetails()
         setLoading(false)
         return unsubscribe
-    }, [!currentUser])
+    }, [!currentUser, !docSnap, !sessionID])
 
     // login user
     const login = (e, email, password) => {
