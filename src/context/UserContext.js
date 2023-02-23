@@ -20,11 +20,21 @@ export function UserContextProvider({ children }) {
 
     // check for Firebase user on load
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-            setLoading(false)
-            console.log(currentUser)
-        })
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                const uid = user.uid;
+                // ...
+                setCurrentUser(user)
+                console.log(user, uid)
+                console.log(currentUser.email)
+            } else {
+                // User is signed out
+                console.log('Nobody signed in.')
+                return
+            }
+            });
         retrieveUser()
         retrieveAccountDetails()
         return unsubscribe
