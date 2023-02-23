@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
+import { Container, Spinner } from 'react-bootstrap'
 import axios from "axios";
 
 
@@ -12,6 +12,7 @@ export default function WeatherBar() {
 
     useEffect(() => {
         // find user location via latitude and longitude
+        setLoading(true)
         navigator.geolocation.getCurrentPosition(function(position) {
           setLat(position.coords.latitude);
           setLong(position.coords.longitude);
@@ -36,9 +37,13 @@ export default function WeatherBar() {
           }).catch(function (error) {
               console.error(error);
           });
+          setLoading(false)
+
     }, [!lat, !long])
 
   return (
-    <Container>WeatherBar</Container>
+    <Container>
+      {loading ? <><Spinner /></> : <>Weather Bar</>}
+    </Container>
   )
 }
