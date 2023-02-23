@@ -7,13 +7,23 @@ export default function WeatherBar() {
     // Weather API Data
     const [weather, setWeather] = useState(null)
     const [currentLocation, setCurrentLocation] = useState(null)
+    const [lat, setLat] = useState()
+    const [long, setLong] = useState()
 
     useEffect(() => {
-        getLocation()
+        // find user location via latitude and longitude
+        navigator.geolocation.getCurrentPosition(function(position) {
+          setLat(position.coords.latitude);
+          setLong(position.coords.longitude);
+        });
+      
+        console.log("Latitude is:", lat)
+        console.log("Longitude is:", long)
+
         const options = {
             method: 'GET',
             url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-            params: {q: ['dallas']},
+            params: {q: lat, long},
             headers: {
               'X-RapidAPI-Key': '61254c1e4cmshcc74a38697e3b87p12bb76jsn4854c036d859',
               'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
@@ -21,26 +31,12 @@ export default function WeatherBar() {
           };
           
           axios.request(options).then(function (response) {
-              console.log(response.data);
-              setWeather(response.data)
+              setWeather(response.data);
+              console.log(weather);
           }).catch(function (error) {
               console.error(error);
           });
-    }, [!currentLocation])
-
-    const getLocation = () => {
-        if (navigator.geolocation) {
-         const location = navigator.geolocation.getCurrentPosition(showPosition);
-         console.log(location)
-        } else { 
-          console.log("Geolocation isn't supported by this browser");
-        }
-      }
-      
-      const showPosition = (position) => {
-        setCurrentLocation(position)
-        console.log(position);
-      }
+    }, [lat, long])
 
   return (
     <Container>WeatherBar</Container>
