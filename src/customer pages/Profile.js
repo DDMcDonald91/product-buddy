@@ -20,11 +20,7 @@ export default function Profile() {
     const API_URL = process.env.REACT_APP_API_URL
 
     useEffect(() => {
-        try {
-            retrieveAccountDetails()
-        } catch (error) {
-            console.log(error)
-        }
+        retrieveAccountDetails()
     }, [!eventSnap, !accountStatus])
 
         
