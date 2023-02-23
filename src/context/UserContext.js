@@ -83,7 +83,6 @@ export function UserContextProvider({ children }) {
             setEventSnap(eventDoc.data());
             setAccountStatus(eventSnap.accountStatus)
             console.log(accountStatus);
-            return(account)
         } catch (error) {
             console.log('Error searching for user events and account data:', error)
         }
