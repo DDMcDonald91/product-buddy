@@ -18,6 +18,12 @@ export function UserContextProvider({ children }) {
 
     // check for Firebase user on load
     useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setCurrentUser(user)
+            setLoading(false)
+            console.log(user)
+        })
+        /*
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
@@ -33,9 +39,11 @@ export function UserContextProvider({ children }) {
                 return
             }
             });
+        */
         retrieveUser()
         retrieveAccountDetails()
-    }, [currentUser])
+        return unsubscribe
+    }, [!currentUser])
 
     // login user
     const login = (e, email, password) => {
