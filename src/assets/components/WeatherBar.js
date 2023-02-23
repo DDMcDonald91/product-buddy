@@ -13,7 +13,7 @@ export default function WeatherBar() {
         const options = {
             method: 'GET',
             url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-            params: {q: [currentLocation.coords.latitude, currentLocation.coords.longitude]},
+            params: {q: ['dallas']},
             headers: {
               'X-RapidAPI-Key': '61254c1e4cmshcc74a38697e3b87p12bb76jsn4854c036d859',
               'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
