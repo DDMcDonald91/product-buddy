@@ -2,7 +2,6 @@ import { useContext, createContext, useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
-import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext(null)
 
@@ -16,7 +15,6 @@ export function UserContextProvider({ children }) {
     const [eventSnap, setEventSnap] = useState(null);
     const [accountStatus, setAccountStatus] = useState(null);
 
-    const navigate = useNavigate()
 
     // check for Firebase user on load
     useEffect(() => {
@@ -51,7 +49,6 @@ export function UserContextProvider({ children }) {
         const user = userCredential.user;
         // ...
         setCurrentUser(user)
-        navigate("/dashboard");
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -68,7 +65,6 @@ export function UserContextProvider({ children }) {
           // logout successful.
           console.log("User signed out")
           setCurrentUser(null)
-          navigate('/')
         }).catch((error) => {
           // An error happened.
           console.log("Logout error:", error)
