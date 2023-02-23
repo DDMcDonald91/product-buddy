@@ -77,17 +77,15 @@ export function UserContextProvider({ children }) {
 
     // retrieves account status from events database
     const retrieveAccountDetails = async () => {
-        if(!accountStatus && !eventSnap){
-            try {
-                console.log(docSnap.customerData.id)
-                const docRef = await doc(db, 'events', docSnap.customerData.id);
-                const eventDoc = await getDoc(docRef);
-                setEventSnap(eventDoc.data());
-                setAccountStatus(eventSnap.accountStatus)
-                console.log(accountStatus);
-            } catch (error) {
-                console.log('Error searching for user events and account data:', error)
-            }
+        try {
+            console.log(docSnap.customerData.id)
+            const docRef = await doc(db, 'events', docSnap.customerData.id);
+            const eventDoc = await getDoc(docRef);
+            setEventSnap(eventDoc.data());
+            setAccountStatus(eventSnap.accountStatus)
+            console.log(accountStatus);
+        } catch (error) {
+            console.log('Error searching for user events and account data:', error)
         }
     }
 
