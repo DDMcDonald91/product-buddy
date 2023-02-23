@@ -24,7 +24,6 @@ export function UserContextProvider({ children }) {
             console.log(user)
         })
         retrieveUser()
-        retrieveAccountDetails()
         setLoading(false)
         return unsubscribe
     }, [!currentUser, !docSnap, !sessionID])
