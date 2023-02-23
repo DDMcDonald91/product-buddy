@@ -44,7 +44,7 @@ export default function WeatherBar() {
       fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${lat}%2C${long}`, options)
         .then(response => {
           setWeather(response.json()); 
-          console.log(weather);
+          console.log(response.json());
         })
         .catch(err => console.error(err));
     }
