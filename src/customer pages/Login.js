@@ -1,5 +1,5 @@
 import { Container, Form, Button } from 'react-bootstrap';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { UserContextData } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
     const {currentUser, login} = UserContextData()
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const emailRef = useRef()
+    const passwordRef = useRef()
     const [errorMessage, setErrorMessage] = useState()
     const [loading, setLoading] = useState(false)
 
@@ -55,15 +55,15 @@ export default function Login() {
   return (
     <Container className='page'>
         <Container style={{maxWidth: '50rem'}} className='justify-content-center align-content-center d-flex'>
-            <Form onSubmit={login(email, password)}>
+            <Form onSubmit={login(emailRef.current.value, passwordRef.current.value)}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" onChange={e => {setEmail(e.target.value)}} />
+                <Form.Control type="email" placeholder="Enter email" ref={emailRef} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={e => {setPassword(e.target.value)}} />
+                    <Form.Control type="password" placeholder="Password" ref={passwordRef} />
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
