@@ -37,7 +37,6 @@ export function UserContextProvider({ children }) {
             });
         retrieveUser()
         retrieveAccountDetails()
-        return unsubscribe
     }, [])
 
     // login user
