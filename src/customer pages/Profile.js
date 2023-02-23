@@ -7,7 +7,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 import Checkout from './Checkout';
 
 export default function Profile() {
-    const {currentUser, docSnap, eventSnap, accountStatus} = userContextData()
+    const {currentUser, docSnap, eventSnap, accountStatus, sessionID} = UserContextData()
     //const [currentUser, setCurrentUser] = useState(null);
     //const [sessionID, setSessionID] = useState(null)
 

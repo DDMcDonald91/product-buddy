@@ -4,7 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useNavigate } from "react-router-dom";
 
-const userContext = createContext(null)
+const UserContext = createContext(null)
 
 export function userContextProvider({ children }) {
     // global user states
@@ -109,5 +109,5 @@ export function userContextProvider({ children }) {
 }
 
 export const UserContextData = () => {
-    return useContext(userContext)
+    return useContext(UserContext)
 }
