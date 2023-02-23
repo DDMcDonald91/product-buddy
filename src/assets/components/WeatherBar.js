@@ -52,8 +52,8 @@ export default function WeatherBar() {
 
   return (
     <Container>
-      {loading ? 
-      <><Spinner /></> 
+      {!weather ? 
+      <><p>location currently unavailable</p></> 
       : 
       <>
       <Container fluid className='p-3' style={{background: 'black', color: 'white'}}>
