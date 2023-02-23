@@ -98,7 +98,8 @@ export function UserContextProvider({ children }) {
             logout,
             docSnap,
             sessionID,
-            accountStatus
+            accountStatus,
+            retrieveAccountDetails
             }
         }>{!loading && children}</UserContext.Provider>
     )
