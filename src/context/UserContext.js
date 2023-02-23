@@ -88,20 +88,20 @@ export function userContextProvider({ children }) {
             console.log('Error searching for user events and account data.')
         }
     }
-}
 
-return(
-    <userContext.Provider value={
-        {
-        currentUser,
-        login,
-        logout,
-        docSnap,
-        sessionId,
-        accountStatus
-        }
-    }>{!loading && children}</userContext.Provider>
-)
+    return (
+        <userContext.Provider value={
+            {
+            currentUser,
+            login,
+            logout,
+            docSnap,
+            sessionId,
+            accountStatus
+            }
+        }>{!loading && children}</userContext.Provider>
+    )
+}
 
 export const userContextData = () => {
     return useContext(userContext)
