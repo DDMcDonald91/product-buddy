@@ -36,7 +36,7 @@ export function UserContextProvider({ children }) {
             });
         retrieveUser()
         retrieveAccountDetails()
-    }, [!sessionID])
+    }, [])
 
     // login user
     const login = (e, email, password) => {
@@ -78,7 +78,8 @@ export function UserContextProvider({ children }) {
             const docRef = await doc(db, 'users', currentUser.uid);
             const usersDoc = await getDoc(docRef);
             setDocSnap(usersDoc.data());
-            setSessionID(docSnap.sessionId)
+            setSessionID(docSnap.sessionId);
+            setLoading(false);
             console.log(docSnap, sessionID);
         } else {
             console.log('Error searching for user data.')
