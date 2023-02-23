@@ -22,19 +22,6 @@ export default function Login() {
         }
     }, [])
 
-    const tryLogin = async () => {
-        if(!email || !password) {
-            alert('Please enter in all of your information.')
-            return
-        }
-        setLoading(true)
-        try {
-            await login(email, password)
-        } catch (error) {
-            setErrorMessage("Login error.")
-        }
-        setLoading(false)
-    }
 /*
     const login = (e, email, password) => {
         e.preventDefault();
@@ -68,7 +55,7 @@ export default function Login() {
   return (
     <Container className='page'>
         <Container style={{maxWidth: '50rem'}} className='justify-content-center align-content-center d-flex'>
-            <Form onSubmit={tryLogin}>
+            <Form onSubmit={login(email, password)}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="Enter email" onChange={e => {setEmail(e.target.value)}} />
