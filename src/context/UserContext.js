@@ -20,9 +20,10 @@ export function UserContextProvider({ children }) {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
-            console.log(user)
-            retrieveUser()
         })
+        if(currentUser){
+            retrieveUser()
+        }
         setLoading(false)
         return unsubscribe
     }, [!currentUser, !docSnap, !sessionID])
