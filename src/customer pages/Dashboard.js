@@ -62,6 +62,13 @@ export default function Dashboard() {
     status()
     }, [!currentUser, !docSnap, !eventSnap, !accountStatus])
     */
+    if(currentUser){
+        try {
+            retrieveAccountDetails()
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     if(!currentUser) {
         return(
