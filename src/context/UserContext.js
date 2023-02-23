@@ -27,6 +27,7 @@ export function UserContextProvider({ children }) {
                 const uid = user.uid;
                 // ...
                 setCurrentUser(user)
+                setLoading(false)
                 console.log(user, uid)
                 console.log(currentUser.email)
             } else {
