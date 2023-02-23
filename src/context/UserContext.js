@@ -77,7 +77,7 @@ export function UserContextProvider({ children }) {
 
     // retrieves account status from events database
     const retrieveAccountDetails = async () => {
-        if(!accountStatus){
+        if(!accountStatus && !eventSnap){
             try {
                 console.log(docSnap.customerData.id)
                 const docRef = await doc(db, 'events', docSnap.customerData.id);
