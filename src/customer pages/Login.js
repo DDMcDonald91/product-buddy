@@ -23,7 +23,7 @@ export default function Login() {
     }, [])
 
     const tryLogin = async (e) => {
-        e.preventDefault
+        e.preventDefault()
         try {
             await login(emailRef.current.value, passwordRef.current.value)
             navigate('/dashboard')
