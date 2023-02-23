@@ -44,7 +44,6 @@ export function UserContextProvider({ children }) {
             const errorMessage = error.message;
             // ..
             console.log("Login error:", errorCode, errorMessage)
-            alert("Login error.")
         });
     }
 

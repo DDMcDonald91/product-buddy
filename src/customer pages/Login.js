@@ -22,12 +22,16 @@ export default function Login() {
         }
     }, [])
 
-    const tryLogin = () => {
+    const tryLogin = async () => {
         if(!email || !password) {
             alert('Please enter in all of your information.')
             return
         }
-        login(email, password)
+        try {
+            await login(email, password)
+        } catch (error) {
+            setErrorMessage("Login error.")
+        }
     }
 /*
     const login = (e, email, password) => {
