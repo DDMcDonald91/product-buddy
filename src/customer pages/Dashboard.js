@@ -63,11 +63,6 @@ export default function Dashboard() {
     }, [!currentUser, !docSnap, !eventSnap, !accountStatus])
     */
 
-    useEffect(() => {
-        if(docSnap) {
-            retrieveAccountDetails()
-    }}, [currentUser, docSnap])
-
     if(!currentUser) {
         return(
             <Container className='page'>
