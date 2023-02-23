@@ -43,7 +43,7 @@ export function UserContextProvider({ children }) {
             const errorCode = error.code;
             const errorMessage = error.message;
             // ..
-            console.log("Login error:",errorCode, errorMessage)
+            console.log("Login error:", errorCode, errorMessage)
             alert("Login error.")
         });
     }
