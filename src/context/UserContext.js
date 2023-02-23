@@ -23,7 +23,7 @@ export function UserContextProvider({ children }) {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false)
-            console.log(currentUser, uid)
+            console.log(currentUser)
         })
         retrieveUser()
         retrieveAccountDetails()
@@ -31,7 +31,7 @@ export function UserContextProvider({ children }) {
     }, [currentUser])
 
     // login user
-    const login = (e) => {
+    const login = (e, email, password) => {
         e.preventDefault();
         
         // login user w/ firebase function then sets the user
