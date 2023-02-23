@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import { UserContextData } from '../context/UserContext';
 import ProductCard from '../generators/ProductCard'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'; 
@@ -9,14 +10,16 @@ import { db } from "../Firebase";
 import WeatherBar from '../assets/components/WeatherBar';
 
 export default function Dashboard() {
-    const [currentUser, setCurrentUser] = useState(null)
-    const auth = getAuth();
+    const {currentUser, docSnap, accountStatus, sessionID, retrieveAccountDetails} = UserContextData()
+
+    //const [currentUser, setCurrentUser] = useState(null)
+    //const auth = getAuth();
     const navigate = useNavigate()
 
-    const [docSnap, setDocSnap] = useState(null)
-    const [eventSnap, setEventSnap] = useState(null)
-    const [accountStatus, setAccountStatus] = useState(null)
-
+    //const [docSnap, setDocSnap] = useState(null)
+    //const [eventSnap, setEventSnap] = useState(null)
+    //const [accountStatus, setAccountStatus] = useState(null)
+    /*
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -58,6 +61,7 @@ export default function Dashboard() {
     account()
     status()
     }, [!currentUser, !docSnap, !eventSnap, !accountStatus])
+    */
 
     if(!currentUser) {
         return(
