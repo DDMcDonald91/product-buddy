@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { doc, getDoc } from "firebase/firestore";
-import { userContextData } from '../context/UserContext';
+import { UserContextData } from '../context/UserContext';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../Firebase";
 import { Container, Form, Button } from 'react-bootstrap';
