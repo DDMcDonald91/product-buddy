@@ -44,6 +44,7 @@ export default function WeatherBar() {
 
       axios.request(options).then(function (response) {
         console.log(response.data);
+        setWeather(response.data)
       }).catch(function (error) {
         console.error(error);
       });
@@ -51,7 +52,15 @@ export default function WeatherBar() {
 
   return (
     <Container>
-      {loading ? <><Spinner /></> : <>Weather Bar</>}
+      {loading ? 
+      <><Spinner /></> 
+      : 
+      <>
+      <Container fluid className='p-3' style={{background: 'black', color: 'white'}}>
+        <p>Location: {weather.location.name}, {weather.location.region}</p>
+        <p>It's {weather.current.condition.text} the temperature is: {weather.current.temp_f}</p>
+      </Container>
+      </>}
     </Container>
   )
 }
