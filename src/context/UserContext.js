@@ -1,6 +1,7 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase";
 import { useNavigate } from "react-router-dom";
 
 const userContext = createContext(null)
