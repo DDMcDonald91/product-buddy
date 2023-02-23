@@ -62,11 +62,11 @@ export default function Dashboard() {
     status()
     }, [!currentUser, !docSnap, !eventSnap, !accountStatus])
     */
+
    useEffect(() => {
-    if(currentUser){
+    if(docSnap) {
         retrieveAccountDetails()
-    }
-   }, [currentUser, !accountStatus])
+    }}, [currentUser, docSnap])
 
     if(!currentUser) {
         return(
