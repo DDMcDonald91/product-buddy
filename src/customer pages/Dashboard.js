@@ -73,7 +73,7 @@ export default function Dashboard() {
 
   return (
     <Container align='center' className='page'>
-        {accountStatus != null || 'active' || 'trialing' ?
+        {accountStatus == 'active' || 'trialing' ?
         <>
             <WeatherBar />
             <p>Welcome Back {currentUser.email}</p>
