@@ -23,25 +23,9 @@ export function UserContextProvider({ children }) {
             setLoading(false)
             console.log(user)
         })
-        /*
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/firebase.User
-                const uid = user.uid;
-                // ...
-                setCurrentUser(user)
-                console.log(user, uid)
-                setLoading(false)
-            } else {
-                // User is signed out
-                console.log('Nobody signed in.')
-                return
-            }
-            });
-        */
         retrieveUser()
         retrieveAccountDetails()
+        setLoading(false)
         return unsubscribe
     }, [!currentUser])
 
