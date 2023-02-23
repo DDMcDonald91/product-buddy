@@ -35,7 +35,7 @@ export function UserContextProvider({ children }) {
             });
         retrieveUser()
         retrieveAccountDetails()
-    }, [])
+    }, [currentUser])
 
     // login user
     const login = (e, email, password) => {
