@@ -26,7 +26,6 @@ export function UserContextProvider({ children }) {
                 // ...
                 setCurrentUser(user)
                 console.log(user, uid)
-                console.log(currentUser.email)
                 setLoading(false)
             } else {
                 // User is signed out
