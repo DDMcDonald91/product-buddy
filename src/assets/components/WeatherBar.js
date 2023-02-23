@@ -7,6 +7,7 @@ export default function WeatherBar() {
     // Weather API Data
     const [weather, setWeather] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
+    const [loading, setLoading] = useState(null)
     const [lat, setLat] = useState()
     const [long, setLong] = useState()
 
