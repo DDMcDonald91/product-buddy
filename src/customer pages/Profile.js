@@ -20,8 +20,11 @@ export default function Profile() {
     const API_URL = process.env.REACT_APP_API_URL
 
     useEffect(() => {
-        // Checks for user from Firebase
-        retrieveAccountDetails
+        try {
+            retrieveAccountDetails()
+        } catch (error) {
+            console.log(error)
+        }
     }, [!eventSnap, !accountStatus])
 
         
