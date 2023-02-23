@@ -1,5 +1,6 @@
 import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { userContextProvider } from './context/UserContext';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from './navigation/Navigation';
@@ -24,6 +25,7 @@ import Error from './customer pages/Error';
 
 function App() {
   return (
+    <userContextProvider>
     <Router>
       <Navigation />
     <Container fluid className='p-0'>
@@ -48,6 +50,7 @@ function App() {
       </Routes>
     </Container>
     </Router>
+    </userContextProvider>
   );
 }
 

@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { doc, getDoc, collection } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { userContextData } from '../context/UserContext';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../Firebase";
 import { Container, Form, Button } from 'react-bootstrap';
 import Checkout from './Checkout';
 
 export default function Profile() {
-    const [currentUser, setCurrentUser] = useState(null);
-    const [sessionID, setSessionID] = useState(null)
+    const {currentUser, docSnap, eventSnap, accountStatus} = userContextData()
+    //const [currentUser, setCurrentUser] = useState(null);
+    //const [sessionID, setSessionID] = useState(null)
 
     const auth = getAuth();
-    const [docSnap, setDocSnap] = useState(null)
-    const [eventSnap, setEventSnap] = useState(null)
-    const [accountStatus, setAccountStatus] = useState(null)
+    //const [docSnap, setDocSnap] = useState(null)
+    //const [eventSnap, setEventSnap] = useState(null)
+    //const [accountStatus, setAccountStatus] = useState(null)
 
     //API
     const API_URL = process.env.REACT_APP_API_URL

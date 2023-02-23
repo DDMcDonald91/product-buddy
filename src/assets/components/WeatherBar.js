@@ -13,7 +13,7 @@ export default function WeatherBar() {
         const options = {
             method: 'GET',
             url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-            params: {q: 'shreveport'},
+            params: {q: [currentLocation.coords.latitude, currentLocation.coords.longitude]},
             headers: {
               'X-RapidAPI-Key': '61254c1e4cmshcc74a38697e3b87p12bb76jsn4854c036d859',
               'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
@@ -31,14 +31,14 @@ export default function WeatherBar() {
     const getLocation = () => {
         if (navigator.geolocation) {
          const location = navigator.geolocation.getCurrentPosition(showPosition);
-          setCurrentLocation(location)
-          console.log(currentLocation)
+         console.log(location)
         } else { 
           console.log("Geolocation isn't supported by this browser");
         }
       }
       
       const showPosition = (position) => {
+        setCurrentLocation(position)
         console.log(position);
       }
 
