@@ -35,18 +35,18 @@ export default function WeatherBar() {
     const weatherCheck = async () => {
       const options = {
         method: 'GET',
+        url: `https://weatherapi-com.p.rapidapi.com/current.json?q=${lat}%2C${long}`,
         headers: {
           'X-RapidAPI-Key': '61254c1e4cmshcc74a38697e3b87p12bb76jsn4854c036d859',
           'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
         }
       };
-      
-      fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${lat}%2C${long}`, options)
-        .then(response => {
-          setWeather(response.json()); 
-          console.log(weather);
-        })
-        .catch(err => console.error(err));
+
+      axios.request(options).then(function (response) {
+        console.log(response.data);
+      }).catch(function (error) {
+        console.error(error);
+      });
     }
 
   return (
