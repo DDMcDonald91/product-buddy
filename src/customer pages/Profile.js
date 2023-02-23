@@ -18,7 +18,7 @@ export default function Profile() {
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
-
+/*
     useEffect(() => {
         // Checks for user from Firebase
         onAuthStateChanged(auth, (user) => {
@@ -66,7 +66,7 @@ export default function Profile() {
     account()
     status()
     }, [!currentUser, !docSnap, !eventSnap, !accountStatus])
-
+*/
 
         
     if(!currentUser){

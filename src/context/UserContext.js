@@ -1,5 +1,7 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, getAuth } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const userContext = createContext(null)
 
@@ -12,6 +14,8 @@ export function userContextProvider({ children }) {
     const [sessionId, setSessionID] = useState(null);
     const [eventSnap, setEventSnap] = useState(null);
     const [accountStatus, setAccountStatus] = useState(null);
+
+    const navigate = useNavigate()
 
     // check for Firebase user on load
     useEffect(() => {
