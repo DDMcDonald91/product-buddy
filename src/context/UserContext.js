@@ -79,10 +79,10 @@ export function UserContextProvider({ children }) {
         try {
             console.log(docSnap.customerData.id)
             const docRef = await doc(db, 'events', docSnap.customerData.id);
-            const eventsDoc = await getDoc(docRef);
-            const eventData = eventsDoc.data();
-            const account = eventData.accountStatus;
-            console.log(account);
+            const eventDoc = await getDoc(docRef);
+            setEventSnap(eventDoc.data());
+            setAccountStatus(eventSnap.accountStatus)
+            console.log(accountStatus);
             return(account)
         } catch (error) {
             console.log('Error searching for user events and account data:', error)
