@@ -31,11 +31,6 @@ export function UserContextProvider({ children }) {
     const login = (e, email, password) => {
         e.preventDefault();
 
-        if(!email || !password) {
-            alert('Please enter in all of your information.')
-            return
-        }
-        
         // login user w/ firebase function then sets the user
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -60,6 +55,8 @@ export function UserContextProvider({ children }) {
           // logout successful.
           console.log("User signed out")
           setCurrentUser(null)
+          setDocSnap(null)
+          setSessionID(null)
         }).catch((error) => {
           // An error happened.
           console.log("Logout error:", error)

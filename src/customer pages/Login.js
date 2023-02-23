@@ -23,11 +23,11 @@ export default function Login() {
     }, [])
 
     const tryLogin = () => {
-        try {
-            login(email, password)
-        } catch (error) {
-            setErrorMessage("Error logging in. Refresh page and try again.")
+        if(!email || !password) {
+            alert('Please enter in all of your information.')
+            return
         }
+        login(email, password)
     }
 /*
     const login = (e, email, password) => {
