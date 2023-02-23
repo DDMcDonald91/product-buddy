@@ -108,6 +108,6 @@ export function userContextProvider({ children }) {
     )
 }
 
-export const userContextData = () => {
+export const UserContextData = () => {
     return useContext(userContext)
 }
