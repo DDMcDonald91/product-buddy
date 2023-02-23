@@ -36,7 +36,7 @@ export default function WeatherBar() {
           }).catch(function (error) {
               console.error(error);
           });
-    }, [!lat, !Long])
+    }, [!lat, !long])
 
   return (
     <Container>WeatherBar</Container>
