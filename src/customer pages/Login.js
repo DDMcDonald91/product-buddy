@@ -29,7 +29,7 @@ export default function Login() {
         }
         setLoading(true)
         try {
-            await login(e, email, password)
+            await login(email, password)
         } catch (error) {
             setErrorMessage("Login error.")
         }
