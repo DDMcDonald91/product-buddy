@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // ICONS
 import * as FaIcons from "react-icons/fa"; //Now i get access to all the icons
@@ -18,80 +18,26 @@ import { Button, Container } from "react-bootstrap";
 // STYLES
 import './Navigation.css'
 
-// FIREBASE
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../Firebase";
+// Context
+import { UserContextData } from "../context/UserContext";
 
 export default function Navigation() {
+    const {currentUser, logout} = UserContextData()
+
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
-    const [docSnap, setDocSnap] = useState(null);
-    const [eventSnap, setEventSnap] = useState(null);
-    const [setAccountStatus, accountStatus] = useState(null)
 
-    const auth = getAuth()
     const navigate = useNavigate()
 
-    useEffect(() => {
-      // Checks for user
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          // ...
-          setLoggedIn(true)
-          setCurrentUser(user)
-          console.log("User is signed in:", user.email)
-        } else{
-            console.log("No user logged in")
+    const tryLogout = () => {
+      if(currentUser){
+        try {
+          logout()
+          navigate('/')
+        } catch (error) {
+          console.log('Logout error:', error)
         }
-      });
-      // Searches for account data in Firebase database
-      const accountCheck = async () => {
-        if(currentUser) {
-          //const docRef = query(usersCollectionRef, where("email", "==", currentUser.email));
-          const docRef = doc(db, 'users', currentUser.uid);
-          const usersDoc = await getDoc(docRef);
-          setDocSnap(usersDoc.data());;
-          console.log(docSnap)
-          } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-          }
-        }
-      
-        // Function to find user account status
-        const status = async () => {
-          if(docSnap) {
-              // Get events doc from Firebase database
-              const docRef = await doc(db, 'events', docSnap.customerData.id);
-              const eventsDoc = await getDoc(docRef);
-              setEventSnap(eventsDoc.data());
-              console.log(eventSnap);
-              setAccountStatus(eventSnap.accountStatus)
-              console.log(accountStatus)
-          } else {
-              console.log('No user data')
-          }
       }
-      accountCheck()
-      status()
-  }, [!accountStatus, currentUser])
-
-    const logout = () => {
-      signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        console.log("User signed out")
-        setLoggedIn(false)
-        navigate('/')
-      }).catch((error) => {
-        // An error happened.
-        console.log(error)
-      });
     }
 
   return (
@@ -132,7 +78,7 @@ export default function Navigation() {
           </>
           }
           </Container>
-            {loggedIn == false ?
+            {!currentUser ?
             <>
             <li>
               <Link to='/register' className='nav-text'>
@@ -159,7 +105,7 @@ export default function Navigation() {
             </li>
             <li>
               <div className="nav-text">
-                <Button className='mt-1 mb-1' variant="primary" onClick={logout}>Logout</Button>
+                <Button className='mt-1 mb-1' variant="primary" onClick={tryLogout}>Logout</Button>
               </div>
             </li>
             </>

@@ -57,7 +57,6 @@ export function UserContextProvider({ children }) {
           setSessionID(null)
           setEventSnap(null)
           setAccountStatus(null)
-
         }).catch((error) => {
           // An error happened.
           console.log("Logout error:", error)
