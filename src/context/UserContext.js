@@ -28,7 +28,7 @@ export function UserContextProvider({ children }) {
         retrieveUser()
         retrieveAccountDetails()
         return unsubscribe
-    }, [currentUser])
+    }, [])
 
     // login user
     const login = (e, email, password) => {
