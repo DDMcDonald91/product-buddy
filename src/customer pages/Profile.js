@@ -21,13 +21,8 @@ export default function Profile() {
 
     useEffect(() => {
         if(docSnap) {
-            try {
-                retrieveAccountDetails()
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    }, [])
+            retrieveAccountDetails()
+    }}, [currentUser, docSnap])
 
         
     if(!currentUser){
