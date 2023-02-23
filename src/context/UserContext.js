@@ -28,8 +28,7 @@ export function UserContextProvider({ children }) {
     }, [!currentUser, !docSnap, !sessionID])
 
     // login user
-    const login = (e, email, password) => {
-        e.preventDefault();
+    const login = (email, password) => {
 
         // login user w/ firebase function then sets the user
         signInWithEmailAndPassword(auth, email, password)
