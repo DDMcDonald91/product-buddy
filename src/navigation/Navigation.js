@@ -37,7 +37,7 @@ export default function Navigation() {
       if(accountStatus == "trialing"){
         setShowUserNav(true)
       }
-    }, [!accountStatus])
+    }, [accountStatus])
 
     const tryLogout = () => {
       if(currentUser){
