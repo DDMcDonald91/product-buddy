@@ -118,6 +118,16 @@ export default function Navigation() {
             </>
             :
             <>
+            {SidebarData.slice(0, 1).map((item, index) => {
+            return (
+              <li key={index} className={item.cName}>
+                <Link to={item.path}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              </li>
+              );
+            })}
             <li>
               <Link to='/dashboard' className='nav-text'>
                 <Button className='mt-1 mb-1' variant="primary">Dashboard</Button>
