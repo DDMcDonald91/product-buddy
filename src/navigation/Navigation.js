@@ -95,6 +95,16 @@ export default function Navigation() {
           </Container>
             {!currentUser ?
             <>
+            {SidebarData.slice(0, 1).map((item, index) => {
+            return (
+              <li key={index} className={item.cName}>
+                <Link to={item.path}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              </li>
+              );
+            })}
             <li>
               <Link to='/register' className='nav-text'>
                 <Button className='mt-1 mb-1' variant="primary">Sign Up</Button>
