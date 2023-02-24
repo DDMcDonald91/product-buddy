@@ -48,8 +48,8 @@ export function UserContextProvider({ children }) {
     }
 
     // logout user
-    const logout = () => {
-        signOut(auth)
+    const logout = async () => {
+       await signOut(auth)
         .then(() => {
           // logout successful.
           console.log("User signed out")
