@@ -72,7 +72,7 @@ export default function WeatherBar() {
       )
     }
 
-    if(loading) {
+    if(loading && lat && long) {
       return(
         loadingSpinner()
       )
