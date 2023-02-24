@@ -78,12 +78,6 @@ export default function Dashboard() {
         }
       }, [!accountStatus])
 
-    if(!showDashboard){
-        <Container align='center' className='page'>
-            <p>Login or update your account for Dashboard access.</p>
-        </Container>
-    }
-
     if(!currentUser) {
         return(
             <Container align='center' className='page'>
@@ -92,24 +86,32 @@ export default function Dashboard() {
         )
     }
 
-    if(showDashboard){
-        return (
-            <Container align='center' className='page'>
-                <WeatherBar />
-                <p>Welcome Back {currentUser.email}</p>
-                <h1>What can Keni help you with today?</h1>
-                <Container className='mt-5'>
-                    <Row>
-                        {DashboardData.map((item, index) => {
-                            return(
-                                <Col xs={12} md={4} lg={3} className='p-1' key={index}>
-                                    <ProductCard title={item.title} description={item.description} link={item.link} bg={item.color} />
-                                </Col>
-                            )
-                        })}
-                    </Row>
-                </Container>
+  return (
+    <Container align='center' className='page'>
+        {showDashboard ?
+        <>
+            <WeatherBar />
+            <p>Welcome Back {currentUser.email}</p>
+            <h1>What can Keni help you with today?</h1>
+            <Container className='mt-5'>
+                <Row>
+                    {DashboardData.map((item, index) => {
+                        return(
+                            <Col xs={12} md={4} lg={3} className='p-1' key={index}>
+                                <ProductCard title={item.title} description={item.description} link={item.link} bg={item.color} />
+                            </Col>
+                        )
+                    })}
+                </Row>
             </Container>
-        )
-    }
+        </>
+        :
+        <>
+            <Container>
+                <p>Login or update your account for Dashboard access.</p>
+            </Container>
+        </>
+        }
+    </Container>
+  )
 }
