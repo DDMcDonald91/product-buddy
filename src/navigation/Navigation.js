@@ -22,7 +22,7 @@ import './Navigation.css'
 import { UserContextData } from "../context/UserContext";
 
 export default function Navigation() {
-    const {currentUser, logout, accountStatus} = UserContextData()
+    const {currentUser, logout, accountStatus, docSnap, retrieveAccountDetails} = UserContextData()
 
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
