@@ -63,6 +63,9 @@ export default function Dashboard() {
     status()
     }, [!currentUser, !docSnap, !eventSnap, !accountStatus])
     */
+    if(!currentUser){
+        navigate('/login')
+    }
 
    useEffect(() => {
     if(docSnap) {
