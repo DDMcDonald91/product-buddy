@@ -50,17 +50,40 @@ export default function WeatherBar() {
       });
     }
 
-  return (
-    <Container>
-      {!weather ? 
-      <><Spinner /></> 
-      : 
-      <>
-      <Container fluid className='p-1 mt-3' style={{background: 'black', color: 'white', borderRadius: '.375rem', border: '1px solid white'}}>
-        <p>Location: {weather.location.name}, {weather.location.region}</p>
-        <p>It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f}</p>
+    const noWeatherData = () => {
+      return (
+      <Container>
+        <p>Data currently unavailable</p>
       </Container>
-      </>}
-    </Container>
-  )
+      )
+    }
+
+    const loadingSpinner = () => {
+      return(
+      <Container>
+        <Spinner />
+      </Container>
+      )
+    }
+
+    if(!weather && !loading) {
+      return(
+        noWeatherData()
+      )
+    }
+
+    if(loading) {
+      return(
+        loadingSpinner()
+      )
+    }
+
+    if(weather && !loading) {
+      return(
+        <Container fluid className='p-1 mt-3' style={{background: 'black', color: 'white', borderRadius: '.375rem', border: '1px solid white'}}>
+          <p>Location: {weather.location.name}, {weather.location.region}</p>
+          <p>It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f}</p>
+        </Container>
+      )
+    }
 }
