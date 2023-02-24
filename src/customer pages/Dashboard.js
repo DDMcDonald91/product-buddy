@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Spinner } from 'react-bootstrap'
 import { UserContextData } from '../context/UserContext';
 import ProductCard from '../generators/ProductCard'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -11,6 +11,7 @@ import WeatherBar from '../assets/components/WeatherBar';
 
 export default function Dashboard() {
     const {currentUser, docSnap, accountStatus, sessionID, retrieveAccountDetails} = UserContextData()
+    const [showDashboard, setShowDashboard] = useState(false)
 
     //const [currentUser, setCurrentUser] = useState(null)
     //const auth = getAuth();
@@ -68,17 +69,53 @@ export default function Dashboard() {
         retrieveAccountDetails()
     }}, [currentUser, docSnap])
 
+    useEffect(() => {
+        if(accountStatus == "active"){ 
+            setShowDashboard(true)
+        }
+        if(accountStatus == "trialing"){
+            setShowDashboard(true)
+        }
+      }, [!accountStatus])
+
+    if(!showDashboard){
+        <Container align='center' className='page'>
+            <p>Login or update your account for Dashboard access.</p>
+        </Container>
+    }
+
     if(!currentUser) {
         return(
-            <Container className='page'>
-                Loading...
+            <Container align='center' className='page'>
+                <Spinner />
+            </Container>
+        )
+    }
+
+    if(showDashboard){
+        return (
+            <Container align='center' className='page'>
+                <WeatherBar />
+                <p>Welcome Back {currentUser.email}</p>
+                <h1>What can Keni help you with today?</h1>
+                <Container className='mt-5'>
+                    <Row>
+                        {DashboardData.map((item, index) => {
+                            return(
+                                <Col xs={12} md={4} lg={3} className='p-1' key={index}>
+                                    <ProductCard title={item.title} description={item.description} link={item.link} bg={item.color} />
+                                </Col>
+                            )
+                        })}
+                    </Row>
+                </Container>
             </Container>
         )
     }
 
   return (
     <Container align='center' className='page'>
-        {accountStatus == 'active' || 'trialing' ?
+        {showDashboard ?
         <>
             <WeatherBar />
             <p>Welcome Back {currentUser.email}</p>

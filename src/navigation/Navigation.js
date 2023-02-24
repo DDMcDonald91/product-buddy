@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // ICONS
 import * as FaIcons from "react-icons/fa"; //Now i get access to all the icons
@@ -22,12 +22,22 @@ import './Navigation.css'
 import { UserContextData } from "../context/UserContext";
 
 export default function Navigation() {
-    const {currentUser, logout} = UserContextData()
+    const {currentUser, logout, accountStatus} = UserContextData()
 
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
 
+    const [showUserNav, setShowUserNav] = useState(false)
     const navigate = useNavigate()
+
+    useEffect(() => {
+      if(accountStatus == "active"){ 
+        setShowUserNav(true)
+      }
+      if(accountStatus == "trialing"){
+        setShowUserNav(true)
+      }
+    }, [!accountStatus])
 
     const tryLogout = () => {
       if(currentUser){
@@ -56,25 +66,25 @@ export default function Navigation() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-        <div style={{display: 'flex', marginLeft: '2rem'}}>
-            <h3 style={{color: 'white'}}>Find your usecase:</h3>
-        </div>
         <Container>
-          {!currentUser ?
+          {showUserNav ?
           <>
+          <div style={{display: 'flex', marginLeft: '2rem'}}>
+            <h4 style={{color: 'black'}}>Find your usecase:</h4>
+          </div>
+          {SidebarData.map((item, index) => {
+            return (
+              <li key={index} className={item.cName}>
+                <Link to={item.path}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              </li>
+              );
+            })}
           </>
           :
           <>
-          {SidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
-                </li>
-              );
-            })}
           </>
           }
           </Container>

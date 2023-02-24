@@ -1,5 +1,5 @@
 :root {
-    --navBg: #181F1C; 
+    --navBg: #6C7A7D; 
   }
   
   .navbar {
@@ -46,7 +46,7 @@
   
   .nav-text a {
     text-decoration: none;
-    color: white;
+    color: black;
     font-size: 15px;
     width: 95%;
     height: 100%;
@@ -57,7 +57,7 @@
   }
   
   .nav-text a:hover {
-    background-color: #1a83ff;
+    background-color: #EEC015;
   }
   
   .nav-menu-items {
