@@ -30,6 +30,11 @@ export default function Navigation() {
     const [showUserNav, setShowUserNav] = useState(false)
     const navigate = useNavigate()
 
+   useEffect(() => {
+    if(docSnap) {
+        retrieveAccountDetails()
+    }}, [currentUser, docSnap])
+
     useEffect(() => {
       if(accountStatus == "active"){ 
         setShowUserNav(true)
