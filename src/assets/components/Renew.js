@@ -33,7 +33,7 @@ export default function Renew() {
         accountCheck()
         console.log(docSnap.data(), stripeId)
 
-    }, [currentUser, !docSnap, stripeId])
+    }, [currentUser, !docSnap, !stripeId])
 
   return (
     <Container className='page'>
