@@ -35,6 +35,34 @@ export default function Register() {
             alert('Your passwords must match. Please make sure your password matches.')
             return
         }
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            await setDoc(doc(db, 'users', user.uid), {
+                firstName,
+                lastName,
+                email,
+                accountID: user.uid,
+                sessionId: "",
+            });
+            console.log("new user added", user.uid);
+        
+            const response = await axios.post(`${API_URL}/create-customer`, {
+                name: firstName + " " + lastName,
+                customerEmail: email,
+                user: user.uid,
+            });
+            console.log(response.data);
+        
+            navigate('/profile');
+        } catch (error) {
+            console.error(error);
+            alert("There has been a error");
+        }
+    }
+        
+        /*
         // Creates user profile
        await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -75,7 +103,7 @@ export default function Register() {
 
         navigate('/profile')
     }
-
+    */
   return (
     <Container className='page'>
         <Container style={{maxWidth: '30rem'}} className='justify-content-center align-content-center d-flex'>
