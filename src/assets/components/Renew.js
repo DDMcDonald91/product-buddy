@@ -24,8 +24,6 @@ export default function Renew() {
                 setDocSnap(await getDoc(docRef));
                 setStripeId(await docSnap.data().customerData.id)
             }
-            //Finds user Stripe id from Firebase database  
-            setStripeId(await docSnap.data().customerData.id)
 
             // Turn off loading screen for user
             setLoading(false)
