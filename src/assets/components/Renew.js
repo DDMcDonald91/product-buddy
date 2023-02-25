@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { UserContextData } from '../../context/UserContext'
 import { Container, Card, Button, Form } from 'react-bootstrap'
+import { doc, getDoc } from "firebase/firestore";
+
 
 export default function Renew() {
     // API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const {currentUser, docSnap } = UserContextData(null)
+    const { currentUser } = UserContextData(null)
+    const [docSnap, setDocSnap] = useState(null)
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
     
@@ -15,6 +18,11 @@ export default function Renew() {
             // Set loading screen while function starts
             setLoading(true)
 
+            if(currentUser){
+                const docRef = await doc(db, 'users', currentUser.uid);
+                setDocSnap(await getDoc(docRef));
+                setStripeId(await docSnap.data().customerData.id)
+            }
             //Finds user Stripe id from Firebase database  
             setStripeId(await docSnap.data().customerData.id)
             console.log(docSnap.data(), stripeId)
