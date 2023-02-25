@@ -23,6 +23,9 @@ export default function Profile() {
         if(accountStatus == "trialing"){
             setActiveAccount(true)
         }
+        if(accountStatus == "trialing"){
+            setActiveAccount(true)
+        }
       }, [!accountStatus])
    
     if(!currentUser){
@@ -42,7 +45,7 @@ export default function Profile() {
         )
     }
 
-    if(currentUser && !activeAccount) {
+    if(currentUser && activeAccount === false) {
         return(
             <Container className='page mt-5'>
                 <h1>Profile</h1>
