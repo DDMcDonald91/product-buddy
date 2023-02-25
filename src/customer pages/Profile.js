@@ -5,7 +5,7 @@ import Checkout from './Checkout';
 
 export default function Profile() {
     const {currentUser, docSnap, accountStatus, sessionID, retrieveAccountDetails} = UserContextData()
-    const [activeAccount, setActiveAccount] = useState
+    const [activeAccount, setActiveAccount] = useState(false)
 
 
     //API
