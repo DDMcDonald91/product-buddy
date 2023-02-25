@@ -26,14 +26,14 @@ export default function Renew() {
             }
             //Finds user Stripe id from Firebase database  
             setStripeId(await docSnap.data().customerData.id)
-            console.log(docSnap.data(), stripeId)
 
             // Turn off loading screen for user
             setLoading(false)
         }
         accountCheck()
+        console.log(docSnap.data(), stripeId)
 
-    }, [currentUser, !docSnap, !stripeId])
+    }, [currentUser, !docSnap, stripeId])
 
   return (
     <Container className='page'>
@@ -42,9 +42,9 @@ export default function Renew() {
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
-                    <Card.Title>Premium Subscription</Card.Title>
+                    <Card.Title>Renew Your Subscription</Card.Title>
                     <Card.Text>
-                    Ready to get started with all of the benefits of the product buddy ai system? Get started now!
+                    Canceled your subscription? No problem, let's renew your plan!
                     </Card.Text>
                     <Form action={`${API_URL}/create-checkout-session`} method="POST">
                         <Form.Control type="hidden" name="lookup_key" value="premium" />
