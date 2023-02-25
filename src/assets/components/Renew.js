@@ -22,7 +22,8 @@ export default function Renew() {
             if(currentUser){
                 const docRef = await doc(db, 'users', currentUser.uid);
                 setDocSnap(await getDoc(docRef));
-                setStripeId(await docSnap.data().customerData.id)
+                const id = await docSnap.data().customerData.id
+                setStripeId(id)
             }
 
             // Turn off loading screen for user
