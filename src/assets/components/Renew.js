@@ -1,38 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { UserContextData } from '../../context/UserContext'
-import { Container, Card, Button } from 'react-bootstrap'
+import { Container, Card, Button, Form } from 'react-bootstrap'
 
 export default function Renew() {
-    const {currentUser, docSnap, } = UserContextData()
+    const {currentUser, docSnap, retrieveAccountDetails } = UserContextData()
+    const [loading, setLoading] = useState(false)
     
     useEffect(() => {
-        const accountCheck = async () => {
-            // Set loading screen while function starts
-            setLoading(true)
-            // Find user from Firebase
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                  // User is signed in, see docs for a list of available properties
-                  // https://firebase.google.com/docs/reference/js/firebase.User
-                  const uid = user.uid;
-                  // ...
-                  setCurrentUser(user)
-                  console.log("User is signed in:", user, uid);
-                } else {
-                    console.log('No user signed in from checkout...')
-                }
-              });
-            //Finds user Stripe id from Firebase database  
-            const docRef = await doc(db, 'users', currentUser.uid);
-            setDocSnap(await getDoc(docRef));
-            setStripeId(docSnap.data().customerData.id)
-            console.log(docSnap.data(), stripeId)
-            // Turn off loading screen for user
-            setLoading(false)
-        }
-        accountCheck()
-        
-    }, [!currentUser, !docSnap, !stripeId])
+        if(docSnap) {
+            retrieveAccountDetails()
+    }}, [currentUser, docSnap])
 
   return (
     <Container className='page'>
