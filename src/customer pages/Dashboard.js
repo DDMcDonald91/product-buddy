@@ -19,7 +19,7 @@ export default function Dashboard() {
    useEffect(() => {
     if(docSnap) {
         retrieveAccountDetails()
-    }}, [currentUser, docSnap])
+    }}, [currentUser, docSnap, accountStatus])
 
     useEffect(() => {
         if(accountStatus == "active"){ 
