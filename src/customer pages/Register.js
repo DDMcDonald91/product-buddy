@@ -61,6 +61,8 @@ export default function Register() {
         } catch (error) {
             console.error(error);
             alert("There has been a error");
+            setLoading(false)
+            return
         }
 
         setLoading(false)

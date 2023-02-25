@@ -47,7 +47,7 @@ export default function Checkout() {
 
   return (
     <Container className='page'>
-        {!loading ?
+        {!loading && !stripeId?
         <>
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />
