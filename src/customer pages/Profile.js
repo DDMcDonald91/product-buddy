@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { UserContextData } from '../context/UserContext';
 import { Container, Form, Button } from 'react-bootstrap';
 import Checkout from './Checkout';
 
 export default function Profile() {
     const {currentUser, docSnap, accountStatus, sessionID, retrieveAccountDetails} = UserContextData()
+    const [activeAccount, setActiveAccount] = useState
 
 
     //API
@@ -15,12 +16,52 @@ export default function Profile() {
             retrieveAccountDetails()
     }}, [currentUser, docSnap, !accountStatus])
 
-        
+    useEffect(() => {
+        if(accountStatus == "active"){ 
+            setActiveAccount(true)
+        }
+        if(accountStatus == "trialing"){
+            setActiveAccount(true)
+        }
+      }, [!accountStatus])
+   
     if(!currentUser){
         return(
             <Container className='page mt-5'>
                 <p>No User Logged In...</p>
             </Container>
+        )
+    }
+
+    if(currentUser && !sessionID) {
+        return(
+            <Container className='page mt-5'>
+                <Checkout />
+            </Container>
+        )
+    }
+
+    if(currentUser && !accountStatus) {
+        return(
+            <>
+            {accountStatus ? 
+                <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{accountStatus}</h5></Container>
+                :
+                <>
+                    <div></div>
+                </>
+            }
+            <Container>
+                <h2>Welcome back {docSnap.firstName}!</h2>
+                <Form action={`${API_URL}/create-portal-session`} method="POST">
+                <input type="hidden" id="session-id" name="session_id" value={sessionID}
+                />
+                <Button id="checkout-and-portal-button" type="submit">
+                Manage your billing information
+                </Button>
+                </Form>
+            </Container>
+            </>
         )
     }
 
