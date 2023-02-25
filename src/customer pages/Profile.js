@@ -36,43 +36,15 @@ export default function Profile() {
     if(currentUser && !sessionID) {
         return(
             <Container className='page mt-5'>
+                <h1>Profile</h1>
                 <Checkout />
             </Container>
-        )
-    }
-
-    if(currentUser && !accountStatus) {
-        return(
-            <>
-            {accountStatus ? 
-                <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{accountStatus}</h5></Container>
-                :
-                <>
-                    <div></div>
-                </>
-            }
-            <Container>
-                <h2>Welcome back {docSnap.firstName}!</h2>
-                <Form action={`${API_URL}/create-portal-session`} method="POST">
-                <input type="hidden" id="session-id" name="session_id" value={sessionID}
-                />
-                <Button id="checkout-and-portal-button" type="submit">
-                Manage your billing information
-                </Button>
-                </Form>
-            </Container>
-            </>
         )
     }
 
   return (
     <Container className='page mt-5'>
         <h1>Profile</h1>
-        {!sessionID ? 
-        <>
-            <Checkout />
-        </>
-        :
         <>
         {accountStatus ? 
             <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{accountStatus}</h5></Container>
@@ -92,7 +64,6 @@ export default function Profile() {
             </Form>
         </Container>
         </>
-        }
     </Container>
   )
 }
