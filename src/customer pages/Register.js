@@ -1,7 +1,7 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, setDoc, doc } from "firebase/firestore"; 
 import { db } from "../Firebase";
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -36,6 +36,8 @@ export default function Register() {
             return
         }
 
+        setLoading(true)
+
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -60,6 +62,8 @@ export default function Register() {
             console.error(error);
             alert("There has been a error");
         }
+
+        setLoading(false)
     }
         
         /*
@@ -139,10 +143,16 @@ export default function Register() {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group>
-
+                {!loading ? 
+                <>
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
+                </> 
+                : 
+                <>
+                <Spinner />
+                </>}
             </Form>
         </Container>
     </Container>
