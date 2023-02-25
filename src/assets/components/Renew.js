@@ -31,7 +31,7 @@ export default function Renew() {
             setLoading(false)
         }
         accountCheck()
-        console.log(docSnap.data(), stripeId)
+        console.log(stripeId)
 
     }, [currentUser, !docSnap, !stripeId])
 
