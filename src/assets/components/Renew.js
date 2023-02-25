@@ -1,22 +1,12 @@
-import React, {useState, useEffect} from 'react'
-import { Container, Card, Button, Form } from 'react-bootstrap'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, collection } from "firebase/firestore";
+import React from 'react'
+import { UserContextData } from '../../context/UserContext'
+import { Container, Card, Button } from 'react-bootstrap'
 
-import { db } from "../Firebase";
-
-export default function Checkout() {
-    //API
-    const API_URL = process.env.REACT_APP_API_URL
-
-    const [currentUser, setCurrentUser] = useState(null)
-    const [docSnap, setDocSnap] = useState(null)
-    const [stripeId, setStripeId] = useState(null)
-    const [loading, setLoading] = useState(false)
-    const auth = getAuth();
-
+export default function Renew() {
+    const {currentUser, docSnap, } = UserContextData()
+    
     useEffect(() => {
-        const accountUpdate = async () => {
+        const accountCheck = async () => {
             // Set loading screen while function starts
             setLoading(true)
             // Find user from Firebase
@@ -40,14 +30,13 @@ export default function Checkout() {
             // Turn off loading screen for user
             setLoading(false)
         }
-        accountUpdate()
+        accountCheck()
         
     }, [!currentUser, !docSnap, !stripeId])
 
-
   return (
     <Container className='page'>
-        {!loading && !stripeId ?
+        {!loading ?
         <>
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />

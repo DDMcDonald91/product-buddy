@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { UserContextData } from '../context/UserContext';
 import { Container, Form, Button } from 'react-bootstrap';
 import Checkout from './Checkout';
+import Renew from '../assets/components/Renew';
 
 export default function Profile() {
     const {currentUser, docSnap, accountStatus, sessionID, retrieveAccountDetails} = UserContextData()
@@ -23,7 +24,7 @@ export default function Profile() {
         if(accountStatus == "trialing"){
             setActiveAccount(true)
         }
-        if(accountStatus == "trialing"){
+        if(accountStatus == "paused"){
             setActiveAccount(true)
         }
       }, [!accountStatus])
@@ -45,14 +46,15 @@ export default function Profile() {
         )
     }
 
-    if(currentUser && activeAccount === false) {
+    if(currentUser && !activeAccount) {
         return(
             <Container className='page mt-5'>
                 <h1>Profile</h1>
-                <Checkout />
+                <Renew />
             </Container>
         )
     }
+
 
   return (
     <Container className='page mt-5'>
