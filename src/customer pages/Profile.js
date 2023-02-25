@@ -14,7 +14,7 @@ export default function Profile() {
     useEffect(() => {
         if(docSnap) {
             retrieveAccountDetails()
-    }}, [currentUser, docSnap, !accountStatus])
+    }}, [currentUser, docSnap, accountStatus])
 
     useEffect(() => {
         if(accountStatus == "active"){ 
