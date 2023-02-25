@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { UserContextData } from '../../context/UserContext'
 import { Container, Card, Button, Form } from 'react-bootstrap'
 import { doc, getDoc } from "firebase/firestore";
+import { db } from '../../Firebase';
 
 
 export default function Renew() {
