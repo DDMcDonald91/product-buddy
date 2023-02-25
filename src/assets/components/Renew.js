@@ -6,22 +6,19 @@ export default function Renew() {
     // API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const {currentUser, docSnap, retrieveAccountDetails } = UserContextData()
+    const {currentUser, docSnap } = UserContextData(null)
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
     
     useEffect(() => {
-        if(docSnap) {
-            retrieveAccountDetails()
-        }
         const accountCheck = async () => {
             // Set loading screen while function starts
             setLoading(true)
+
             //Finds user Stripe id from Firebase database  
-            const docRef = await doc(db, 'users', currentUser.uid);
-            setDocSnap(await getDoc(docRef));
             setStripeId(await docSnap.data().customerData.id)
             console.log(docSnap.data(), stripeId)
+
             // Turn off loading screen for user
             setLoading(false)
         }
