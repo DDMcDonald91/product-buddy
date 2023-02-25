@@ -13,7 +13,7 @@ export default function Profile() {
     useEffect(() => {
         if(docSnap) {
             retrieveAccountDetails()
-    }}, [currentUser, docSnap])
+    }}, [currentUser, docSnap, !accountStatus])
 
         
     if(!currentUser){
