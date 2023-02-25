@@ -42,6 +42,15 @@ export default function Profile() {
         )
     }
 
+    if(currentUser && !activeAccount) {
+        return(
+            <Container className='page mt-5'>
+                <h1>Profile</h1>
+                <Checkout />
+            </Container>
+        )
+    }
+
   return (
     <Container className='page mt-5'>
         <h1>Profile</h1>
