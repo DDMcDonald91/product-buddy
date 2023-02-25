@@ -2,7 +2,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, setDoc, doc } from "firebase/firestore"; 
 import { db } from "../Firebase";
 import { Container, Form, Button, Spinner } from 'react-bootstrap';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -14,10 +14,8 @@ export default function Register() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
 
-    const [stripeUser, setStripeUser] = useState(null)
-    const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(false)
     const auth = getAuth();
-    const usersCollectionRef = collection(db, "users")
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL
 
@@ -67,49 +65,7 @@ export default function Register() {
 
         setLoading(false)
     }
-        
-        /*
-        // Creates user profile
-       await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            // Create user account in Firebase database
-            try {
-                setDoc(doc(db, 'users', user.uid), {
-                    firstName,
-                    lastName,
-                    email,
-                    accountID: user.uid,
-                    sessionId: "",
-                  });
-                // Confirm new user in console
-                console.log("new user added", user.uid);
-                // Add stripe data to user account
-                axios.post(`${API_URL}/create-customer`, {
-                    name: firstName + " " + lastName,
-                    customerEmail: email,
-                    user: user.uid,
-                })
-                // Confirm added doc
-                console.log(stripeUser)
-              } catch (e) {
-                console.error("Error adding document: ", e);
-                alert("There has been a error")
-                return
-              }
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-            console.log(errorCode, errorMessage)
-        });
-        console.log('view user:', user)
 
-        navigate('/profile')
-    }
-    */
   return (
     <Container className='page'>
         <Container style={{maxWidth: '30rem'}} className='justify-content-center align-content-center d-flex'>
