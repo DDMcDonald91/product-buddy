@@ -27,7 +27,7 @@ export function UserContextProvider({ children }) {
         }
         setLoading(false)
         return unsubscribe
-    }, [!currentUser, !docSnap, !sessionID, accountStatus, !eventSnap])
+    }, [!currentUser, !docSnap, !sessionID, !accountStatus, !eventSnap])
 
     // login user
     const login = (email, password) => {
@@ -93,6 +93,10 @@ export function UserContextProvider({ children }) {
 
         if(accountStatus == "active" || "trialing" || "paused") {
             setAccountActive(true)
+        }
+
+        if(accountStatus !== "active" || "trialing" || "paused") {
+            setAccountActive(false)
         }
     }
 
