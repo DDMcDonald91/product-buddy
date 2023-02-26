@@ -7,7 +7,7 @@ import { DashboardData } from '../assets/components/DashboardData';
 import WeatherBar from '../assets/components/WeatherBar';
 
 export default function Dashboard() {
-    const {currentUser, docSnap, accountStatus, sessionID, retrieveAccountDetails} = UserContextData()
+    const {currentUser, accountActive} = UserContextData()
     const [showDashboard, setShowDashboard] = useState(false)
 
     const navigate = useNavigate()
@@ -17,18 +17,10 @@ export default function Dashboard() {
     }
 
    useEffect(() => {
-    if(docSnap) {
-        retrieveAccountDetails()
-    }}, [currentUser, docSnap, accountStatus])
+    if(accountActive == true) {
+        setShowDashboard(true)
+    }}, [currentUser, accountActive])
 
-    useEffect(() => {
-        if(accountStatus == "active"){ 
-            setShowDashboard(true)
-        }
-        if(accountStatus == "trialing"){
-            setShowDashboard(true)
-        }
-      }, [!accountStatus])
 
     if(!currentUser) {
         return(

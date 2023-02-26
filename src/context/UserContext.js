@@ -14,6 +14,7 @@ export function UserContextProvider({ children }) {
     const [sessionID, setSessionID] = useState(null);
     const [eventSnap, setEventSnap] = useState(null);
     const [accountStatus, setAccountStatus] = useState(null);
+    const [accountActive, setAccountActive] = useState(false)
 
 
     // check for Firebase user on load
@@ -26,7 +27,7 @@ export function UserContextProvider({ children }) {
         }
         setLoading(false)
         return unsubscribe
-    }, [!currentUser, !docSnap, !sessionID])
+    }, [!currentUser, !docSnap, !sessionID, accountStatus, !eventSnap])
 
     // login user
     const login = (email, password) => {
@@ -58,6 +59,7 @@ export function UserContextProvider({ children }) {
           setSessionID(null)
           setEventSnap(null)
           setAccountStatus(null)
+          setAccountActive(false)
           window.location.reload(false);
         }).catch((error) => {
           // An error happened.
@@ -69,13 +71,28 @@ export function UserContextProvider({ children }) {
     const retrieveUser = async () => {
         if(currentUser) {
             // Get events doc from Firebase database
-            const docRef = await doc(db, 'users', currentUser.uid);
-            const usersDoc = await getDoc(docRef);
-            setDocSnap(usersDoc.data());
-            setSessionID(docSnap.sessionId);
+            const userRef = await doc(db, 'users', currentUser.uid);
+            const usersDoc = await getDoc(userRef);
+            await setDocSnap(usersDoc.data());
+            await setSessionID(docSnap.sessionId);
             console.log(docSnap, sessionID);
         } else {
             console.log('Error searching for user data.')
+            return
+        }
+
+        try {
+            const eventRef = await doc(db, 'events', docSnap.customerData.id);
+            const eventDoc = await getDoc(eventRef);
+            await setEventSnap(eventDoc.data());
+            await setAccountStatus(eventSnap.accountStatus)
+            console.log(eventSnap) 
+        } catch (error) {
+            console.log(error)
+        }
+
+        if(accountStatus == "active" || "trialing" || "paused") {
+            setAccountActive(true)
         }
     }
 
@@ -85,12 +102,13 @@ export function UserContextProvider({ children }) {
             console.log(docSnap.customerData.id)
             const docRef = await doc(db, 'events', docSnap.customerData.id);
             const eventDoc = await getDoc(docRef);
-            setEventSnap(eventDoc.data());
-            setAccountStatus(eventSnap.accountStatus)
+            await setEventSnap(eventDoc.data());
+            await setAccountStatus(eventSnap.accountStatus)
             console.log(accountStatus);
         } catch (error) {
             console.log('Error searching for user events and account data:', error)
         }
+
     }
 
     return (
@@ -102,7 +120,8 @@ export function UserContextProvider({ children }) {
             docSnap,
             sessionID,
             accountStatus,
-            retrieveAccountDetails
+            retrieveAccountDetails,
+            accountActive
             }
         }>{!loading && children}</UserContext.Provider>
     )

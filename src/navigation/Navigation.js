@@ -22,7 +22,7 @@ import './Navigation.css'
 import { UserContextData } from "../context/UserContext";
 
 export default function Navigation() {
-    const {currentUser, logout, accountStatus, docSnap, retrieveAccountDetails} = UserContextData()
+    const {currentUser, logout, accountActive} = UserContextData()
 
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
@@ -31,18 +31,9 @@ export default function Navigation() {
     const navigate = useNavigate()
 
    useEffect(() => {
-    if(docSnap) {
-        retrieveAccountDetails()
-    }}, [currentUser, docSnap])
-
-    useEffect(() => {
-      if(accountStatus == "active"){ 
-        setShowUserNav(true)
-      }
-      if(accountStatus == "trialing"){
-        setShowUserNav(true)
-      }
-    }, [accountStatus])
+    if(accountActive == true) {
+      setShowUserNav(true)
+    }}, [currentUser, accountActive])
 
     const tryLogout = () => {
       if(currentUser){

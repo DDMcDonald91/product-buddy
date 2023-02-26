@@ -5,30 +5,18 @@ import Checkout from './Checkout';
 import Renew from '../assets/components/Renew';
 
 export default function Profile() {
-    const {currentUser, docSnap, accountStatus, sessionID, retrieveAccountDetails} = UserContextData()
-    const [activeAccount, setActiveAccount] = useState(false)
+    const {currentUser, docSnap, accountStatus, sessionID, activeAccount} = UserContextData()
 
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
+    /*
     useEffect(() => {
         if(docSnap) {
             retrieveAccountDetails()
     }}, [currentUser, docSnap, accountStatus])
-
-    useEffect(() => {
-        if(accountStatus == "active"){ 
-            setActiveAccount(true)
-        }
-        if(accountStatus == "trialing"){
-            setActiveAccount(true)
-        }
-        if(accountStatus == "paused"){
-            setActiveAccount(true)
-        }
-      }, [!accountStatus])
-   
+   */
     if(!currentUser){
         return(
             <Container className='page mt-5'>
@@ -46,7 +34,7 @@ export default function Profile() {
         )
     }
 
-    if(currentUser && !activeAccount) {
+    if(currentUser && activeAccount == false) {
         return(
             <Container className='page mt-5'>
                 <h1>Profile</h1>
