@@ -5,7 +5,7 @@ import Checkout from './Checkout';
 import Renew from '../assets/components/Renew';
 
 export default function Profile() {
-    const {currentUser, docSnap, accountStatus, sessionID, activeAccount} = UserContextData()
+    const {currentUser, docSnap, accountStatus, sessionID, accountActive} = UserContextData()
 
 
     //API
@@ -34,7 +34,7 @@ export default function Profile() {
         )
     }
 
-    if(currentUser && activeAccount == false) {
+    if(currentUser && accountActive == false) {
         return(
             <Container className='page mt-5'>
                 <h1>Profile</h1>
