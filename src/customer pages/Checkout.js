@@ -1,42 +1,28 @@
 import React, {useState, useEffect} from 'react'
 import { Container, Card, Button, Form } from 'react-bootstrap'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, collection } from "firebase/firestore";
-
+import { doc, getDoc } from "firebase/firestore";
+import { UserContextData } from '../context/UserContext';
 import { db } from "../Firebase";
 
 export default function Checkout() {
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const [currentUser, setCurrentUser] = useState(null)
-    const [docSnap, setDocSnap] = useState(null)
+    const { currentUser, docSnap } = UserContextData(null)
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
-    const auth = getAuth();
 
     useEffect(() => {
         const accountUpdate = async () => {
             // Set loading screen while function starts
             setLoading(true)
-            // Find user from Firebase
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                  // User is signed in, see docs for a list of available properties
-                  // https://firebase.google.com/docs/reference/js/firebase.User
-                  const uid = user.uid;
-                  // ...
-                  setCurrentUser(user)
-                  console.log("User is signed in:", user, uid);
-                } else {
-                    console.log('No user signed in from checkout...')
-                }
-              });
+
             //Finds user Stripe id from Firebase database  
             const docRef = await doc(db, 'users', currentUser.uid);
             setDocSnap(await getDoc(docRef));
             setStripeId(await docSnap.data().customerData.id)
             console.log(docSnap.data(), stripeId)
+
             // Turn off loading screen for user
             setLoading(false)
         }
@@ -47,7 +33,7 @@ export default function Checkout() {
 
   return (
     <Container className='page'>
-        {!loading && !stripeId ?
+        {!loading ?
         <>
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />

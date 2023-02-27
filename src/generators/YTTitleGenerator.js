@@ -1,8 +1,17 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import YTTitleForm from '../form/YTTitleForm'
+import { useNavigate } from 'react-router-dom';
+import { UserContextData } from '../context/UserContext';
 
 export default function YTTitleGenerator() {
+  const navigate = useNavigate();
+  const {currentUser, accountActive} = UserContextData()
+
+  if(!currentUser || accountActive == false){
+    navigate('/login')
+  }
+
   return (
     <Container className="page">
       <h1 align='center'>YouTube Title Generator</h1>

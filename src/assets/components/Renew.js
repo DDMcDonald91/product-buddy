@@ -9,8 +9,7 @@ export default function Renew() {
     // API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const { currentUser } = UserContextData(null)
-    const [docSnap, setDocSnap] = useState(null)
+    const { currentUser, docSnap } = UserContextData(null)
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
     

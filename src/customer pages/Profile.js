@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import { UserContextData } from '../context/UserContext';
 import { Container, Form, Button } from 'react-bootstrap';
 import Checkout from './Checkout';
@@ -29,6 +28,7 @@ export default function Profile() {
         return(
             <Container className='page mt-5'>
                 <h1>Profile</h1>
+                <h2>Welcome back {docSnap.firstName}!</h2>
                 <Checkout />
             </Container>
         )
@@ -38,6 +38,7 @@ export default function Profile() {
         return(
             <Container className='page mt-5'>
                 <h1>Profile</h1>
+                <h2>Welcome back {docSnap.firstName}!</h2>
                 <Renew />
             </Container>
         )
@@ -52,7 +53,6 @@ export default function Profile() {
             <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{accountStatus}</h5></Container>
             :
             <>
-                <div></div>
             </>
         }
         <Container>

@@ -1,8 +1,17 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import ImageForm from '../form/ImageForm'
+import { useNavigate } from 'react-router-dom';
+import { UserContextData } from '../context/UserContext';
 
 export default function ImageGenerator() {
+  const navigate = useNavigate();
+  const {currentUser, accountActive} = UserContextData()
+
+  if(!currentUser || accountActive == false){
+    navigate('/login')
+  }
+
   return (
     <Container className="page">
         <h1 align='center'>AI Art Generator</h1>
