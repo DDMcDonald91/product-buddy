@@ -12,7 +12,7 @@ export default function Profile() {
 
     
     useEffect(() => {
-        if(docSnap) {
+        if(currentUser) {
             retrieveUser()
     }}, [currentUser, docSnap, accountStatus])
    
