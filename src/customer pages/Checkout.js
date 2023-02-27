@@ -2,13 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { Container, Card, Button, Form } from 'react-bootstrap'
 import { doc, getDoc } from "firebase/firestore";
 import { UserContextData } from '../context/UserContext';
-import { db } from "../Firebase";
 
 export default function Checkout() {
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const { currentUser, docSnap } = UserContextData(null)
+    const { currentUser, docSnap } = UserContextData()
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
 
@@ -18,10 +17,7 @@ export default function Checkout() {
             setLoading(true)
 
             //Finds user Stripe id from Firebase database  
-            const docRef = await doc(db, 'users', currentUser.uid);
-            setDocSnap(await getDoc(docRef));
-            setStripeId(await docSnap.data().customerData.id)
-            console.log(docSnap.data(), stripeId)
+            setStripeId(await docSnap.customerData.id)
 
             // Turn off loading screen for user
             setLoading(false)
