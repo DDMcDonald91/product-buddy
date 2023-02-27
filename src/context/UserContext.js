@@ -8,7 +8,7 @@ const UserContext = createContext(null)
 export function UserContextProvider({ children }) {
     // global user states
     const auth = getAuth();
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [currentUser, setCurrentUser] = useState(null);
     const [docSnap, setDocSnap] = useState(null);
     const [sessionID, setSessionID] = useState(null);
@@ -19,15 +19,49 @@ export function UserContextProvider({ children }) {
 
     // check for Firebase user on load
     useEffect(() => {
+        setLoading(true)
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
         })
+        console.log(currentUser)
+
         if(currentUser){
             retrieveUser()
         }
         setLoading(false)
+
         return unsubscribe
-    }, [!currentUser, !docSnap, !sessionID, !accountStatus, !eventSnap])
+    }, [currentUser, !docSnap, !sessionID, !accountStatus, !eventSnap])
+
+    // retrieves user account data if the user is signed in
+    const retrieveUser = async () => {
+        if(currentUser) {
+            // Get events doc from Firebase database
+            const userRef = await doc(db, 'users', currentUser.uid);
+            const usersDoc = await getDoc(userRef);
+            await setDocSnap(usersDoc.data());
+            await setSessionID(docSnap.sessionId);
+            console.log(docSnap, sessionID);
+        } else {
+            console.log('Error searching for user data.')
+        }
+
+        try {
+            const eventRef = await doc(db, 'events', docSnap.customerData.id);
+            const eventDoc = await getDoc(eventRef);
+            await setEventSnap(eventDoc.data());
+            await setAccountStatus(eventSnap.accountStatus)
+            
+            if(accountStatus == "active" || "trialing" || "paused") {
+                await setAccountActive(true)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        
+        console.log(accountActive)
+
+    }
 
     // login user
     const login = (email, password) => {
@@ -39,6 +73,7 @@ export function UserContextProvider({ children }) {
         const user = userCredential.user;
         // ...
         setCurrentUser(user)
+        console.log(currentUser)
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -65,39 +100,6 @@ export function UserContextProvider({ children }) {
           // An error happened.
           console.log("Logout error:", error)
         });
-    }
-
-    // retrieves user account data if the user is signed in
-    const retrieveUser = async () => {
-        if(currentUser) {
-            // Get events doc from Firebase database
-            const userRef = await doc(db, 'users', currentUser.uid);
-            const usersDoc = await getDoc(userRef);
-            await setDocSnap(usersDoc.data());
-            await setSessionID(docSnap.sessionId);
-            console.log(docSnap, sessionID);
-        } else {
-            console.log('Error searching for user data.')
-            return
-        }
-
-        try {
-            const eventRef = await doc(db, 'events', docSnap.customerData.id);
-            const eventDoc = await getDoc(eventRef);
-            await setEventSnap(eventDoc.data());
-            await setAccountStatus(eventSnap.accountStatus)
-            console.log(eventSnap) 
-        } catch (error) {
-            console.log(error)
-        }
-
-        if(accountStatus == "active" || "trialing" || "paused") {
-            setAccountActive(true)
-        }
-
-        if(accountStatus !== "active" || "trialing" || "paused") {
-            setAccountActive(false)
-        }
     }
 
     return (

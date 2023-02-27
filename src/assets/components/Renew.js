@@ -18,10 +18,8 @@ export default function Renew() {
             // Set loading screen while function starts
             setLoading(true)
 
-            retrieveUser()
-
             if(currentUser){
-                const id = await docSnap.data().customerData.id
+                const id = await docSnap.customerData.id
                 setStripeId(id)
             }
 
@@ -31,7 +29,7 @@ export default function Renew() {
         accountCheck()
         console.log(stripeId)
 
-    }, [currentUser, !stripeId])
+    }, [!stripeId, !docSnap])
 
   return (
     <Container className='page'>

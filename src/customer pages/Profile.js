@@ -1,21 +1,18 @@
 import { useEffect } from 'react';
 import { UserContextData } from '../context/UserContext';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import Checkout from './Checkout';
 import Renew from '../assets/components/Renew';
 
 export default function Profile() {
     const {currentUser, docSnap, accountStatus, sessionID, accountActive, retrieveUser} = UserContextData()
 
-
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    
     useEffect(() => {
-        if(currentUser) {
-            retrieveUser()
-    }}, [currentUser, !docSnap, !accountStatus])
+        retrieveUser()
+    }, [!currentUser, !accountActive, !sessionID, !docSnap])
    
     if(!currentUser){
         return(
@@ -29,18 +26,26 @@ export default function Profile() {
         return(
             <Container className='page mt-5'>
                 <h1>Profile</h1>
-                <h2>Welcome back {docSnap.firstName}!</h2>
+                <h2>Welcome back</h2>
                 <Checkout />
             </Container>
         )
     }
 
-    if(currentUser && accountActive == false) {
+    if(currentUser && accountActive === false) {
         return(
             <Container className='page mt-5'>
                 <h1>Profile</h1>
-                <h2>Welcome back {docSnap.firstName}!</h2>
+                <h2>Welcome back</h2>
                 <Renew />
+            </Container>
+        )
+    }
+
+    if(currentUser && !docSnap) {
+        return(
+            <Container className='page mt-5'>
+                <Spinner />
             </Container>
         )
     }
