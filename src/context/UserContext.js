@@ -109,7 +109,8 @@ export function UserContextProvider({ children }) {
             docSnap,
             sessionID,
             accountStatus,
-            accountActive
+            accountActive,
+            retrieveUser
             }
         }>{!loading && children}</UserContext.Provider>
     )

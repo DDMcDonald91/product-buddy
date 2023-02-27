@@ -4,18 +4,18 @@ import Checkout from './Checkout';
 import Renew from '../assets/components/Renew';
 
 export default function Profile() {
-    const {currentUser, docSnap, accountStatus, sessionID, accountActive} = UserContextData()
+    const {currentUser, docSnap, accountStatus, sessionID, accountActive, retrieveUser} = UserContextData()
 
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    /*
+    
     useEffect(() => {
         if(docSnap) {
-            retrieveAccountDetails()
+            retrieveUser()
     }}, [currentUser, docSnap, accountStatus])
-   */
+   
     if(!currentUser){
         return(
             <Container className='page mt-5'>
