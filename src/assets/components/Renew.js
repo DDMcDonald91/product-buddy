@@ -9,7 +9,7 @@ export default function Renew() {
     // API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const { currentUser, docSnap, retrieveAccount } = UserContextData(null)
+    const { currentUser, docSnap, retrieveUser } = UserContextData(null)
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
     
@@ -18,8 +18,8 @@ export default function Renew() {
             // Set loading screen while function starts
             setLoading(true)
 
-            retrieveAccount()
-            
+            retrieveUser()
+
             if(currentUser){
                 const id = await docSnap.data().customerData.id
                 setStripeId(id)
