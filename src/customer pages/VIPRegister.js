@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Register() {
+export default function VIPRegister() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -21,7 +21,7 @@ export default function Register() {
 
 
     // Register the user
-    const register = async (e) => {
+    const vipRegister = async (e) => {
         e.preventDefault()
         
         setLoading(true)
@@ -45,13 +45,11 @@ export default function Register() {
                 lastName,
                 email,
                 accountID: user.uid,
-                sessionId: "",
+                sessionId: "xxx",
             });
             console.log("new user added", user.uid);
         
-            const response = await axios.post(`${API_URL}/create-customer`, {
-                name: firstName + " " + lastName,
-                customerEmail: email,
+            const response = await axios.post(`${API_URL}/create-vip-account`, {
                 user: user.uid,
             });
             console.log(response.data);
@@ -74,7 +72,7 @@ export default function Register() {
                 <h1>Sign Up!</h1>
                 <p>Fill out the form below create your account!</p>
             </Container>
-            <Form onSubmit={register} className='w-100 p-2'>
+            <Form onSubmit={vipRegister} className='w-100 p-2'>
                 <Form.Group className="mb-3" controlId="formBasicFirstName">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control required type="text" placeholder="Enter your first name" onChange={e => {setFirstName(e.target.value)}} />

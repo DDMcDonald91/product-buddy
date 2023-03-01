@@ -46,7 +46,23 @@ export function UserContextProvider({ children }) {
         } else {
             console.log('Error searching for user data.')
         }
+        
+        // Checks for VIP accounts
+        if(sessionID === "xxx"){
+            const eventRef = await doc(db, 'events', "vip_" + currentUser.uid);
+            const eventDoc = await getDoc(eventRef);
+            await setEventSnap(eventDoc.data());
+            await setAccountStatus(eventSnap.accountStatus)
+            console.log(eventSnap)
+                
+            if(accountStatus == "vip") {
+                await setAccountActive(true)
+            }
+            setLoading(false)
+            return
+        }
 
+        // Checks for regular accounts
         try {
             const eventRef = await doc(db, 'events', docSnap.customerData.id);
             const eventDoc = await getDoc(eventRef);
@@ -60,10 +76,9 @@ export function UserContextProvider({ children }) {
         } catch (error) {
             console.log(error)
         }
-        setLoading(false)
         
         console.log(accountActive)
-
+        setLoading(false)
     }
 
     // login user

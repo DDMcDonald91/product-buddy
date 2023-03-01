@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Spinner } from 'react-bootstrap'
+import { Container, Spinner, Button, Card } from 'react-bootstrap'
 import axios from "axios";
 
 
@@ -12,32 +12,48 @@ export default function WeatherBar() {
     const [long, setLong] = useState()
 
     useEffect(() => {
-        // find user location via latitude and longitude
-        setLoading(true)
-        navigator.geolocation.getCurrentPosition(function(position) {
+      setLoading(true);
+  
+      // Try to get user location via browser geolocation
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
           setLat(position.coords.latitude.toString());
           setLong(position.coords.longitude.toString());
-        });
-      
-        console.log("Latitude is:", lat)
-        console.log("Longitude is:", long)
-        
-        if(lat && long) {
-          try {
-            weatherCheck()
-          } catch (error) {
-            setErrorMessage('Location currently unavailable.')
-          }
+        },
+        function (error) {
+          // Fallback to IP geolocation if user denies browser geolocation
+          axios
+            .get('https://ipapi.co/json/')
+            .then(function (response) {
+              setLat(response.data.latitude.toString());
+              setLong(response.data.longitude.toString());
+            })
+            .catch(function (error) {
+              setErrorMessage('Location currently unavailable.');
+              console.log(error)
+            });
         }
-        setLoading(false)
-    }, [!lat, !long])
+      );
+    }, []);
+  
+    useEffect(() => {
+      if (lat && long) {
+        try {
+          weatherCheck();
+        } catch (error) {
+          setErrorMessage('Location currently unavailable.');
+        }
+      }
+      setLoading(false);
+    }, [lat, long]);
+  
 
     const weatherCheck = async () => {
       const options = {
         method: 'GET',
         url: `https://weatherapi-com.p.rapidapi.com/current.json?q=${lat}%2C${long}`,
         headers: {
-          'X-RapidAPI-Key': '61254c1e4cmshcc74a38697e3b87p12bb76jsn4854c036d859',
+          'X-RapidAPI-Key': process.env.REACT_APP_WEATHER_API,
           'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
         }
       };
@@ -52,8 +68,17 @@ export default function WeatherBar() {
 
     const noWeatherData = () => {
       return (
-      <Container>
-        <p>Data currently unavailable</p>
+      <Container fluid className='p-1 mt-1 mb-5' style={{color: 'black', borderRadius: '.375rem', border: '1px solid black'  }}>
+        <Card bg='light'>
+          <Card.Header>Error</Card.Header>
+          <Card.Body>
+            <Card.Title>Forecast Unavailable</Card.Title>
+            <Card.Text>
+            Would you like to activate this widget?
+            </Card.Text>
+            <Button onClick={() => window.location.reload()}>Get Location</Button>
+          </Card.Body>
+        </Card>
       </Container>
       )
     }
@@ -61,7 +86,7 @@ export default function WeatherBar() {
     const loadingSpinner = () => {
       return(
       <Container>
-        <Spinner />
+        <Spinner animation='grow' />
       </Container>
       )
     }
@@ -80,9 +105,16 @@ export default function WeatherBar() {
 
     if(weather && !loading) {
       return(
-        <Container fluid className='p-1 mt-1' style={{background: 'black', color: 'white', borderRadius: '.375rem', border: '1px solid white'}}>
-          <p>Location: {weather.location.name}, {weather.location.region}</p>
-          <p>It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f}</p>
+        <Container fluid className='p-1 mt-1 mb-5' style={{color: 'black', borderRadius: '.375rem', border: '1px solid black'  }}>
+          <Card bg='light'>
+          <Card.Header>{weather.location.name}, {weather.location.region}</Card.Header>
+          <Card.Body>
+            <Card.Title>Current Forecast:</Card.Title>
+            <Card.Text>
+            It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f} °F.
+            </Card.Text>
+          </Card.Body>
+        </Card>
         </Container>
       )
     }

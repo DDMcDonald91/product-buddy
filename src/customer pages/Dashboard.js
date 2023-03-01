@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react'
 import { Container, Row, Col, Spinner } from 'react-bootstrap'
 import { UserContextData } from '../context/UserContext';
 import ProductCard from '../generators/ProductCard'
-import { useNavigate } from 'react-router-dom'; 
 import { DashboardData } from '../assets/components/DashboardData';
 import WeatherBar from '../assets/components/WeatherBar';
 
 export default function Dashboard() {
-    const {currentUser, accountActive, loading} = UserContextData()
+    const {currentUser, accountActive, loading, docSnap} = UserContextData()
     const [error, setError] = useState()
     const [showDashboard, setShowDashboard] = useState(false)
 
@@ -24,12 +23,12 @@ export default function Dashboard() {
   return (
     <Container align='center' className='page'>
         {!loading && error ? <p>{error}</p> : <></>}
-        {loading ? <Spinner animation='grow' /> : <></>}
+        {loading ? <Spinner animation='grow' className='mt-5'/> : <></>}
         {showDashboard && accountActive == true ?
         <>
             <Container className="page mt-5">
                 <WeatherBar />
-                <p>Welcome Back {currentUser.email}</p>
+                <p>Welcome Back {docSnap.firstName}</p>
                 <h1>What can Keni help you with today?</h1>
                 <Container className='mt-5'>
                     <Row>

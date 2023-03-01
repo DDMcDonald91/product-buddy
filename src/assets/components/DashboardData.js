@@ -25,8 +25,26 @@ export const DashboardData = [
     },
     {
         title:"Youtube Scripting",
-        description:"Need some ideas for your youtube video? Start here!",
+        description:"Need a script for your youtube video? Start here!",
         link:"/youtube-script-generator",
+        color:"danger"
+    },
+    {
+        title:"Youtube Titles",
+        description:"Need a clever title for your youtube video? Start here!",
+        link:"/youtube-title-generator",
+        color:"danger"
+    },
+    {
+        title:"Youtube Descriptions",
+        description:"Need a unique description for your youtube video? Start here!",
+        link:"/youtube-description-generator",
+        color:"danger"
+    },
+    {
+        title:"Youtube Topics",
+        description:"Need some ideas for your youtube video? Start here!",
+        link:"/youtube-topic-generator",
         color:"danger"
     },
 ]

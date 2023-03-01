@@ -13,8 +13,10 @@ import Dashboard from './customer pages/Dashboard';
 import Register from './customer pages/Register';
 import Login from './customer pages/Login';
 import Profile from './customer pages/Profile';
+import Support from './customer pages/Support';
 import Layout from './assets/components/Layout';
 import Error from './customer pages/Error';
+import VIPRegister from './customer pages/VIPRegister';
 
 
 function App() {
@@ -34,11 +36,13 @@ function App() {
         <Route path='/youtube-title-generator' element={<Layout title="YouTube Title Generator" instructions="Use the form below to create a list of titles for your YouTube video." form={<All.YTTitleForm />} />} />
         <Route path='/youtube-description-generator' element={<Layout title="YouTube Description Generator" instructions="Use the form below to a list of descriptions for your YouTube video." form={<All.YTDescriptionForm />} />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/vip-register' element={<VIPRegister />} />
         <Route path='/login' element={<Login />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/success/*' element={<Success />} />
+        <Route path='/support' element={<Support />} />
         <Route path='/cancel' element={<Cancel />} />
         <Route path='/*' element={<Error />} />
       </Routes>
