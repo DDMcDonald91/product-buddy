@@ -1,7 +1,6 @@
-import { Button, Container, Col, Row, Image, Card, CardGroup, Nav } from 'react-bootstrap'
-import { FeaturesData } from './assets/components/FeaturesData'
+import { Button, Container, Col, Row, Card, CardGroup } from 'react-bootstrap'
+import { FeaturesData, SocialData } from './assets/components/FeaturesData'
 import image_1 from '../src/assets/images/image_1.png'
-import image_2 from '../src/assets/images/image_2.png'
 import image_3 from '../src/assets/images/image_3.png'
 import image_4 from '../src/assets/images/image_4.png'
 import image_5 from '../src/assets/images/image_5.png'
@@ -12,11 +11,12 @@ import * as AiIcons from "react-icons/ai";
 import * as TiIcons from "react-icons/ti";
 
 import { Link } from 'react-router-dom'
+import FeatureCard from './assets/components/FeatureCard'
 
 export default function Home() {
 
   return (
-    <Container align='center' fluid style={{maxWidth: '70rem'}}>
+    <Container align='center' fluid style={{maxWidth: '80rem'}}>
 
       <Container className='mt-5 mb-5'>
         <h1>Meet Keni.</h1>
@@ -99,61 +99,13 @@ export default function Home() {
       <Container className='mt-5 mb-5'>
         <h1>Perfect For Any Platform</h1>
         <h3>Create faster social media captions, product descriptions, SEO keywords, and more!</h3>
-        <CardGroup className='mt-5' style={{borderRadius: '5px'}}>
-          <Card style={{background: 'none'}}>
-            <Card.Body>
-              <AiIcons.AiOutlineYoutube style={{height: '50px', width: '50px'}} />
-              <Card.Title>Youtube</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural lead-in
-                to additional content. This content is a little bit longer.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card style={{background: 'none'}}>
-            <Card.Body>
-              <TiIcons.TiSocialInstagram style={{height: '50px', width: '50px'}} />
-              <Card.Title>Social Media</Card.Title>
-              <Card.Text>
-                This card has supporting text below as a natural lead-in to
-                additional content.{' '}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card style={{background: 'none'}}>
-            <Card.Body>
-              <AiIcons.AiOutlineShoppingCart style={{height: '50px', width: '50px'}} />
-              <Card.Title>E-Commerce</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural lead-in
-                to additional content. This card has even longer content than the
-                first to show that equal height action.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card style={{background: 'none'}}>
-            <Card.Body>
-              <AiIcons.AiOutlineRobot style={{height: '50px', width: '50px'}} />
-              <Card.Title>AI Art</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural lead-in
-                to additional content. This card has even longer content than the
-                first to show that equal height action.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card style={{background: 'none'}}>
-            <Card.Body>
-              <AiIcons.AiOutlineFormatPainter style={{height: '50px', width: '50px'}} />
-              <Card.Title>Brand Assets</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural lead-in
-                to additional content. This card has even longer content than the
-                first to show that equal height action.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </CardGroup>
+        <Row>
+          {SocialData.map((item, index) => (
+            <Col key={index}>
+              <FeatureCard title={item.title} text={item.text} />
+            </Col>
+          ))}
+        </Row>
       </Container>
 
       <Container className='mt-5 mb-5'>

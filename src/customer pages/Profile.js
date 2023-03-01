@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { UserContextData } from '../context/UserContext';
 import { Container, Form, Button, Spinner, Card, ListGroup } from 'react-bootstrap';
 import Checkout from './Checkout';

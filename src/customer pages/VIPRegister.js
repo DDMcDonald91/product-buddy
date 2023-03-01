@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, setDoc, doc } from "firebase/firestore"; 
+import { setDoc, doc } from "firebase/firestore"; 
 import { db } from "../Firebase";
 import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { useState } from "react";
@@ -32,7 +32,7 @@ export default function VIPRegister() {
             return
         }
         // Checks for matching passwords
-        if(password != confirmPassword) {
+        if(password !== confirmPassword) {
             alert('Your passwords must match. Please make sure your password matches.')
             return
         }

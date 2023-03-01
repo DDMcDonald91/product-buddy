@@ -66,7 +66,7 @@ export default function Navigation() {
           {showUserNav ?
           <>
           <div style={{display: 'flex', marginLeft: '2rem'}}>
-            <h4 style={{color: 'black'}}>Find your usecase:</h4>
+            <h4 style={{color: 'white'}}>Find your usecase:</h4>
           </div>
           {SidebarData.map((item, index) => {
             return (

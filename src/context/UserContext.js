@@ -1,5 +1,5 @@
 import { useContext, createContext, useState, useEffect } from "react";
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged, getAuth } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 
@@ -55,14 +55,14 @@ export function UserContextProvider({ children }) {
             await setAccountStatus(eventSnap.accountStatus)
             console.log(eventSnap)
                 
-            if(accountStatus == "vip") {
+            if(accountStatus === "vip") {
                 await setAccountActive(true)
             }
             setLoading(false)
         }
 
         // Checks for regular accounts
-        if(accountStatus != "vip"){
+        if(accountStatus !== "vip"){
             try {
                 const eventRef = await doc(db, 'events', docSnap.customerData.id);
                 const eventDoc = await getDoc(eventRef);
@@ -70,7 +70,7 @@ export function UserContextProvider({ children }) {
                 await setAccountStatus(eventSnap.accountStatus)
                 console.log(eventSnap)
                 
-                if(accountStatus == "active" || "trialing" || "paused") {
+                if(accountStatus === "active" || "trialing") {
                     await setAccountActive(true)
                 }
             } catch (error) {

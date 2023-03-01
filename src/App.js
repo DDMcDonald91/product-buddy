@@ -17,6 +17,7 @@ import Support from './customer pages/Support';
 import Layout from './assets/components/Layout';
 import Error from './customer pages/Error';
 import VIPRegister from './customer pages/VIPRegister';
+import Footer from './assets/components/Footer';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route path='/*' element={<Error />} />
       </Routes>
     </Container>
+      <Footer />
     </Router>
     </UserContextProvider>
   );

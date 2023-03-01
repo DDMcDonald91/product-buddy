@@ -32,3 +32,26 @@ export const FeaturesData = [
         description:"Users will find its intuitive interface easy to use which allows them to produce results quickly and efficiently.",
     }
 ]
+
+export const SocialData = [
+    {
+        title: "YouTube",
+        text: "YouTube description.",
+    },
+    {
+        title: "Social Media",
+        text: "Social Media description.",
+    },
+    {
+        title: "E-Commerce",
+        text: "E-Commerce desc.",
+    },
+    {
+        title: "AI Art",
+        text: "AI Art desc.",
+    },
+    {
+        title: "Brand Assets",
+        text: "Brand Assets desc.",
+    },
+]
