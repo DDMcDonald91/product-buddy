@@ -59,22 +59,23 @@ export function UserContextProvider({ children }) {
                 await setAccountActive(true)
             }
             setLoading(false)
-            return
         }
 
         // Checks for regular accounts
-        try {
-            const eventRef = await doc(db, 'events', docSnap.customerData.id);
-            const eventDoc = await getDoc(eventRef);
-            await setEventSnap(eventDoc.data());
-            await setAccountStatus(eventSnap.accountStatus)
-            console.log(eventSnap)
-            
-            if(accountStatus == "active" || "trialing" || "paused") {
-                await setAccountActive(true)
+        if(accountStatus != "vip"){
+            try {
+                const eventRef = await doc(db, 'events', docSnap.customerData.id);
+                const eventDoc = await getDoc(eventRef);
+                await setEventSnap(eventDoc.data());
+                await setAccountStatus(eventSnap.accountStatus)
+                console.log(eventSnap)
+                
+                if(accountStatus == "active" || "trialing" || "paused") {
+                    await setAccountActive(true)
+                }
+            } catch (error) {
+                console.log(error)
             }
-        } catch (error) {
-            console.log(error)
         }
         
         console.log(accountActive)
