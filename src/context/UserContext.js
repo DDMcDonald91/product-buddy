@@ -20,18 +20,19 @@ export function UserContextProvider({ children }) {
     // check for Firebase user on load
     useEffect(() => {
         setLoading(true)
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-        })
-        console.log(currentUser)
+        const userCheck = async () => {
+            const unsubscribe = auth.onAuthStateChanged(user => {
+                setCurrentUser(user)
+            })
+    
+            if(currentUser){
+               retrieveUser()
+            }
 
-        if(currentUser){
-            retrieveUser()
+            return unsubscribe
         }
-        setLoading(false)
-
-        return unsubscribe
-    }, [currentUser, !docSnap, !sessionID, !accountStatus, !eventSnap])
+        userCheck()
+    }, [currentUser, !docSnap, !sessionID, !accountStatus, !eventSnap, accountActive])
 
     // retrieves user account data if the user is signed in
     const retrieveUser = async () => {
@@ -51,6 +52,7 @@ export function UserContextProvider({ children }) {
             const eventDoc = await getDoc(eventRef);
             await setEventSnap(eventDoc.data());
             await setAccountStatus(eventSnap.accountStatus)
+            console.log(eventSnap)
             
             if(accountStatus == "active" || "trialing" || "paused") {
                 await setAccountActive(true)
@@ -58,6 +60,7 @@ export function UserContextProvider({ children }) {
         } catch (error) {
             console.log(error)
         }
+        setLoading(false)
         
         console.log(accountActive)
 
@@ -112,9 +115,10 @@ export function UserContextProvider({ children }) {
             sessionID,
             accountStatus,
             accountActive,
-            retrieveUser
+            retrieveUser,
+            loading
             }
-        }>{!loading && children}</UserContext.Provider>
+        }>{children}</UserContext.Provider>
     )
 }
 

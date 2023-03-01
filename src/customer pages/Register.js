@@ -67,22 +67,26 @@ export default function Register() {
     }
 
   return (
-    <Container className='page'>
-        <Container style={{maxWidth: '30rem'}} className='justify-content-center align-content-center d-flex'>
-            <Form onSubmit={register} className='w-100'>
+    <Container className='mt-5 page'>
+        <Container style={{maxWidth: '30rem'}}>
+            <Container align='center'>
+                <h1>Sign Up!</h1>
+                <p>Fill out the form below create your account!</p>
+            </Container>
+            <Form onSubmit={register} className='w-100 p-2'>
                 <Form.Group className="mb-3" controlId="formBasicFirstName">
                 <Form.Label>First Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter your first name" onChange={e => {setFirstName(e.target.value)}} />
+                <Form.Control required type="text" placeholder="Enter your first name" onChange={e => {setFirstName(e.target.value)}} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicLastName">
                 <Form.Label>Last Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter your last name" onChange={e => {setLastName(e.target.value)}} />
+                <Form.Control required type="text" placeholder="Enter your last name" onChange={e => {setLastName(e.target.value)}} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" onChange={e => {setEmail(e.target.value)}} />
+                <Form.Control required type="email" placeholder="Enter email" onChange={e => {setEmail(e.target.value)}} />
                 <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
                 </Form.Text>
@@ -90,20 +94,17 @@ export default function Register() {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={e => {setPassword(e.target.value); console.log(e.target.value)}} />
+                    <Form.Control required type="password" placeholder="Password" onChange={e => {setPassword(e.target.value); console.log(e.target.value)}} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
                     <Form.Label>Confirm your password</Form.Label>
-                    <Form.Control type="password" placeholder="Confirm your password" onChange={e => {setConfirmPassword(e.target.value); console.log(e.target.value)}} />
+                    <Form.Control required type="password" placeholder="Confirm your password" onChange={e => {setConfirmPassword(e.target.value); console.log(e.target.value)}} />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
                 {!loading ? 
                 <>
-                <Button variant="primary" type="submit">
+                <Button className='w-100 mt-5' variant="primary" type="submit">
                     Submit
                 </Button>
                 </> 

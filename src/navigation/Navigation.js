@@ -31,7 +31,7 @@ export default function Navigation() {
     const navigate = useNavigate()
 
    useEffect(() => {
-    if(accountActive == true) {
+    if(accountActive === true) {
       setShowUserNav(true)
     }}, [currentUser, accountActive])
 

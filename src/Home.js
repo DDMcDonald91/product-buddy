@@ -5,13 +5,13 @@ import image_2 from '../src/assets/images/image_2.png'
 import image_3 from '../src/assets/images/image_3.png'
 import image_4 from '../src/assets/images/image_4.png'
 import image_5 from '../src/assets/images/image_5.png'
+import image_10 from '../src/assets/images/image_10.png'
 
 
 import * as AiIcons from "react-icons/ai";
 import * as TiIcons from "react-icons/ti";
 
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
 
 export default function Home() {
 
@@ -19,13 +19,11 @@ export default function Home() {
     <Container align='center' fluid style={{maxWidth: '70rem'}}>
 
       <Container className='mt-5 mb-5'>
-        <h1 style={{marginBottom: '-2.5px'}}>Meet Keni.</h1>
-        <h2>The #1 AI assistant for Content Creators and Entrepreneurs.</h2>
-      </Container>
-
-      <Container className='mt-5 mb-5' style={{maxWidth: '30rem'}}>
-        <h3>How can Keni help you grow your business?</h3>
-        <p>Learn all the various ways the Keni AI tools can help streamline and increase your creative workflow.</p>
+        <h1>Meet Keni.</h1>
+        <h3>The #1 AI assistant for Content Creators and Entrepreneurs.</h3>
+        <Container className='mt-5 mb-5 p-0' fluid style={{height: '500px'}}>
+          <Container style={{backgroundImage: `url(${image_10})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '100%', width: '100%', borderRadius: '0.375rem', backgroundPosition: 'center'}}></Container>
+        </Container>
         <Link to='/register'>
           <Button>Get Started</Button>
         </Link>
@@ -33,6 +31,11 @@ export default function Home() {
         <Link to='#about-container'>
           <Button className='mt-2'>Learn More</Button>
         </Link>
+      </Container>
+
+      <Container className='mt-5 mb-5' style={{maxWidth: '30rem'}}>
+        <h1>How can Keni help you grow your business?</h1>
+        <h3>Learn all the various ways the Keni AI tools can help streamline and increase your creative workflow.</h3>
       </Container>
 
       <Container className='mt-5 mb-5'>
@@ -56,9 +59,6 @@ export default function Home() {
               ))}
             </Row>
           </Col>
-          <Link className='mt-3' to='/register'>
-              <Button>Get Started</Button>
-            </Link>
         </Row>
       </Container>
 
@@ -97,7 +97,7 @@ export default function Home() {
       </Container>
       
       <Container className='mt-5 mb-5'>
-        <h1 style={{marginBottom: '-2.5px'}}>Perfect For Any Platform</h1>
+        <h1>Perfect For Any Platform</h1>
         <h3>Create faster social media captions, product descriptions, SEO keywords, and more!</h3>
         <CardGroup className='mt-5' style={{borderRadius: '5px'}}>
           <Card style={{background: 'none'}}>
@@ -162,6 +162,9 @@ export default function Home() {
         <Container className='mt-5 mb-5 p-0' fluid style={{height: '500px'}}>
           <Container style={{backgroundImage: `url(${image_4})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '100%', width: '100%', borderRadius: '0.375rem', backgroundPosition: 'center'}}></Container>
         </Container>
+        <Link to='/register'>
+          <Button>Get Started</Button>
+        </Link>
       </Container>
 
     </Container>

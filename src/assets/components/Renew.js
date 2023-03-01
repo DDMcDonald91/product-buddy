@@ -32,7 +32,7 @@ export default function Renew() {
     }, [!stripeId, !docSnap])
 
   return (
-    <Container className='page'>
+    <Container align='center'>
         {!loading ?
         <>
             <Card style={{ width: '18rem' }}>

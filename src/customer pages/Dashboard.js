@@ -7,53 +7,45 @@ import { DashboardData } from '../assets/components/DashboardData';
 import WeatherBar from '../assets/components/WeatherBar';
 
 export default function Dashboard() {
-    const {currentUser, accountActive} = UserContextData()
+    const {currentUser, accountActive, loading} = UserContextData()
+    const [error, setError] = useState()
     const [showDashboard, setShowDashboard] = useState(false)
 
-    const navigate = useNavigate()
+    useEffect(() => {
+        if(!currentUser || accountActive == false){
+          setError("Access Denied.")
+        } else {
+            setShowDashboard(true)
+            setError()
+        }
+    }, [accountActive])
 
-    if(!currentUser){
-        navigate('/login')
-    }
-
-   useEffect(() => {
-    if(accountActive == true) {
-        setShowDashboard(true)
-    }}, [currentUser, accountActive])
-
-
-    if(!currentUser) {
-        return(
-            <Container align='center' className='page'>
-                <Spinner />
-            </Container>
-        )
-    }
 
   return (
     <Container align='center' className='page'>
-        {showDashboard ?
+        {!loading && error ? <p>{error}</p> : <></>}
+        {loading ? <Spinner animation='grow' /> : <></>}
+        {showDashboard && accountActive == true ?
         <>
-            <WeatherBar />
-            <p>Welcome Back {currentUser.email}</p>
-            <h1>What can Keni help you with today?</h1>
-            <Container className='mt-5'>
-                <Row>
-                    {DashboardData.map((item, index) => {
-                        return(
-                            <Col xs={12} md={4} lg={3} className='p-1' key={index}>
-                                <ProductCard title={item.title} description={item.description} link={item.link} bg={item.color} />
-                            </Col>
-                        )
-                    })}
-                </Row>
+            <Container className="page mt-5">
+                <WeatherBar />
+                <p>Welcome Back {currentUser.email}</p>
+                <h1>What can Keni help you with today?</h1>
+                <Container className='mt-5'>
+                    <Row>
+                        {DashboardData.map((item, index) => {
+                            return(
+                                <Col xs={12} md={4} lg={3} className='p-1' key={index}>
+                                    <ProductCard title={item.title} description={item.description} link={item.link} bg={item.color} />
+                                </Col>
+                            )
+                        })}
+                    </Row>
+                </Container>
             </Container>
         </>
         :
         <>
-            <Container className='mt-5'>
-                <p>Login or update your account for Dashboard access.</p>
-            </Container>
         </>
         }
     </Container>

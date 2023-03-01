@@ -1,22 +1,26 @@
 import { useEffect } from 'react';
 import { UserContextData } from '../context/UserContext';
-import { Container, Form, Button, Spinner } from 'react-bootstrap';
+import { Container, Form, Button, Spinner, Card, ListGroup } from 'react-bootstrap';
 import Checkout from './Checkout';
 import Renew from '../assets/components/Renew';
 
 export default function Profile() {
-    const {currentUser, docSnap, accountStatus, sessionID, accountActive, retrieveUser} = UserContextData()
+    const {currentUser, docSnap, accountStatus, sessionID, accountActive, loading} = UserContextData()
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
-
-    useEffect(() => {
-        retrieveUser()
-    }, [!currentUser, !accountActive, !sessionID, !docSnap])
    
-    if(!currentUser){
+    if(loading) {
         return(
             <Container className='page mt-5'>
+                <Spinner animation='grow' />
+            </Container>
+        )
+    }
+
+    if(!currentUser){
+        return(
+            <Container align='center' className='page mt-5'>
                 <p>No User Logged In...</p>
             </Container>
         )
@@ -34,43 +38,35 @@ export default function Profile() {
 
     if(currentUser && accountActive === false) {
         return(
-            <Container className='page mt-5'>
+            <Container align="center" className='page mt-5'>
                 <h1>Profile</h1>
-                <h2>Welcome back</h2>
                 <Renew />
             </Container>
         )
     }
 
-    if(currentUser && !docSnap) {
-        return(
-            <Container className='page mt-5'>
-                <Spinner />
-            </Container>
-        )
-    }
-
-
   return (
-    <Container className='page mt-5'>
+    <Container align="center" className='page mt-5'>
         <h1>Profile</h1>
         <>
-        {accountStatus ? 
-            <Container fluid align='center' style={{background: 'black', color: 'white'}}><h5>{accountStatus}</h5></Container>
-            :
-            <>
-            </>
-        }
-        <Container>
-            <h2>Welcome back {docSnap.firstName}!</h2>
-            <Form action={`${API_URL}/create-portal-session`} method="POST">
-            <input type="hidden" id="session-id" name="session_id" value={sessionID}
-            />
-            <Button id="checkout-and-portal-button" type="submit">
-            Manage your billing information
-            </Button>
-            </Form>
-        </Container>
+        <Card style={{ maxWidth: '24rem' }}>
+            <Card.Body>
+                <Card.Title>Welcome back {docSnap.firstName}!</Card.Title>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+                <ListGroup.Item>Account Status: {accountStatus}</ListGroup.Item>
+                <ListGroup.Item>User Email: {docSnap.email}</ListGroup.Item>
+            </ListGroup>
+            <Card.Body>
+                <Form action={`${API_URL}/create-portal-session`} method="POST">
+                <input type="hidden" id="session-id" name="session_id" value={sessionID}
+                />
+                <Button id="checkout-and-portal-button" type="submit">
+                Manage your billing information
+                </Button>
+                </Form>
+            </Card.Body>
+            </Card>
         </>
     </Container>
   )

@@ -80,7 +80,7 @@ export default function WeatherBar() {
 
     if(weather && !loading) {
       return(
-        <Container fluid className='p-1 mt-3' style={{background: 'black', color: 'white', borderRadius: '.375rem', border: '1px solid white'}}>
+        <Container fluid className='p-1 mt-1' style={{background: 'black', color: 'white', borderRadius: '.375rem', border: '1px solid white'}}>
           <p>Location: {weather.location.name}, {weather.location.region}</p>
           <p>It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f}</p>
         </Container>

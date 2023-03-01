@@ -1,4 +1,4 @@
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { useState, useEffect, useRef } from "react";
 import { UserContextData } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -24,12 +24,15 @@ export default function Login() {
 
     const tryLogin = async (e) => {
         e.preventDefault()
+        setLoading(true)
         try {
             await login(emailRef.current.value, passwordRef.current.value)
             navigate('/dashboard')
         } catch (error) {
             setErrorMessage("Error logging in.")
+            setLoading(false)
         }
+        setLoading(false)
     }
 /*
     const login = (e, email, password) => {
@@ -62,22 +65,33 @@ export default function Login() {
     */
 
   return (
-    <Container className='page'>
-        <Container style={{maxWidth: '50rem'}} className='justify-content-center align-content-center d-flex'>
-            <Form onSubmit={tryLogin}>
+    <Container className='mt-5 page'>
+        <Container style={{maxWidth: '30rem'}} >
+            <Container align='center'>
+                <h1>Login</h1>
+                <p>Login to access your account and dashboard.</p>
+            </Container>
+            <Form className='w-100 p-2' onSubmit={tryLogin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" ref={emailRef} />
+                <Form.Control required type="email" placeholder="Enter email" ref={emailRef} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" ref={passwordRef} />
+                    <Form.Control required type="password" placeholder="Password" ref={passwordRef} />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                {!loading ? 
+                <>
+                <Button className='w-100 mt-5' variant="primary" type="submit">
                     Submit
                 </Button>
+                </> 
+                : 
+                <>
+                <Spinner />
+                </>}
             </Form>
             <br />
             {errorMessage ? <p>{errorMessage}</p> : <></>}
