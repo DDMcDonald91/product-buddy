@@ -58,13 +58,20 @@ export default function Profile() {
                 <ListGroup.Item>User Email: {docSnap.email}</ListGroup.Item>
             </ListGroup>
             <Card.Body>
+                {accountStatus === "vip" ? 
+                <>
+                    <p>You have a "VIP" account.</p>
+                </> 
+                :
+                <> 
                 <Form action={`${API_URL}/create-portal-session`} method="POST">
-                <input type="hidden" id="session-id" name="session_id" value={sessionID}
-                />
+                <input type="hidden" id="session-id" name="session_id" value={sessionID} />
                 <Button id="checkout-and-portal-button" type="submit">
-                Manage your billing information
+                    Manage your billing information
                 </Button>
                 </Form>
+                </>
+                }
             </Card.Body>
             </Card>
         </>
