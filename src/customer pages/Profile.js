@@ -39,6 +39,7 @@ export default function Profile() {
         return(
             <Container align="center" className='page mt-5'>
                 <h1>Profile</h1>
+                <p align='center' style={{color: 'red'}}>Account is canceled.</p>
                 <Renew />
             </Container>
         )
@@ -51,6 +52,7 @@ export default function Profile() {
                 <Card style={{ maxWidth: '30rem' }}>
             <Card.Body>
                 <Card.Title>Welcome back {docSnap.firstName}!</Card.Title>
+                <p align='center' style={{color: 'red'}}>Account is paused. Manage your business information below.</p>
             </Card.Body>
             <ListGroup className="list-group-flush">
                 <ListGroup.Item>Account Status: {accountStatus}</ListGroup.Item>
