@@ -29,7 +29,7 @@ export default function Profile() {
         return(
             <Container align='center' className='page mt-5'>
                 <h1>Profile</h1>
-                <h2>Welcome back</h2>
+                <h2>Welcome</h2>
                 <Checkout />
             </Container>
         )

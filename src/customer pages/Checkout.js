@@ -39,6 +39,8 @@ export default function Checkout() {
                     <Card.Text>
                     Ready to get started with all of the benefits of the product buddy ai system? Get started now!
                     </Card.Text>
+                    <h1>$49.99/month</h1>
+                    <h3>+ 3 Day FREE Trial</h3>
                     <Form action={`${API_URL}/create-checkout-session`} method="POST">
                         <Form.Control type="hidden" name="lookup_key" value="premium" />
                         <Form.Control type="hidden" name="stripeId" value={stripeId} />
