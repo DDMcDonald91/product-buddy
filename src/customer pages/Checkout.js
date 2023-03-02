@@ -24,7 +24,7 @@ export default function Checkout() {
         }
         accountUpdate()
         
-    }, [!stripeId])
+    }, [!docSnap, !stripeId])
 
 
   return (
