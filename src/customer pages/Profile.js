@@ -35,7 +35,7 @@ export default function Profile() {
         )
     }
 
-    if(currentUser && accountActive === false) {
+    if(currentUser && accountStatus === "canceled" && accountActive === false) {
         return(
             <Container align="center" className='page mt-5'>
                 <h1>Profile</h1>
@@ -44,11 +44,36 @@ export default function Profile() {
         )
     }
 
+    if(currentUser && accountStatus === "paused" && accountActive === false) {
+        return(
+            <Container align="center" className='mt-5'>
+                <h1>Profile</h1>
+                <Card style={{ maxWidth: '30rem' }}>
+            <Card.Body>
+                <Card.Title>Welcome back {docSnap.firstName}!</Card.Title>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+                <ListGroup.Item>Account Status: {accountStatus}</ListGroup.Item>
+                <ListGroup.Item>User Email: {docSnap.email}</ListGroup.Item>
+            </ListGroup>
+            <Card.Body>
+                <Form action={`${API_URL}/create-portal-session`} method="POST">
+                <input type="hidden" id="session-id" name="session_id" value={sessionID} />
+                <Button id="checkout-and-portal-button" type="submit">
+                    Manage your billing information
+                </Button>
+                </Form>
+            </Card.Body>
+            </Card>
+            </Container>
+        )
+    }
+
   return (
-    <Container align="center" className='page mt-5'>
+    <Container align="center" className='mt-5'>
         <h1>Profile</h1>
         <>
-        <Card style={{ maxWidth: '24rem' }}>
+        <Card style={{ maxWidth: '30rem' }}>
             <Card.Body>
                 <Card.Title>Welcome back {docSnap.firstName}!</Card.Title>
             </Card.Body>

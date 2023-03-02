@@ -33,7 +33,11 @@ export default function Navigation() {
    useEffect(() => {
     if(accountActive === true) {
       setShowUserNav(true)
-    }}, [currentUser, accountActive])
+    }
+    if(accountActive === false) {
+      setShowUserNav(false)
+    }
+  }, [currentUser, accountActive])
 
     const tryLogout = () => {
       if(currentUser){
