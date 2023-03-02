@@ -76,6 +76,9 @@ export function UserContextProvider({ children }) {
                 if(accountStatus === "paused") {
                     await setAccountActive(false)
                 }
+                if(accountStatus === "canceled"){
+                    await setAccountActive(false)
+                }
             } catch (error) {
                 console.log(error)
             }
