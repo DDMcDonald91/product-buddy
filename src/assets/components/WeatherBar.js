@@ -107,9 +107,9 @@ export default function WeatherBar() {
       return(
         <Container fluid className='p-1 mt-1 mb-5' style={{color: 'black', borderRadius: '.375rem', border: '1px solid black'  }}>
           <Card bg='light'>
-          <Card.Header>{weather.location.name}, {weather.location.region}</Card.Header>
+          <Card.Header><h5>{weather.location.name}, {weather.location.region}</h5></Card.Header>
           <Card.Body>
-            <Card.Title>Current Forecast:</Card.Title>
+            <Card.Title><h6>Current Forecast:</h6></Card.Title>
             <Card.Text>
             It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f} °F.
             </Card.Text>

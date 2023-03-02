@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, setDoc, doc } from "firebase/firestore"; 
+import { setDoc, doc } from "firebase/firestore"; 
 import { db } from "../Firebase";
 import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { useState } from "react";
@@ -23,7 +23,7 @@ export default function Register() {
     // Register the user
     const register = async (e) => {
         e.preventDefault()
-        
+
         setLoading(true)
 
         // Checks for password and email

@@ -1,24 +1,50 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore"; 
 import { db } from "../Firebase";
-import { Container, Form, Button, Spinner } from 'react-bootstrap';
-import { useState } from "react";
+import { Container, Form, Button, Spinner, Modal } from 'react-bootstrap';
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function VIPRegister() {
+    // State for sign up form
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
 
+    // Loading state
     const [loading, setLoading] = useState(false)
+
     const auth = getAuth();
     const navigate = useNavigate();
+    
+    // Server API
     const API_URL = process.env.REACT_APP_API_URL
 
+    // State for password check
+    const [securityKey, setSecurityKey] = useState()
+    const key = process.env.REACT_APP_SECURITY_KEY
+    const [show, setShow] = useState();
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        setShow(true)
+    }, [])
+
+    // Checks for password to access this page
+    const passwordCheck = (e) => {
+        e.preventDefault()
+        if(securityKey === key){
+            setShow(false)
+        } else {
+            setError("Wrong password")
+            setTimeout(() => {
+                setError()
+            }, 1500)
+        }
+    }
 
     // Register the user
     const vipRegister = async (e) => {
@@ -66,6 +92,28 @@ export default function VIPRegister() {
     }
 
   return (
+    <>
+    <Modal
+        show={show}
+        backdrop="static"
+        keyboard={false}
+        >
+        <Modal.Header>
+            <Modal.Title>Security Check</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            Please enter the password below to access this page.
+            <Form onSubmit={passwordCheck}>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" onChange={e => setSecurityKey(e.target.value)} />
+                    <Button className='w-100 mt-5' variant="primary" type="submit">Submit</Button>
+                    {error ? <p align='center' className="mt-2" style={{color: 'red'}}>{error}</p> : <></>}
+                </Form.Group>
+            </Form>
+        </Modal.Body>
+    </Modal>
+
     <Container className='mt-5 page'>
         <Container style={{maxWidth: '30rem'}}>
             <Container align='center'>
@@ -114,5 +162,6 @@ export default function VIPRegister() {
             </Form>
         </Container>
     </Container>
+    </>
   )
 }
