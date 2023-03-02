@@ -49,12 +49,11 @@ export default function Register() {
             });
             console.log("new user added", user.uid);
         
-            const response = await axios.post(`${API_URL}/create-customer`, {
+            await axios.post(`${API_URL}/create-customer`, {
                 name: firstName + " " + lastName,
                 customerEmail: email,
                 user: user.uid,
             });
-            console.log(response.data);
             setLoading(false)
             navigate('/profile');
         } catch (error) {
@@ -111,7 +110,9 @@ export default function Register() {
                 </> 
                 : 
                 <>
-                <Spinner />
+                <Container align='center'>
+                    <Spinner animation="grow" />
+                </Container>
                 </>}
             </Form>
         </Container>
