@@ -18,6 +18,7 @@ export default function Checkout() {
             //Finds user Stripe id from Firebase database 
             const stripe = await docSnap.customerData.id 
             setStripeId(stripe)
+            console.log(stripeId, stripe)
         }
 
         // Turn off loading screen for user
