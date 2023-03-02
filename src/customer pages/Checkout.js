@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Container, Card, Button, Form } from 'react-bootstrap'
+import { Container, Card, Button, Form, Spinner } from 'react-bootstrap'
 import { doc, getDoc } from "firebase/firestore";
 import { UserContextData } from '../context/UserContext';
 
@@ -7,7 +7,7 @@ export default function Checkout() {
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const { currentUser, docSnap } = UserContextData()
+    const { docSnap } = UserContextData()
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
 
@@ -47,7 +47,7 @@ export default function Checkout() {
         </>
         :
         <>
-            <p>Loading...please don't navigate away or reload the page...</p>
+            <Spinner animation='grow' />
         </>
         }
     </Container>
