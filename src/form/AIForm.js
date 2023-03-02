@@ -1,12 +1,14 @@
 import { Button, Container, Form, Row, Col } from 'react-bootstrap'
 import { useState } from 'react';
 import axios from 'axios';
+import RequestStatus from '../assets/components/RequestStatus';
 
 export default function AIForm() {
     const [aiPrompt, setAIPrompt] = useState('');
     const [title, setTitle] = useState('');
     const [tone, setTone] = useState('Friendly');
     const [response, setResponse] = useState(null);
+    const [progress, setProgress] = useState(0)
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const temp = 0
@@ -22,13 +24,19 @@ export default function AIForm() {
             return
           }
           try {
-              const result = await axios.post(`${API_URL}/chat`, {
-                  prompt: `Write a creative, SEO friendly product description for the product ${title} in a ${tone}. This is what the product does: ${prompt}. This is a Shopify product and I need an optimal description for that platform. Include a list of keywords I can use for SEO.`,
-                  temperature: temperature,
-              });
-              setResponse(result.data)
-              console.log(result);
-              console.log(response)
+            const result = await axios.post(`${API_URL}/chat`, {
+              prompt: `Write a creative, SEO friendly product description for the product ${title} in a ${tone}. This is what the product does: ${prompt}. This is a Shopify product and I need an optimal description for that platform. Include a list of keywords I can use for SEO.`,
+              temperature: temperature,
+            }, {
+              // You can use the `onUploadProgress` function provided by Axios
+              onUploadProgress: progressEvent => {
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                setProgress(percentCompleted);
+              },
+            });
+            setResponse(result.data);
+            console.log(result);
+            console.log(response);
           } catch (err) {
               setError(err);
               console.log(error);
@@ -39,7 +47,7 @@ export default function AIForm() {
    // const { response, error, loading } = useChatGPT(aiPrompt, temperature);
 
   return (
-    <Container className='d-flex align-items-center justify-content-center' fluid>
+    <Container className='d-flex align-items-center justify-content-center mb-5' fluid>
       <Row className='w-100'>
         <Col xs={12} md={4}>
           <Form className='w-100'>
@@ -72,15 +80,6 @@ export default function AIForm() {
         </Col>
         <Col xs={12} md={8}>
           <Container className='w-100'>
-            {!aiPrompt ?
-            <>
-            </>
-            :
-            <>
-            <h3>Your Description:</h3>
-            <p>{aiPrompt}</p>
-            </>
-            }
             {!response ?
             <>
             </>
@@ -97,14 +96,13 @@ export default function AIForm() {
             </>
             :
             <>
-            <p>Loading...</p>
+              <RequestStatus progress={progress} />
             </>
             }
           </Container>
         </Col>
         </Row>
       </Container>
-
   )
 }
 

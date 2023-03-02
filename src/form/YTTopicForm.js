@@ -1,11 +1,13 @@
 import { Button, Container, Form, Row, Col } from 'react-bootstrap'
 import { useState } from 'react';
 import axios from 'axios';
+import RequestStatus from '../assets/components/RequestStatus';
 
 export default function YTScriptForm() {
     const [aiPrompt, setAIPrompt] = useState('');
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
+    const [progress, setProgress] = useState(0)
     const [loading, setLoading] = useState(false);
     const temp = 0
 
@@ -23,6 +25,12 @@ export default function YTScriptForm() {
             const result = await axios.post(`${API_URL}/chat`, {
                 prompt: `Generate a list of 10 unique and engaging YouTube video ideas revolving around this topic: ${prompt} Consider topics that are relevant, trending, and have potential for creative expression. The ideas should be suitable for a variety of audiences and video formats (e.g. vlog, tutorial, review).`,
                 temperature: temperature,
+            }, {
+              // You can use the `onUploadProgress` function provided by Axios
+              onUploadProgress: progressEvent => {
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                setProgress(percentCompleted);
+              },
             });
             setResponse(result.data)
             console.log(result);
@@ -35,7 +43,7 @@ export default function YTScriptForm() {
     };
     
   return (
-    <Container className='d-flex align-items-center justify-content-center'>
+    <Container className='d-flex align-items-center justify-content-center mb-5'>
       <Row className='w-100'>
         <Col xs={12} md={4}>
           <Form className='w-100'>
@@ -57,7 +65,7 @@ export default function YTScriptForm() {
             </>
             :
             <>
-            <p>Loading...</p>
+              <RequestStatus progress={progress} />
             </>
             }
             {!response ?

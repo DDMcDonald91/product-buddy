@@ -1,6 +1,7 @@
 import { Button, Container, Form, Row, Col } from 'react-bootstrap'
 import { useState } from 'react';
 import axios from 'axios';
+import RequestStatus from '../assets/components/RequestStatus';
 
 export default function YTScriptForm() {
     const [aiPrompt, setAIPrompt] = useState('');
@@ -8,6 +9,7 @@ export default function YTScriptForm() {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [progress, setProgress] = useState(0)
     const temp = 0
 
     //API
@@ -24,6 +26,12 @@ export default function YTScriptForm() {
             const result = await axios.post(`${API_URL}/chat`, {
                 prompt: `Create an outline for a ${tone} YouTube video on the topic: "${prompt}". The outline should include an introduction, key sections, and a conclusion. Think about incorporating visually engaging elements and keeping the overall length of the video in mind (aim for around 5-10 minutes).`,
                 temperature: temperature,
+            }, {
+              // You can use the `onUploadProgress` function provided by Axios
+              onUploadProgress: progressEvent => {
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                setProgress(percentCompleted);
+              },
             });
             setResponse(result.data)
             console.log(result);
@@ -36,7 +44,7 @@ export default function YTScriptForm() {
     };
     
   return (
-    <Container className='d-flex align-items-center justify-content-center'>
+    <Container className='d-flex align-items-center justify-content-center mb-5'>
       <Row className='w-100'>
         <Col xs={12} md={4}>
           <Form className='w-100'>
@@ -66,7 +74,7 @@ export default function YTScriptForm() {
             </>
             :
             <>
-            <p>Loading...</p>
+              <RequestStatus progress={progress} />
             </>
             }
             {!response ?

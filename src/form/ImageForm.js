@@ -1,10 +1,12 @@
 import {useState} from 'react'
 import axios from 'axios';
 import {Container, Row, Col, Button, Form, Image} from 'react-bootstrap'
+import RequestStatus from '../assets/components/RequestStatus';
 
 export default function ImageForm() {
     const [aiPrompt, setAIPrompt] = useState('');
     const [response, setResponse] = useState(null);
+    const [progress, setProgress] = useState(0)
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -23,6 +25,12 @@ export default function ImageForm() {
         try {
             const result = await axios.post(`${API_URL}/image`, {
                 prompt: `${prompt}.`,
+            }, {
+              // You can use the `onUploadProgress` function provided by Axios
+              onUploadProgress: progressEvent => {
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                setProgress(percentCompleted);
+              },
             });
             console.log(result.data);
             setResponse(result.data);
@@ -35,7 +43,7 @@ export default function ImageForm() {
         setLoading(false);
     };
   return (
-    <Container className='d-flex align-items-center justify-content-center'>
+    <Container className='d-flex align-items-center justify-content-center mb-5'>
       <Row className='w-100'>
         <Col xs={12} md={4}>
           <Form className='w-100'>
@@ -57,7 +65,7 @@ export default function ImageForm() {
             </>
             :
             <>
-            <p>Loading...</p>
+              <RequestStatus progress={progress} />
             </>
             }
             {!response ?

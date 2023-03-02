@@ -1,12 +1,14 @@
 import { Button, Container, Form, Row, Col } from 'react-bootstrap'
 import { useState } from 'react';
 import axios from 'axios';
+import RequestStatus from '../assets/components/RequestStatus';
 
 export default function AIForm() {
     const [aiPrompt, setAIPrompt] = useState('');
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [progress, setProgress] = useState(0)
     const temp = 0
 
     //API
@@ -27,6 +29,12 @@ export default function AIForm() {
               const result = await axios.post(`${API_URL}/chat`, {
                   prompt: `Give 3-5 creative ideas for a product name based on this description: ${prompt}`,
                   temperature: temperature,
+              }, {
+                // You can use the `onUploadProgress` function provided by Axios
+                onUploadProgress: progressEvent => {
+                  const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                  setProgress(percentCompleted);
+                },
               });
               setResponse(result.data)
               console.log(result);
@@ -39,7 +47,7 @@ export default function AIForm() {
       };
 
   return (
-    <Container className='d-flex align-items-center justify-content-center'>
+    <Container className='d-flex align-items-center justify-content-center mb-5'>
       <Row className='w-100'>
         <Col xs={12} md={4}>
           <Form className='w-100'>
@@ -56,15 +64,6 @@ export default function AIForm() {
         </Col>
         <Col xs={12} md={8}>
           <Container className='w-100'>
-            {!aiPrompt ?
-            <>
-            </>
-            :
-            <>
-            <h3>Your Description:</h3>
-            <p>{aiPrompt}</p>
-            </>
-            }
             {!response ?
             <>
             </>
@@ -81,7 +80,7 @@ export default function AIForm() {
             </>
             :
             <>
-            <p>Loading...</p>
+              <RequestStatus progress={progress} />
             </>
             }
           </Container>

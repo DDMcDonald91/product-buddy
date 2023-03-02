@@ -1,18 +1,18 @@
 body {
   background-image: linear-gradient(white, white, #6C7A7D, #515151);
-} 
+}
 
 .App {
   text-align: center;
 }
 
+.layout {
+  min-height: 100vh;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-.page {
-  min-height: 100vh;
 }
 
 

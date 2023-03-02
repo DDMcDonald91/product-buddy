@@ -1,6 +1,7 @@
 import { Button, Container, Form, Row, Col } from 'react-bootstrap'
 import { useState } from 'react';
 import axios from 'axios';
+import RequestStatus from '../assets/components/RequestStatus';
 
 export default function YTDescriptionForm() {
     const [aiPrompt, setAIPrompt] = useState('');
@@ -8,6 +9,7 @@ export default function YTDescriptionForm() {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [progress, setProgress] = useState(0)
     const temp = 0
 
     //API
@@ -24,6 +26,12 @@ export default function YTDescriptionForm() {
             const result = await axios.post(`${API_URL}/chat`, {
                 prompt: `Create a list of 3 unique, ${tone} descriptions for Youtube videos that rank well in search for the topic: "${prompt}". The description should aim to effectively communicate the value of the video to the target audience and optimize for search engines. It needs to be at least 3 sentences long.`,
                 temperature: temperature,
+            }, {
+              // You can use the `onUploadProgress` function provided by Axios
+              onUploadProgress: progressEvent => {
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                setProgress(percentCompleted);
+              },
             });
             setResponse(result.data)
             console.log(result);
@@ -36,7 +44,7 @@ export default function YTDescriptionForm() {
     };
     
   return (
-    <Container className='d-flex align-items-center justify-content-center'>
+    <Container className='d-flex align-items-center justify-content-center mb-5'>
       <Row className='w-100'>
         <Col xs={12} md={4}>
           <Form className='w-100'>
@@ -66,7 +74,7 @@ export default function YTDescriptionForm() {
             </>
             :
             <>
-            <p>Loading...</p>
+              <RequestStatus progress={progress} />
             </>
             }
             {!response ?

@@ -24,7 +24,7 @@ function App() {
     <UserContextProvider>
     <Router>
       <Navigation />
-        <Container fluid className='p-0'>
+        <Container fluid className='p-0 layout'>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/ecommerce-generator' element={<Layout title="Product Description Generator" instructions="Use the form below to have Keni generate a SEO friendly product description for your product." form={<All.AIForm />} />} />
