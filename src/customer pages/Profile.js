@@ -11,7 +11,7 @@ export default function Profile() {
    
     if(loading) {
         return(
-            <Container className='page mt-5'>
+            <Container align="center" className='page mt-5'>
                 <Spinner animation='grow' />
             </Container>
         )
@@ -27,7 +27,7 @@ export default function Profile() {
 
     if(currentUser && !sessionID) {
         return(
-            <Container className='page mt-5'>
+            <Container align='center' className='page mt-5'>
                 <h1>Profile</h1>
                 <h2>Welcome back</h2>
                 <Checkout />
