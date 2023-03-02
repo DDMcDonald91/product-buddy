@@ -21,8 +21,10 @@ export default function Checkout() {
             console.log(stripeId, stripe)
         }
 
+        if(stripeId !== null) {
         // Turn off loading screen for user
         setLoading(false)
+        }
 
         accountUpdate()
         
