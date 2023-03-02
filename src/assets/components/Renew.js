@@ -35,7 +35,7 @@ export default function Renew() {
     <Container align='center'>
         {!loading ?
         <>
-            <Card style={{ width: '18rem' }}>
+            <Card style={{ width: '30rem' }}>
                 <Card.Body>
                     <Card.Title>Renew Your Subscription</Card.Title>
                     <Card.Text>

@@ -24,15 +24,14 @@ export default function Checkout() {
         }
         accountUpdate()
         
-    }, [!currentUser, !docSnap, !stripeId])
+    }, [!stripeId])
 
 
   return (
-    <Container className='page'>
+    <Container align="center" className='page'>
         {!loading ?
         <>
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
+            <Card style={{ width: '30rem' }}>
                 <Card.Body>
                     <Card.Title>Premium Subscription</Card.Title>
                     <Card.Text>

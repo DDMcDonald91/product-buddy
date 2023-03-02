@@ -55,7 +55,7 @@ export default function Register() {
                 user: user.uid,
             });
             console.log(response.data);
-        
+            setLoading(false)
             navigate('/profile');
         } catch (error) {
             console.error(error);
