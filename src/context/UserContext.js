@@ -73,6 +73,9 @@ export function UserContextProvider({ children }) {
                 if(accountStatus === "active" || "trialing") {
                     await setAccountActive(true)
                 }
+                if(accountStatus === "paused") {
+                    await setAccountActive(false)
+                }
             } catch (error) {
                 console.log(error)
             }
