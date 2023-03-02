@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import { Container, Card, Button, Form, Spinner } from 'react-bootstrap'
-import { doc, getDoc } from "firebase/firestore";
 import { UserContextData } from '../context/UserContext';
 
 export default function Checkout() {
@@ -12,16 +11,18 @@ export default function Checkout() {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        // Set loading screen while function starts
+        setLoading(true)
+
         const accountUpdate = async () => {
-            // Set loading screen while function starts
-            setLoading(true)
-
-            //Finds user Stripe id from Firebase database  
-            setStripeId(await docSnap.customerData.id)
-
-            // Turn off loading screen for user
-            setLoading(false)
+            //Finds user Stripe id from Firebase database 
+            const stripe = await docSnap.customerData.id 
+            setStripeId(stripe)
         }
+
+        // Turn off loading screen for user
+        setLoading(false)
+
         accountUpdate()
         
     }, [!docSnap, !stripeId])
