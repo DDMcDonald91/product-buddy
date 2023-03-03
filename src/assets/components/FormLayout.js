@@ -1,10 +1,9 @@
 import { Button, Container, Form, Row, Col } from 'react-bootstrap'
 import { useState } from 'react';
 import axios from 'axios';
-import RequestStatus from '../assets/components/RequestStatus';
-import ProductDescForm from './ProductDescForm';
+import RequestStatus from './RequestStatus';
 
-export default function AIForm() {
+export default function FormLayout(props) {
     const [aiPrompt, setAIPrompt] = useState('');
     const [title, setTitle] = useState('');
     const [tone, setTone] = useState('Friendly');
@@ -27,7 +26,7 @@ export default function AIForm() {
           }
           try {
             const result = await axios.post(`${API_URL}/chat`, {
-              prompt: `Write a creative, SEO friendly product description for the product ${title} in a ${tone}. This is what the product does: ${prompt}. This is a Shopify product and I need an optimal description for that platform. Include a list of keywords I can use for SEO.`,
+              prompt: `${props.instructions} ${title} in a ${tone}. This is what the product does: ${prompt}. This is a Shopify product and I need an optimal description for that platform. Include a list of keywords I can use for SEO.`,
               temperature: temperature,
             }, {
               // You can use the `onUploadProgress` function provided by Axios
@@ -54,14 +53,19 @@ export default function AIForm() {
       <Row className='w-100'>
         <Col xs={12} md={4}>
           <Form className='w-100'>
-              <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
-                <Form.Label>
-                  <h5>Product Name:</h5>
-                </Form.Label>
-                <br />
-                <Form.Control required type="text" placeholder="Enter your product name here." onChange={e => {setTitle(e.target.value)}}/>
-              </Form.Group>
-
+            {props.productTitle ?
+                <>
+                <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
+                    <Form.Label>
+                    <h5>Product Name:</h5>
+                    </Form.Label>
+                    <br />
+                    <Form.Control required type="text" placeholder="Enter your product name here." onChange={e => {setTitle(e.target.value)}}/>
+                </Form.Group>
+                </>
+              :
+              <></>
+            }
               <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
                 <Form.Label>
                   <h5>Product Description:</h5>
@@ -121,25 +125,3 @@ export default function AIForm() {
       </Container>
   )
 }
-
-
-/*
-    const inputAICall = async () => {
-      const configuration = new Configuration({
-          organization: 'org-dFTf6HjiqjxMEYShjDvxkmnZ',
-          apiKey: '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',
-        });
-      const openai = new OpenAIApi(configuration);
-      const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Convert this text to a programmatic command:\n\n${inputAI}`,
-        temperature: 0,
-        max_tokens: 100,
-        top_p: 1.0,
-        frequency_penalty: 0.2,
-        presence_penalty: 0.0,
-        stop: ["\n"],
-      });
-      setResponseAI(response)
-    }
-*/
