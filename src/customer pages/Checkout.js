@@ -44,6 +44,7 @@ export default function Checkout() {
                         <h2>$49.99/month</h2>
                         <h3>+ 3 Day FREE Trial</h3>
                     </Container>
+                    <Card.Header>Features:</Card.Header>
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Unlimited Usage</ListGroup.Item>
                         <ListGroup.Item>Social Media Tools</ListGroup.Item>
