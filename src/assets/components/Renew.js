@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { UserContextData } from '../../context/UserContext'
-import { Container, Card, Button, Form } from 'react-bootstrap'
+import { Container, Card, Button, Form, ListGroup, Spinner } from 'react-bootstrap'
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../../Firebase';
 
@@ -61,7 +61,7 @@ export default function Renew() {
         </>
         :
         <>
-            <p>Loading...please don't navigate away or reload the page...</p>
+            <Spinner animation='grow' />
         </>
         }
     </Container>
