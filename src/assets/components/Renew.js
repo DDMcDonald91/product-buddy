@@ -9,7 +9,7 @@ export default function Renew() {
     // API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const { currentUser, docSnap, retrieveUser } = UserContextData(null)
+    const { currentUser, docSnap } = UserContextData(null)
     const [stripeId, setStripeId] = useState(null)
     const [loading, setLoading] = useState(false)
     
@@ -41,6 +41,16 @@ export default function Renew() {
                     <Card.Text>
                     Canceled your subscription? No problem, let's renew your plan!
                     </Card.Text>
+                    <Container>
+                        <h2>$49.99/month</h2>
+                    </Container>
+                    <Card.Header>Features:</Card.Header>
+                    <ListGroup className="list-group-flush">
+                        <ListGroup.Item>Unlimited Usage</ListGroup.Item>
+                        <ListGroup.Item>Social Media Tools</ListGroup.Item>
+                        <ListGroup.Item>Business Tools</ListGroup.Item>
+                        <ListGroup.Item>Art Generation</ListGroup.Item>
+                    </ListGroup>
                     <Form action={`${API_URL}/create-checkout-session`} method="POST">
                         <Form.Control type="hidden" name="lookup_key" value="premium" />
                         <Form.Control type="hidden" name="stripeId" value={stripeId} />
