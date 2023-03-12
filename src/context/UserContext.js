@@ -34,59 +34,63 @@ export function UserContextProvider({ children }) {
         userCheck()
     }, [currentUser, !docSnap, !sessionID, !accountStatus, !eventSnap, accountActive])
 
-    // retrieves user account data if the user is signed in
-    const retrieveUser = async () => {
-        if(currentUser) {
-            // Get events doc from Firebase database
-            const userRef = await doc(db, 'users', currentUser.uid);
-            const usersDoc = await getDoc(userRef);
-            await setDocSnap(usersDoc.data());
-            await setSessionID(docSnap.sessionId);
-            console.log(docSnap, sessionID);
-        } else {
-            console.log('Error searching for user data.')
-        }
-        
-        // Checks for VIP accounts
-        if(sessionID === "xxx"){
-            const eventRef = await doc(db, 'events', "vip_" + currentUser.uid);
-            const eventDoc = await getDoc(eventRef);
-            await setEventSnap(eventDoc.data());
-            await setAccountStatus(eventSnap.accountStatus)
-            console.log(eventSnap)
-                
-            if(accountStatus === "vip") {
-                await setAccountActive(true)
-            }
-            setLoading(false)
-        }
-
-        // Checks for regular accounts
-        if(accountStatus !== "vip"){
-            try {
-                const eventRef = await doc(db, 'events', docSnap.customerData.id);
-                const eventDoc = await getDoc(eventRef);
-                await setEventSnap(eventDoc.data());
-                await setAccountStatus(eventSnap.accountStatus)
-                console.log(eventSnap)
-                
-                if(accountStatus === "active" || "trialing") {
-                    await setAccountActive(true)
-                }
-                if(accountStatus === "paused") {
-                    await setAccountActive(false)
-                }
-                if(accountStatus === "canceled"){
-                    await setAccountActive(false)
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        
-        console.log(accountActive)
-        setLoading(false)
+// retrieves user account data if the user is signed in
+const retrieveUser = async () => {
+    if (currentUser) {
+      // Get events doc from Firebase database
+      const userRef = doc(db, "users", currentUser.uid);
+      const usersDoc = await getDoc(userRef);
+      const updatedDocSnap = usersDoc.data();
+      await setDocSnap(updatedDocSnap);
+      await setSessionID(updatedDocSnap.sessionId);
+      console.log(updatedDocSnap, sessionID);
+    } else {
+      console.log("Error searching for user data.");
     }
+  
+    // Checks for VIP accounts
+    if (sessionID === "xxx") {
+      const eventRef = doc(db, "events", "vip_" + currentUser.uid);
+      const eventDoc = await getDoc(eventRef);
+      const updatedEventSnap = eventDoc.data();
+      await setEventSnap(updatedEventSnap);
+      await setAccountStatus(updatedEventSnap.accountStatus);
+      console.log(updatedEventSnap);
+  
+      if (accountStatus === "vip") {
+        await setAccountActive(true);
+      }
+      setLoading(false);
+    }
+  
+    // Checks for regular accounts
+    if (accountStatus !== "vip") {
+      try {
+        const eventRef = doc(db, "events", docSnap.customerData.id);
+        const eventDoc = await getDoc(eventRef);
+        const updatedEventSnap = eventDoc.data();
+        await setEventSnap(updatedEventSnap);
+        await setAccountStatus(updatedEventSnap.accountStatus);
+        console.log(updatedEventSnap);
+  
+        if (accountStatus === "active" || "trialing") {
+          await setAccountActive(true);
+        }
+        if (accountStatus === "paused") {
+          await setAccountActive(false);
+        }
+        if (accountStatus === "canceled") {
+          await setAccountActive(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
+    console.log(accountActive);
+    setLoading(false);
+  };
+  
 
     // login user
     const login = (email, password) => {

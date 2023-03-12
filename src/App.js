@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { UserContextProvider } from './context/UserContext';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigation from './navigation/Navigation';
 import Home from './Home';
-import * as All from './form';
+import * as All from './assets/components/forms';
+import ScrollToTop from './assets/components/ScrollToTop';
 import Success from './customer pages/Success';
 import Cancel from './customer pages/Cancel';
 import Checkout from './customer pages/Checkout';
@@ -18,18 +18,22 @@ import Layout from './assets/components/Layout';
 import Error from './customer pages/Error';
 import VIPRegister from './customer pages/VIPRegister';
 import Footer from './assets/components/Footer';
+import Contact from './customer pages/Contact';
+import SiteNav from './assets/components/SiteNav';
 
 function App() {
   return (
     <UserContextProvider>
     <Router>
-      <Navigation />
+      <SiteNav />
+      <ScrollToTop />
         <Container fluid className='p-0 layout'>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/ecommerce-generator' element={<Layout title="Product Description Generator" instructions="Use the form below to have Keni generate a SEO friendly product description for your product." form={<All.AIForm />} />} />
-            <Route path='/title-generator' element={<Layout title="Product Name Generator" instructions="Use the form below to generate a creative name for your new product." form={<All.TitleForm />} />} />
+            <Route path='/product-description-generator' element={<Layout title="Product Description Generator" instructions="Use the form below to have Kenzo generate a SEO friendly product description for your product." form={<All.ProductDescForm />} />} />
+            <Route path='/product-title-generator' element={<Layout title="Product Name Generator" instructions="Use the form below to generate a creative name for your new product." form={<All.TitleForm />} />} />
             <Route path='/business-name-generator' element={<Layout title="Business Name Generator" instructions="Use the form below to generate a creative name for your business." form={<All.NameForm />} />} />
+            <Route path='/business-slogan-generator' element={<Layout title="Business Slogan Generator" instructions="Use the form below to generate a creative slogan for your business." form={<All.BrandSloganForm />} />} />
             <Route path='/image-generator' element={<Layout title="AI Art Creation Generator" instructions="Use the form below to create a unique image with Keni." form={<All.ImageForm />} />} />
             <Route path='/youtube-script-generator' element={<Layout title="YouTube Script Outline Generator" instructions="Use the form below to create a unique script outline for your YouTube video." form={<All.YTScriptForm />} />} />
             <Route path='/youtube-topic-generator' element={<Layout title="YouTube Topic Generator" instructions="Use the form below to create a list of topics for your YouTube video." form={<All.YTTopicForm />} />} />
@@ -43,6 +47,7 @@ function App() {
             <Route path='/checkout' element={<Checkout />} />
             <Route path='/success/*' element={<Success />} />
             <Route path='/support' element={<Support />} />
+            <Route path='/contact' element={<Contact />} />
             <Route path='/cancel' element={<Cancel />} />
             <Route path='/*' element={<Error />} />
           </Routes>

@@ -2,13 +2,13 @@ export const DashboardData = [
     {
         title:"Product Description Generator",
         description:"This is a tool used to create creative SEO friendly descriptions for your ecommerce products.",
-        link:"/ecommerce-generator",
+        link:"/product-description-generator",
         color:"success"
     },
     {
         title:"Product Title Generator",
         description:"Need a name for your products? Start here!",
-        link:"/title-generator",
+        link:"/product-title-generator",
         color:"success"
     },
     {

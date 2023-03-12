@@ -1,31 +1,30 @@
-import { Button, Container, Form, Row, Col } from 'react-bootstrap'
-import { useState } from 'react';
+import {useState} from 'react'
 import axios from 'axios';
-import RequestStatus from '../assets/components/RequestStatus';
+import {Container, Row, Col, Button, Form, Image} from 'react-bootstrap'
+import RequestStatus from './RequestStatus';
 
-export default function YTDescriptionForm() {
+export default function ImageForm() {
     const [aiPrompt, setAIPrompt] = useState('');
-    const [tone, setTone] = useState('Friendly');
     const [response, setResponse] = useState(null);
+    const [progress, setProgress] = useState(0)
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [progress, setProgress] = useState(0)
-    const temp = 0
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const fetchData = async (prompt, temperature, tone) => {
+    const fetchData = async (prompt) => {
         setLoading(true);
+
         if(!aiPrompt){
           alert('Enter in all fields')
           setLoading(false);
           return
         }
+
         try {
-            const result = await axios.post(`${API_URL}/chat`, {
-                prompt: `Create a list of 3 unique, ${tone} descriptions for Youtube videos that rank well in search for the topic: "${prompt}". The description should aim to effectively communicate the value of the video to the target audience and optimize for search engines. It needs to be at least 3 sentences long.`,
-                temperature: temperature,
+            const result = await axios.post(`${API_URL}/image`, {
+                prompt: `${prompt}.`,
             }, {
               // You can use the `onUploadProgress` function provided by Axios
               onUploadProgress: progressEvent => {
@@ -33,43 +32,35 @@ export default function YTDescriptionForm() {
                 setProgress(percentCompleted);
               },
             });
-            setResponse(result.data)
+            console.log(result.data);
+            setResponse(result.data);
             console.log(result);
-            console.log(response)
         } catch (err) {
             setError(err);
             console.log(error);
         }
+
         setLoading(false);
     };
-    
   return (
     <Container className='d-flex align-items-center justify-content-center mb-5'>
       <Row className='w-100'>
         <Col xs={12} md={4}>
-          <Form className='w-100'>
+          <Form className='w-100' align="left">
               <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
                 <Form.Label>
-                  <h5>Video Topic:</h5>
+                  <h5>Image Description:</h5>
                 </Form.Label>
                 <br />
                 <Form.Control required type="text" as="textarea" placeholder="Describe your product for me." style={{width: '100%', minHeight: '250px'}} onChange={e => {setAIPrompt(e.target.value)}}/>
               </Form.Group>
 
-              <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
-                <Form.Label>
-                  <h5>Tone:</h5>
-                </Form.Label>
-                <br />
-                <Form.Control required type="text" placeholder="What kind of tone do you want to have?" onChange={e => {setTone(e.target.value)}}/>
-              </Form.Group>
-
-              <Button className='mt-2' onClick={() => fetchData(aiPrompt, temp, tone)}>Generate</Button>
+              <Button className='mt-2' onClick={() => fetchData(aiPrompt)}>Generate</Button>
           </Form>
         </Col>
         <Col xs={12} md={8}>
           <Container className='w-100'>
-            {!loading ?
+          {!loading ?
             <>
             </>
             :
@@ -82,10 +73,10 @@ export default function YTDescriptionForm() {
             </>
             :
             <>
-            <h3>Response:</h3>
-            <div>
-              {response.split("\n").map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-            </div>
+            <h3 align='center'>Response:</h3>
+            <Container align='center'>
+              <Image src={response} className='img-fluid' />
+            </Container>
             </>
             }
           </Container>

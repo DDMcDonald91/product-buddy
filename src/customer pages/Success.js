@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Button, Container, Form } from 'react-bootstrap'
-import { doc, updateDoc, getDoc, setDoc, collection, where, query } from "firebase/firestore";
+import { Button, Container } from 'react-bootstrap'
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../Firebase";
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function Success() {
   const [session_id, setSessionID] = useState(null)
@@ -69,15 +70,20 @@ export default function Success() {
 
   if(session_id === null || currentUser === null){
     return(
-      <Container className='page'>
+      <Container align="center" className='mt-5'>
         <p>Loading...</p>
       </Container>
     )
   }
 
   return (
-    <Container className='page'>
-      <h2>Checkout Successful!</h2>
+    <Container align='center' className='mt-5'>
+      <motion.div
+        initial={{opacity: 0, x: -100}}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, delay: .2 }}
+        >
+        <h2>Checkout Successful!</h2>
         <Link to='/profile'  style={{margin: '5px'}}>
           <Button>
             Profile
@@ -88,6 +94,7 @@ export default function Success() {
             Dashboard
           </Button>
         </Link>
+        </motion.div>
     </Container>
   )
 }

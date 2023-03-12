@@ -5,6 +5,7 @@ import { Container, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 export default function VIPRegister() {
     // State for sign up form
@@ -115,6 +116,11 @@ export default function VIPRegister() {
     </Modal>
 
     <Container className='mt-5 page'>
+    <motion.div
+        initial={{opacity: 0, x: -100}}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, delay: .2 }}
+        >
         <Container style={{maxWidth: '30rem'}}>
             <Container align='center'>
                 <h1>Sign Up!</h1>
@@ -161,6 +167,7 @@ export default function VIPRegister() {
                 </>}
             </Form>
         </Container>
+        </motion.div>
     </Container>
     </>
   )

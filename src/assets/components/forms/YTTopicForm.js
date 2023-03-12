@@ -1,21 +1,20 @@
-import { Button, Container, Form, Row, Col } from 'react-bootstrap'
+import { Button, Container, Form, Row, Col, Card } from 'react-bootstrap'
 import { useState } from 'react';
 import axios from 'axios';
-import RequestStatus from '../assets/components/RequestStatus';
+import RequestStatus from './RequestStatus';
 
-export default function YTTitleForm() {
+export default function YTScriptForm() {
     const [aiPrompt, setAIPrompt] = useState('');
-    const [tone, setTone] = useState('Friendly');
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
     const [progress, setProgress] = useState(0)
+    const [loading, setLoading] = useState(false);
     const temp = 0
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const fetchData = async (prompt, temperature, tone) => {
+    const fetchData = async (prompt, temperature) => {
         setLoading(true);
         if(!aiPrompt){
           alert('Enter in all fields')
@@ -24,7 +23,7 @@ export default function YTTitleForm() {
         }
         try {
             const result = await axios.post(`${API_URL}/chat`, {
-                prompt: `Generate 10 potential titles for a ${tone} YouTube video on the topic: "${prompt}". Consider titles that are concise, attention-grabbing, and accurately reflect the content of the video. Aim to include keywords relevant to the topic and make the titles search engine optimized for ranking on YouTube.`,
+                prompt: `Generate a list of 10 unique and engaging YouTube video ideas revolving around this topic: ${prompt} Consider topics that are relevant, trending, and have potential for creative expression. The ideas should be suitable for a variety of audiences and video formats (e.g. vlog, tutorial, review).`,
                 temperature: temperature,
             }, {
               // You can use the `onUploadProgress` function provided by Axios
@@ -47,7 +46,7 @@ export default function YTTitleForm() {
     <Container className='d-flex align-items-center justify-content-center mb-5'>
       <Row className='w-100'>
         <Col xs={12} md={4}>
-          <Form className='w-100'>
+          <Form className='w-100' align="left">
               <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
                 <Form.Label>
                   <h5>Video Topic:</h5>
@@ -56,19 +55,12 @@ export default function YTTitleForm() {
                 <Form.Control required type="text" as="textarea" placeholder="Describe your product for me." style={{width: '100%', minHeight: '250px'}} onChange={e => {setAIPrompt(e.target.value)}}/>
               </Form.Group>
 
-              <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
-                <Form.Label>
-                  <h5>Tone:</h5>
-                </Form.Label>
-                <br />
-                <Form.Control required type="text" placeholder="What kind of tone do you want to have?" onChange={e => {setTone(e.target.value)}}/>
-              </Form.Group>
-
-              <Button className='mt-2' onClick={() => fetchData(aiPrompt, temp, tone)}>Generate</Button>
+              <Button className='mt-2' onClick={() => fetchData(aiPrompt, temp)}>Generate</Button>
           </Form>
         </Col>
         <Col xs={12} md={8}>
           <Container className='w-100'>
+          <Card className='w-100' style={{minHeight: '60vh'}}>
             {!loading ?
             <>
             </>
@@ -88,6 +80,7 @@ export default function YTTitleForm() {
             </div>
             </>
             }
+            </Card>
           </Container>
         </Col>
         </Row>

@@ -1,16 +1,15 @@
-import { Card, Button } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 export default function ProductCard(props) {
   return (
-    <Card style={{ maxWidth: '18rem', minHeight: '10rem' }} border={props.bg}>
+    <Link to={props.link} style={{textDecoration: 'none'}}>
+    <Card style={{ maxWidth: '20rem', minHeight: '15rem' }} bg='dark' text='white'>
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
         <Card.Text>{props.description}</Card.Text>
-        <Link to={props.link}>
-            <Button variant="primary">Use Tool</Button>
-        </Link>
       </Card.Body>
     </Card>
+    </Link>
   )
 }

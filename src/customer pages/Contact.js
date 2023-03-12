@@ -1,9 +1,8 @@
 import React, {useState, useRef} from 'react'
 import { Container, Form, Button, Spinner } from 'react-bootstrap'
 import emailjs from '@emailjs/browser';
-import { motion } from 'framer-motion';
 
-export default function Support() {    
+export default function Contact() {    
     const form = useRef()
 
     const [loading, setLoading] = useState(false)
@@ -35,15 +34,10 @@ export default function Support() {
 
   return (
     <Container className='page mt-5'>
-        <motion.div
-            initial={{opacity: 0, x: -100}}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: .2 }}
-        >
         <Container style={{maxWidth: '30rem'}}>
             <Container align='center'>
-            <h1>Customer Support</h1>
-            <p>Need some help with your account? <br /> Maybe you've run into an error. <br /> Don't worry. <br /> We're here for you!</p>
+            <h1>Contact Us</h1>
+            <p>Need to reach out to us for anything outside of customer support? <br /> Fill out the form below!</p>
             </Container>
             <Form className='w-100 p-2' onSubmit={sendEmail} ref={form}>
                 <Form.Group className="mb-3" controlId="formBasicFirstName">
@@ -60,7 +54,7 @@ export default function Support() {
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Control value="Customer Support" type="text" name="subject" hidden />
+                    <Form.Control value="Contact/Inquiry" type="text" name="subject" hidden />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicMessage">
@@ -84,12 +78,11 @@ export default function Support() {
                 : 
                 <>
                 <Container align='center' fluid>
-                    <Spinner />
+                    <Spinner animation='grow' />
                 </Container>
                 </>}
             </Form>
             </Container>
-            </motion.div>
     </Container>
   )
 }

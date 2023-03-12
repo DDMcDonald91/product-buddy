@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Spinner, Button, Card } from 'react-bootstrap'
+import { Container, Spinner, Button, Card, ListGroup, Row, Col } from 'react-bootstrap'
 import axios from "axios";
 
 
 export default function WeatherBar() {
     // Weather API Data
     const [weather, setWeather] = useState(null)
-    const [errorMessage, setErrorMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState("")
     const [loading, setLoading] = useState(null)
     const [lat, setLat] = useState()
     const [long, setLong] = useState()
@@ -51,7 +51,7 @@ export default function WeatherBar() {
     const weatherCheck = async () => {
       const options = {
         method: 'GET',
-        url: `https://weatherapi-com.p.rapidapi.com/current.json?q=${lat}%2C${long}`,
+        url: `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${lat}%2C${long}&days=3`,
         headers: {
           'X-RapidAPI-Key': process.env.REACT_APP_WEATHER_API,
           'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
@@ -72,7 +72,7 @@ export default function WeatherBar() {
         <Card bg='light'>
           <Card.Header>Error</Card.Header>
           <Card.Body>
-            <Card.Title>Forecast Unavailable</Card.Title>
+            <Card.Title>{errorMessage}</Card.Title>
             <Card.Text>
             Would you like to activate this widget?
             </Card.Text>
@@ -105,17 +105,29 @@ export default function WeatherBar() {
 
     if(weather && !loading) {
       return(
-        <Container fluid className='p-1 mt-1 mb-5' style={{color: 'black', borderRadius: '.375rem', border: '1px solid black'  }}>
-          <Card bg='light'>
-          <Card.Header><h5>{weather.location.name}, {weather.location.region}</h5></Card.Header>
-          <Card.Body>
-            <Card.Title><h6>Current Forecast:</h6></Card.Title>
-            <Card.Text>
-            It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f} °F.
-            </Card.Text>
-          </Card.Body>
+        <Card className='bg-dark text-white' style={{color: 'black', borderRadius: '.375rem', border: '1px solid black', maxWidth: '20rem'}}>
+          <Card.Header><h4>{weather.location.name}, {weather.location.region}</h4></Card.Header>
+            <Card.Body>
+              <Card.Title><h5>Current Forecast:</h5></Card.Title>
+              <Card.Text>
+                <p>It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f} °F.</p>
+              </Card.Text>
+            </Card.Body>
+          <ListGroup variant="flush">
+            {weather.forecast.forecastday.map((item, index) => {
+              return(
+                <ListGroup.Item key={index}>
+                  <p>Date: {item.date}</p>
+                  <p>Forecast: {item.day.condition.text}</p>
+                  <Row>
+                    <Col>Average: {item.day.avgtemp_f} °F.</Col>
+                    <Col>Chance of Rain: {item.day.daily_chance_of_rain} %</Col>
+                  </Row>
+                </ListGroup.Item>
+              )
+            })}
+          </ListGroup>
         </Card>
-        </Container>
       )
     }
 }

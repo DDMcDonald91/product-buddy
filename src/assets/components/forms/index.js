@@ -1,6 +1,7 @@
-export { default as AIForm } from './AIForm';
+export { default as ProductDescForm } from './ProductDescForm';
 export { default as ImageForm } from './ImageForm';
 export { default as NameForm } from './NameForm';
+export { default as BrandSloganForm } from './BrandSloganForm';
 export { default as TitleForm } from './TitleForm';
 export { default as YTDescriptionForm } from './YTDescriptionForm';
 export { default as YTScriptForm } from './YTScriptForm';

@@ -10,7 +10,7 @@ import { IconContext } from "react-icons";
 import { Link, useNavigate } from "react-router-dom";
 
 // DATA FILE
-import { SidebarData } from "./SlidebarData";
+import { SidebarData } from "../assets/components/SlidebarData";
 
 // BOOTSTRAP
 import { Button, Container } from "react-bootstrap";

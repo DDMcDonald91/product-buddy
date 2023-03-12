@@ -1,7 +1,7 @@
-import { Button, Container, Form, Row, Col } from 'react-bootstrap'
+import { Button, Container, Form, Row, Col, Card } from 'react-bootstrap'
 import { useState } from 'react';
 import axios from 'axios';
-import RequestStatus from '../assets/components/RequestStatus';
+import RequestStatus from './RequestStatus';
 
 export default function YTScriptForm() {
     const [aiPrompt, setAIPrompt] = useState('');
@@ -47,7 +47,7 @@ export default function YTScriptForm() {
     <Container className='d-flex align-items-center justify-content-center mb-5'>
       <Row className='w-100'>
         <Col xs={12} md={4}>
-          <Form className='w-100'>
+          <Form className='w-100' align="left">
               <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
                 <Form.Label>
                   <h5>Video Topic:</h5>
@@ -69,6 +69,7 @@ export default function YTScriptForm() {
         </Col>
         <Col xs={12} md={8}>
           <Container className='w-100'>
+          <Card className='w-100' style={{minHeight: '60vh'}}>
             {!loading ?
             <>
             </>
@@ -88,6 +89,7 @@ export default function YTScriptForm() {
             </div>
             </>
             }
+            </Card>
           </Container>
         </Col>
         </Row>
