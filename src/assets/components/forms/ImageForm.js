@@ -1,22 +1,20 @@
 import {useState} from 'react'
 import axios from 'axios';
-import {Container, Row, Col, Button, Form, Image} from 'react-bootstrap'
-import RequestStatus from './RequestStatus';
+import FormLayout from '../FormLayout';
 
 export default function ImageForm() {
-    const [aiPrompt, setAIPrompt] = useState('');
     const [response, setResponse] = useState(null);
     const [progress, setProgress] = useState(0)
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const fetchData = async (prompt) => {
+    const fetchData = async (formData) => {
         setLoading(true);
 
-        if(!aiPrompt){
+        if(!formData.aiPrompt){
           alert('Enter in all fields')
           setLoading(false);
           return
@@ -24,7 +22,7 @@ export default function ImageForm() {
 
         try {
             const result = await axios.post(`${API_URL}/image`, {
-                prompt: `${prompt}.`,
+                prompt: `${formData.aiPrompt}.`,
             }, {
               // You can use the `onUploadProgress` function provided by Axios
               onUploadProgress: progressEvent => {
@@ -42,47 +40,20 @@ export default function ImageForm() {
 
         setLoading(false);
     };
-  return (
-    <Container className='d-flex align-items-center justify-content-center mb-5'>
-      <Row className='w-100'>
-        <Col xs={12} md={4}>
-          <Form className='w-100' align="left">
-              <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
-                <Form.Label>
-                  <h5>Image Description:</h5>
-                </Form.Label>
-                <br />
-                <Form.Control required type="text" as="textarea" placeholder="Describe your product for me." style={{width: '100%', minHeight: '250px'}} onChange={e => {setAIPrompt(e.target.value)}}/>
-              </Form.Group>
 
-              <Button className='mt-2' onClick={() => fetchData(aiPrompt)}>Generate</Button>
-          </Form>
-        </Col>
-        <Col xs={12} md={8}>
-          <Container className='w-100'>
-          {!loading ?
-            <>
-            </>
-            :
-            <>
-              <RequestStatus progress={progress} />
-            </>
-            }
-            {!response ?
-            <>
-            </>
-            :
-            <>
-            <h3 align='center'>Response:</h3>
-            <Container align='center'>
-              <Image src={response} className='img-fluid' />
-            </Container>
-            </>
-            }
-          </Container>
-        </Col>
-        </Row>
-      </Container>
-
-  )
+    return (
+      <FormLayout 
+      extraFormField={false}
+  
+      formLabel="Image Description"
+      formPlaceholder="Describe the image you want to create. Try to be as detailed as possible." 
+  
+      requestProgress={progress} 
+      requestResponse={response} 
+      requestError={error} 
+      requestLoading={loading} 
+  
+      onSubmit={fetchData} 
+      /> 
+    )
 }

@@ -109,15 +109,22 @@ export default function WeatherBar() {
           <Card.Header><h4>{weather.location.name}, {weather.location.region}</h4></Card.Header>
             <Card.Body>
               <Card.Title><h5>Current Forecast:</h5></Card.Title>
-              <Card.Text>
+              <Card.Text className='body-font'>
                 <p>It's {weather.current.condition.text} and the temperature is: {weather.current.temp_f} °F.</p>
               </Card.Text>
             </Card.Body>
           <ListGroup variant="flush">
             {weather.forecast.forecastday.map((item, index) => {
+              // Convert date string to Date object
+              const date = new Date(item.date);
+              // Get month name from Date object
+              const monthName = date.toLocaleString('default', { month: 'long' });
+              // Format date string as "month/xx/xxxx"
+              const formattedDate = `${monthName} ${date.getDate()}, ${date.getFullYear()}`;
+
               return(
-                <ListGroup.Item key={index}>
-                  <p>Date: {item.date}</p>
+                <ListGroup.Item key={index} className='body-font'>
+                  <p>Date: {formattedDate}</p>
                   <p>Forecast: {item.day.condition.text}</p>
                   <Row>
                     <Col>Average: {item.day.avgtemp_f} °F.</Col>

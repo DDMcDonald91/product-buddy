@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { UserContextProvider } from './context/UserContext';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './custom.scss';
 import Home from './Home';
 import * as All from './assets/components/forms';
 import ScrollToTop from './assets/components/ScrollToTop';
@@ -30,15 +31,16 @@ function App() {
         <Container fluid className='p-0 layout'>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/product-description-generator' element={<Layout title="Product Description Generator" instructions="Use the form below to have Kenzo generate a SEO friendly product description for your product." form={<All.ProductDescForm />} />} />
-            <Route path='/product-title-generator' element={<Layout title="Product Name Generator" instructions="Use the form below to generate a creative name for your new product." form={<All.TitleForm />} />} />
-            <Route path='/business-name-generator' element={<Layout title="Business Name Generator" instructions="Use the form below to generate a creative name for your business." form={<All.NameForm />} />} />
-            <Route path='/business-slogan-generator' element={<Layout title="Business Slogan Generator" instructions="Use the form below to generate a creative slogan for your business." form={<All.BrandSloganForm />} />} />
-            <Route path='/image-generator' element={<Layout title="AI Art Creation Generator" instructions="Use the form below to create a unique image with Keni." form={<All.ImageForm />} />} />
-            <Route path='/youtube-script-generator' element={<Layout title="YouTube Script Outline Generator" instructions="Use the form below to create a unique script outline for your YouTube video." form={<All.YTScriptForm />} />} />
-            <Route path='/youtube-topic-generator' element={<Layout title="YouTube Topic Generator" instructions="Use the form below to create a list of topics for your YouTube video." form={<All.YTTopicForm />} />} />
-            <Route path='/youtube-title-generator' element={<Layout title="YouTube Title Generator" instructions="Use the form below to create a list of titles for your YouTube video." form={<All.YTTitleForm />} />} />
-            <Route path='/youtube-description-generator' element={<Layout title="YouTube Description Generator" instructions="Use the form below to a list of descriptions for your YouTube video." form={<All.YTDescriptionForm />} />} />
+            <Route path='/product-description-template' element={<Layout title="Product Description Template" instructions="Use the form below to have Kenzo generate a SEO friendly product description for your product." form={<All.ProductDescForm />} />} />
+            <Route path='/product-title-template' element={<Layout title="Product Name Template" instructions="Use the form below to generate a creative name for your new product." form={<All.ProductTitleForm />} />} />
+            <Route path='/business-name-template' element={<Layout title="Business Name Template" instructions="Use the form below to generate a creative name for your business." form={<All.NameForm />} />} />
+            <Route path='/business-slogan-template' element={<Layout title="Business Slogan Template" instructions="Use the form below to generate a creative slogan for your business." form={<All.BrandSloganForm />} />} />
+            <Route path='/image-template' element={<Layout title="AI Art Creation Template" instructions="Use the form below to create a unique image with Kenzo." form={<All.ImageForm />} />} />
+            <Route path='/social-media-strategy-template' element={<Layout title="Social Media Strategy Template" instructions="Use the form below to create an effective social media strategy for your brand." form={<All.SocialMediaStrategyForm />} />} />
+            <Route path='/youtube-script-template' element={<Layout title="YouTube Script Outline Template" instructions="Use the form below to create a unique script outline for your YouTube video." form={<All.YTScriptForm />} />} />
+            <Route path='/youtube-topic-template' element={<Layout title="YouTube Topic Template" instructions="Use the form below to create a list of topics for your YouTube video." form={<All.YTTopicForm />} />} />
+            <Route path='/youtube-title-template' element={<Layout title="YouTube Title Template" instructions="Use the form below to create a list of titles for your YouTube video." form={<All.YTTitleForm />} />} />
+            <Route path='/youtube-description-template' element={<Layout title="YouTube Description Template" instructions="Use the form below to a list of descriptions for your YouTube video." form={<All.YTDescriptionForm />} />} />
             <Route path='/register' element={<Register />} />
             <Route path='/vip-register' element={<VIPRegister />} />
             <Route path='/login' element={<Login />} />

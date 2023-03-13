@@ -19,7 +19,7 @@ export default function SiteNav() {
       }, [currentUser, accountActive])
 
     return (
-    <Navbar bg="dark" variant="dark" className='w-100 pt-3 pb-3' style={{position: 'relative'}}>
+    <Navbar variant="dark" className='w-100 pt-3 pb-3' style={{position: 'relative', background: 'black'}}>
         <Container className="d-flex justify-content-between align-items-center w-auto" style={{zIndex: '1000', position: 'absolute'}}>
           <UserNav />
         </Container>
@@ -30,7 +30,7 @@ export default function SiteNav() {
           animate={{ opacity: 1 }}
         >
           <Navbar.Brand href="/">
-              <Image src={Kenzo} style={{height: '100px', width: '100px'}} />
+              <Image src={Kenzo} style={{height: '100px', width: '200px'}} />
           </Navbar.Brand>
         </motion.div>
         </Container>

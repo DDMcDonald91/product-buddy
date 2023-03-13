@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Container, Spinner, Button } from 'react-bootstrap';
+import { Container, Spinner, Button, Image } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { UserContextData } from '../../context/UserContext';
 import { SidebarData } from './SlidebarData';
@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai'
 import { ImMenu } from 'react-icons/im'
 import './components.css'
+import KenzoLogo from '../images/KenzoLogo.png'
 
 export default function UserNav() {
     const { currentUser, accountActive, logout } = UserContextData()
@@ -72,7 +73,7 @@ export default function UserNav() {
             <>
             <Offcanvas.Header>
                 <Offcanvas.Title className='d-flex align-items-center w-100 justify-content-between'>
-                    <h4>Kenzo</h4>
+                    <h4 className='pt-3'>Kenzo</h4>
                     <AiOutlineClose onClick={handleClose} style={{float: 'right'}} size={30} className="close-button" />
                 </Offcanvas.Title>
             </Offcanvas.Header>
@@ -94,6 +95,7 @@ export default function UserNav() {
                         </Link>
                     </li>
                 </ul>
+                <Container className='mt-3' style={{backgroundImage: `url(${KenzoLogo})`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', height: '10rem', width: '15rem'}}></Container>
             </Offcanvas.Body>
             </>
             :
@@ -104,7 +106,7 @@ export default function UserNav() {
             <>
             <Offcanvas.Header>
                 <Offcanvas.Title className='d-flex align-items-center w-100 justify-content-between'>
-                    <h4>Kenzo</h4>
+                    <h4 className='pt-3'>Kenzo</h4>
                     <AiOutlineClose onClick={handleClose} style={{float: 'right'}} size={30} className="close-button" />
                 </Offcanvas.Title>
             </Offcanvas.Header>
@@ -121,6 +123,7 @@ export default function UserNav() {
                         </div>
                     </li>
                 </ul>
+                <Container className='mt-3' style={{backgroundImage: `url(${KenzoLogo})`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', height: '10rem', width: '15rem'}}></Container>
             </Offcanvas.Body>
             </>
             : <></> }
@@ -129,7 +132,7 @@ export default function UserNav() {
             <>
             <Offcanvas.Header>
                 <Offcanvas.Title className='d-flex align-items-center w-100 justify-content-between'>
-                    <h4>Generators</h4>
+                    <h4 className="pt-3">Templates</h4>
                     <AiOutlineClose onClick={handleClose} style={{float: 'right'}} size={30} className="close-button" />
                 </Offcanvas.Title>
             </Offcanvas.Header>
@@ -138,7 +141,7 @@ export default function UserNav() {
                     return (
                       <li key={index} className={item.cName}>
                         <Link to={item.path} onClick={handleClose}>
-                          <span className="nav-icon">{item.icon}</span>
+                          <span className="nav-icon" style={{paddingRight: '10px'}}>{item.icon}</span>
                           <span>{item.title}</span>
                         </Link>
                       </li>
@@ -161,6 +164,7 @@ export default function UserNav() {
                             </div>
                         </li>
                     </ul>
+                    <Container className='mt-3' style={{backgroundImage: `url(${KenzoLogo})`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', height: '10rem', width: '15rem'}}></Container>
                 </Offcanvas.Body>
             </>
             : <></>}
@@ -168,62 +172,3 @@ export default function UserNav() {
       </>      
     )
 }
-
-/*
-    if(currentUser && accountActive === true) {
-        return (
-            <>
-            <ImMenu style={{color: 'white', fontSize: "2rem"}} onClick={handleShow} />
-            
-            <Offcanvas style={{background: 'black', color: 'white'}} show={show} onHide={handleClose}>
-                {loading === true ? 
-                <>
-                <Offcanvas.Header closeButton={<AiOutlineClose />} style={{color: 'white'}} className="close-button">
-                    Please wait...
-                </Offcanvas.Header>
-                    <Loading />
-                </>
-                :
-                <>
-                <Offcanvas.Header>
-                    <Offcanvas.Title className='d-flex align-items-center w-100 justify-content-between'>
-                        <h4>Generators</h4>
-                        <AiOutlineClose onClick={handleClose} style={{float: 'right'}} size={30} className="clost-button" />
-                    </Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                {SidebarData.map((item, index) => {
-                    return (
-                      <li key={index} className={item.cName}>
-                        <Link to={item.path} onClick={handleClose}>
-                          <span className="nav-icon">{item.icon}</span>
-                          <span>{item.title}</span>
-                        </Link>
-                      </li>
-                      );
-                    })}
-                    <ul style={{listStyle: 'none'}}>
-                        <li>
-                            <Link to='/dashboard' className='nav-text' onClick={handleClose}>
-                                <Button className='mt-1 mb-1' variant="primary">Dashboard</Button>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/profile' className='nav-text' onClick={handleClose}>
-                                <Button className='mt-1 mb-1' variant="primary">Profile</Button>
-                            </Link>
-                        </li>
-                        <li>
-                            <div className="nav-text" onClick={handleClose}>
-                                <Button className='mt-1 mb-1' variant="primary" onClick={tryLogout}>Logout</Button>
-                            </div>
-                        </li>
-                    </ul>
-                </Offcanvas.Body>
-                </>
-                }
-            </Offcanvas>
-          </>
-        )
-    }
-    */

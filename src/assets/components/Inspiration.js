@@ -63,7 +63,7 @@ export default function Inspiration() {
         </>
         :
         <>
-        <Card className="bg-dark text-white w-100 p-3 card-opacity">
+        <Card className="text-black w-100 p-3 card-opacity" style={{backgroundColor: '#FF5733'}}>
             <Card.Text>
                 <h2>{quote}</h2>
             </Card.Text>

@@ -8,9 +8,10 @@ export default function FormLayout(props) {
       aiPrompt: '',
       title: '',
       tone: '',
+      extraValue2: '',
+      extraValue3: '',
     })
     const [tone, setTone] = useState('Friendly')
-    const [error, setError] = useState(false);
 
     const handleChange = (event) => {
       setFormData({
@@ -34,7 +35,7 @@ export default function FormLayout(props) {
     <Container className='d-flex align-items-center justify-content-center mb-5' fluid>
       <Row className='w-100'>
         <Col xs={12} md={4}>
-          <Form className='w-100' onSubmit={passData}>
+          <Form className='w-100' align="left" onSubmit={passData}>
             {props.extraFormField ?
                 <>
                 <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
@@ -56,6 +57,34 @@ export default function FormLayout(props) {
                 <Form.Control required type="text" as="textarea" placeholder={props.formPlaceholder} style={{width: '100%', minHeight: '250px'}} name="aiPrompt" value={formData.aiPrompt} onChange={handleChange} />
               </Form.Group>
 
+              {props.extraFormField2 ?
+                <>
+                <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
+                    <Form.Label>
+                    <h5>{props.extraFormLabel2}</h5>
+                    </Form.Label>
+                    <br />
+                    <Form.Control required type="text" placeholder={props.extraFormPlaceholder2} name="extraValue2" value={formData.extraValue2} onChange={handleChange} />
+                </Form.Group>
+                </>
+              :
+              <></>
+              }
+
+              {props.extraFormField3 ?
+                <>
+                <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
+                    <Form.Label>
+                    <h5>{props.extraFormLabel3}</h5>
+                    </Form.Label>
+                    <br />
+                    <Form.Control required type="text" placeholder={props.extraFormPlaceholder3} name="extraValue3" value={formData.extraValue3} onChange={handleChange} />
+                </Form.Group>
+                </>
+              :
+              <></>
+              }
+
               <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
                 <Form.Label>
                   <h5>Tone:</h5>
@@ -63,6 +92,7 @@ export default function FormLayout(props) {
                 <br />
                 <Form.Control type="text" placeholder="What kind of tone do you want to have?" name="tone" value={formData.tone} onChange={handleChange} />
               </Form.Group>
+
               {!props.requestLoading ? 
               <>
                 <Button className='mt-2' type='submit'>Generate</Button>

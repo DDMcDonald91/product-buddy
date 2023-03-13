@@ -13,56 +13,62 @@ export const SidebarData = [
     cName: "nav-text"
   },
   {
-    title: "Art Generator",
-    path: "/image-generator",
+    title: "AI Art Template",
+    path: "/image-template",
     icon: <FaIcons.FaEnvelopeOpenText style={{color: 'white'}} />,
     cName: "nav-text"
   },
   {
-    title: "Business Names Generator",
-    path: "/business-name-generator",
+    title: "Business Names Template",
+    path: "/business-name-template",
     icon: <IoIcons.IoMdPeople style={{color: 'white'}} />,
     cName: "nav-text"
   },
   {
-    title: "Business Slogan Generator",
-    path: "/business-slogan-generator",
+    title: "Business Slogan Template",
+    path: "/business-slogan-template",
     icon: <IoIcons.IoMdPeople style={{color: 'white'}} />,
     cName: "nav-text"
   },
   {
-    title: "Product Descriptions",
-    path: "/product-description-generator",
+    title: "Product Descriptions Template",
+    path: "/product-description-template",
     icon: <IoIcons.IoIosPaper style={{color: 'white'}} />,
     cName: "nav-text"
   },
   {
-    title: "Product Name Generator",
-    path: "/product-title-generator",
+    title: "Product Name Template",
+    path: "/product-title-template",
     icon: <FaIcons.FaCartPlus style={{color: 'white'}} />,
     cName: "nav-text"
   },
   {
-    title: "YouTube Script Generator",
-    path: "/youtube-script-generator",
+    title: "Social Media Strategy Template",
+    path: "/social-media-strategy-template",
+    icon: <FaIcons.FaCartPlus style={{color: 'white'}} />,
+    cName: "nav-text"
+  },
+  {
+    title: "YouTube Script Template",
+    path: "/youtube-script-template",
     icon: <AiIcons.AiFillYoutube style={{color: 'white'}} />,
     cName: "nav-text"
   },
   {
-    title: "YouTube Topic Ideas",
-    path: "/youtube-topic-generator",
+    title: "YouTube Video Topic Template",
+    path: "/youtube-topic-template",
     icon: <AiIcons.AiFillYoutube style={{color: 'white'}} />,
     cName: "nav-text"
   },
   {
-    title: "YouTube Title Ideas",
-    path: "/youtube-title-generator",
+    title: "YouTube Video Title Template",
+    path: "/youtube-title-template",
     icon: <AiIcons.AiFillYoutube style={{color: 'white'}} />,
     cName: "nav-text"
   },
   {
-    title: "YouTube Description Ideas",
-    path: "/youtube-description-generator",
+    title: "YouTube Video Description Template",
+    path: "/youtube-description-template",
     icon: <AiIcons.AiFillYoutube style={{color: 'white'}} />,
     cName: "nav-text"
   },

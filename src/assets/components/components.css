@@ -25,6 +25,8 @@
     padding: 8px 0 8px 16px;
     list-style: none;
     height: 60px;
+    text-decoration: none;
+
   }
   
   .nav-text a {
@@ -44,8 +46,16 @@
     color: black;
   }
 
-  /* Inspiration Component */
-  .card-opacity {
-    background-color: rgba(0, 0, 0, 0.9);
-  }
+/* Inspiration Component */
+.card-opacity {
+  background-color: rgba(0, 0, 0, 0.9);
+}
   
+/* Footer Component */
+.footer-link {
+  color: #FF5733;
+}
+
+.footer-link:hover {
+  color: white;
+}
