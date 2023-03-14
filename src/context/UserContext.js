@@ -1,5 +1,5 @@
 import { useContext, createContext, useState, useEffect } from "react";
-import { signInWithEmailAndPassword, signOut, getAuth } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, getAuth, updatePassword, sendPasswordResetEmail } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 
@@ -15,7 +15,6 @@ export function UserContextProvider({ children }) {
     const [eventSnap, setEventSnap] = useState(null);
     const [accountStatus, setAccountStatus] = useState(null);
     const [accountActive, setAccountActive] = useState(false)
-
 
     // check for Firebase user on load
     useEffect(() => {
@@ -109,6 +108,8 @@ const retrieveUser = async () => {
             const errorMessage = error.message;
             // ..
             console.log("Login error:", errorCode, errorMessage)
+            alert("Sorry, try entering your credentials again.")
+            return
         });
     }
 
@@ -131,6 +132,37 @@ const retrieveUser = async () => {
         });
     }
 
+    // update user password
+    const updateUserPassword = async (newPassword) => {
+      // checks for a user before attempting password update
+      if(!currentUser){
+        alert('No user signed in.')
+        return
+      }
+      // run reset password function from firebase
+      await updatePassword(currentUser, newPassword).then(() => {
+        alert("Password was updated successfully.")
+      }).catch((error) => {
+        // An error ocurred
+        console.log(error)
+        alert("Sorry, there seems to be an error. Try refreshing the page and try again.")
+        return
+      });
+    }
+
+    // reset user password
+    const resetUserPassword = async (email) => {
+      // run update password function from firebase
+      await sendPasswordResetEmail(auth, email).then(() => {
+        alert("Password reset link sent to your email.")
+      }).catch((error) => {
+        // An error ocurred
+        console.log(error)
+        alert("Sorry, there seems to be an error. Try refreshing the page and try again.")
+        return
+      });
+    }
+
     return (
         <UserContext.Provider value={
             {
@@ -142,6 +174,8 @@ const retrieveUser = async () => {
             accountStatus,
             accountActive,
             retrieveUser,
+            updateUserPassword,
+            resetUserPassword,
             loading
             }
         }>{children}</UserContext.Provider>

@@ -2,6 +2,7 @@ import { UserContextData } from '../context/UserContext';
 import { Container, Form, Button, Spinner, Card, ListGroup } from 'react-bootstrap';
 import Checkout from './Checkout';
 import Renew from '../assets/components/Renew';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export default function Profile() {
@@ -85,10 +86,15 @@ export default function Profile() {
             <Card.Body>
                 <Form action={`${API_URL}/create-portal-session`} method="POST">
                 <input type="hidden" id="session-id" name="session_id" value={sessionID} />
-                <Button id="checkout-and-portal-button" type="submit">
+                <Button className='mt-5 mb-1 w-100' id="checkout-and-portal-button" type="submit">
                     Manage your billing information
                 </Button>
                 </Form>
+                <Link to="/update-password" style={{textDecoration: 'none'}}>
+                    <Button className='mt-1 mb-1 w-100' variant='primary'>
+                        Update Password
+                    </Button>
+                </Link>
             </Card.Body>
             </Card>
             </Container>
@@ -121,10 +127,15 @@ export default function Profile() {
                 <> 
                 <Form action={`${API_URL}/create-portal-session`} method="POST">
                 <input type="hidden" id="session-id" name="session_id" value={sessionID} />
-                <Button id="checkout-and-portal-button" type="submit">
+                <Button className='mt-5 mb-1 w-100' id="checkout-and-portal-button" type="submit">
                     Manage your billing information
                 </Button>
                 </Form>
+                <Link to="/update-password" style={{textDecoration: 'none'}}>
+                    <Button className='mt-1 mb-1 w-100' variant='primary'>
+                        Update Password
+                    </Button>
+                </Link>
                 </>
                 }
             </Card.Body>

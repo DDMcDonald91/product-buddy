@@ -30,6 +30,18 @@ export const DashboardData = [
         color:"secondary"
     },
     {
+        title:"Social Media Post Template",
+        description:"Start right here to make a unique social media post!",
+        link:"/social-media-post-template",
+        color:"danger"
+    },
+    {
+        title:"Social Media Content Format Template",
+        description:"Start here to create a format for your conent!",
+        link:"/social-media-content-format-template",
+        color:"danger"
+    },
+    {
         title:"Social Media Strategy Template",
         description:"Need a strategy for your social media brand? Start here!",
         link:"/social-media-strategy-template",

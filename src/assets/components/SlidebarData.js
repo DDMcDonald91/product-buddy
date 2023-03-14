@@ -43,6 +43,18 @@ export const SidebarData = [
     cName: "nav-text"
   },
   {
+    title: "Social Media Post Template",
+    path: "/social-media-post-template",
+    icon: <FaIcons.FaCartPlus style={{color: 'white'}} />,
+    cName: "nav-text"
+  },
+  {
+    title: "Social Media Content Format Template",
+    path: "/social-media-content-format-template",
+    icon: <FaIcons.FaCartPlus style={{color: 'white'}} />,
+    cName: "nav-text"
+  },
+  {
     title: "Social Media Strategy Template",
     path: "/social-media-strategy-template",
     icon: <FaIcons.FaCartPlus style={{color: 'white'}} />,

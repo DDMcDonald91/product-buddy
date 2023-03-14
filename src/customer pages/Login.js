@@ -1,7 +1,7 @@
 import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { useState, useEffect, useRef } from "react";
 import { UserContextData } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export default function Login() {
@@ -18,16 +18,15 @@ export default function Login() {
 
     useEffect(() => {
         if(currentUser) {
-            navigate('/profile')
+            navigate('/dashboard')
         }
-    }, [])
+    }, [currentUser])
 
     const tryLogin = async (e) => {
         e.preventDefault()
         setLoading(true)
         try {
             await login(emailRef.current.value, passwordRef.current.value)
-            navigate('/dashboard')
         } catch (error) {
             setErrorMessage("Error logging in.")
             setLoading(false)
@@ -89,13 +88,16 @@ export default function Login() {
 
                     {!loading ? 
                     <>
-                    <Button className='w-100 mt-5' variant="primary" type="submit">
+                    <Button className='w-100 mt-5 mb-1' variant="primary" type="submit">
                         Submit
                     </Button>
+                    <Link to='/reset-password'>
+                        <Button className='w-100 mt-1 mb-1'>Recover Password</Button>
+                    </Link>
                     </> 
                     : 
                     <>
-                    <Spinner animation="grow" />
+                    <Spinner align='center' animation="grow" />
                     </>}
                 </Form>
                 <br />

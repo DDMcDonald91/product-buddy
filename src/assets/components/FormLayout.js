@@ -10,6 +10,7 @@ export default function FormLayout(props) {
       tone: '',
       extraValue2: '',
       extraValue3: '',
+      extraValueRadio: '',
     })
     const [tone, setTone] = useState('Friendly')
 
@@ -79,6 +80,32 @@ export default function FormLayout(props) {
                     </Form.Label>
                     <br />
                     <Form.Control required type="text" placeholder={props.extraFormPlaceholder3} name="extraValue3" value={formData.extraValue3} onChange={handleChange} />
+                </Form.Group>
+                </>
+              :
+              <></>
+              }
+
+              {props.extraFormFieldRadio ?
+                <>
+                <Form.Group style={{marginBottom: '1.5rem'}} controlId="formBasicText">
+                    <Form.Label>
+                    <h5>{props.extraFormLabelRadio}</h5>
+                    </Form.Label>
+                    <br />
+                    {props.extraValueRadio.map((item) => {
+                      return(
+                      <Form.Check 
+                      type='radio'
+                      label={item}
+                      name="extraValueRadio"
+                      value={item}
+                      checked={formData.extraValueRadio === item}
+                      onChange={handleChange}
+                      onClick={() => {console.log(item)}}
+                      />
+                      )
+                      })}
                 </Form.Group>
                 </>
               :

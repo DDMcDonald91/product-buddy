@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { UserContextData } from '../../context/UserContext'
 import { Container, Card, Button, Form, ListGroup, Spinner } from 'react-bootstrap'
-import { doc, getDoc } from "firebase/firestore";
-import { db } from '../../Firebase';
+import { motion } from 'framer-motion'
+
 
 
 export default function Renew() {
@@ -32,29 +32,37 @@ export default function Renew() {
     }, [!stripeId, !docSnap])
 
   return (
-    <Container align='center'>
+    <Container align='center' className='mt-5'>
+        <motion.div
+            initial={{opacity: 0, x: -100}}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: .2 }}
+        >
         {!loading ?
         <>
             <Card style={{ width: '30rem' }}>
                 <Card.Body>
-                    <Card.Title>Renew Your Subscription</Card.Title>
-                    <Card.Text>
-                    Canceled your subscription? No problem, let's renew your plan!
+                    <Card.Title><h3>Renew Your Subscription</h3></Card.Title>
+                    <Card.Text className='body-text'>
+                    Canceled your subscription? 
+                    <br />
+                    No problem, let's renew your plan!
                     </Card.Text>
                     <Container>
-                        <h2>$49.99/month</h2>
+                        <h2>$39.99/month</h2>
                     </Container>
-                    <Card.Header>Features:</Card.Header>
-                    <ListGroup className="list-group-flush">
+                    <Card.Header><h6>Features:</h6></Card.Header>
+                    <ListGroup className="list-group-flush body-text">
                         <ListGroup.Item>Unlimited Usage</ListGroup.Item>
                         <ListGroup.Item>Social Media Tools</ListGroup.Item>
+                        <ListGroup.Item>Strategy Generation</ListGroup.Item>
                         <ListGroup.Item>Business Tools</ListGroup.Item>
                         <ListGroup.Item>Art Generation</ListGroup.Item>
                     </ListGroup>
                     <Form action={`${API_URL}/create-checkout-session`} method="POST">
                         <Form.Control type="hidden" name="lookup_key" value="premium" />
                         <Form.Control type="hidden" name="stripeId" value={stripeId} />
-                        <Button variant="primary" id="checkout-and-portal-button" type="submit">Purchase Now</Button>
+                        <Button className='mt-5' variant="primary" id="checkout-and-portal-button" type="submit">Purchase Now</Button>
                     </Form>
                 </Card.Body>
             </Card>
@@ -64,6 +72,7 @@ export default function Renew() {
             <Spinner animation='grow' />
         </>
         }
+        </motion.div>
     </Container>
   )
 }
