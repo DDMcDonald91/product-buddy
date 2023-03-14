@@ -39,7 +39,7 @@ export default function Dashboard() {
                 <Row>
                     <Col xs={12} md={9}>
                         <Container className='mt-5'>
-                            <Row xs={1} md={2} lg={4} className="g-2">
+                            <Row xs={1} md={2} lg={3} className="g-2">
                                 {DashboardData.map((item, index) => {
                                     return(
                                         <Col key={index}>
