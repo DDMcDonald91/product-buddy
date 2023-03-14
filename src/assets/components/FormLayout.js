@@ -35,7 +35,7 @@ export default function FormLayout(props) {
   return (
     <Container className='d-flex align-items-center justify-content-center mb-5' fluid>
       <Row className='w-100'>
-        <Col xs={12} md={4}>
+        <Col xs={12} md={4} className='mb-5'>
           <Form className='w-100' align="left" onSubmit={passData}>
             {props.extraFormField ?
                 <>
@@ -131,7 +131,7 @@ export default function FormLayout(props) {
               }
           </Form>
         </Col>
-        <Col xs={12} md={8}>
+        <Col xs={12} md={8} className='mb-5'>
           <Container className='w-100'>
           <Card className='w-100' style={{minHeight: '60vh'}}>
               <Card.Body>
