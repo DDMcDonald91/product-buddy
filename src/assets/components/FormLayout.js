@@ -149,7 +149,7 @@ export default function FormLayout(props) {
             <></>
             : 
             <>
-              <Container fluid className='mb-5 p-0 d-flex align-items-center justify-content-center' style={{backgroundImage: `url(${props.imageRequestResponse})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '100%'}}>
+              <Container fluid className='mb-5 p-0 d-flex align-items-center justify-content-center' style={{backgroundImage: `url(${props.imageRequestResponse})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '60rem'}}>
               </Container>
             </>}
             {props.requestError === false ? 
