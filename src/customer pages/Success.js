@@ -16,8 +16,10 @@ export default function Success() {
 
   useEffect(() => {
     // checks for existing customer session ID
-    if(sessionID !== null || ""){
-      console.log('Redirecting to profile')
+    if(sessionID === null || ""){
+      console.log('Good to go.')
+    } else{
+      console.log('Redirecting to profile');
       navigate('/profile')
     }
 
