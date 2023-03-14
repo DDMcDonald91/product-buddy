@@ -1,4 +1,4 @@
-import { Button, Container, Form, Row, Col, Card } from 'react-bootstrap'
+import { Button, Container, Form, Row, Col, Card, Image } from 'react-bootstrap'
 import { useState } from 'react';
 import RequestStatus from './forms/RequestStatus';
 import '../components/components.css'
@@ -140,16 +140,17 @@ export default function FormLayout(props) {
             </>
             :
             <>
-            <div>
+            <Container fluid>
               {props.requestResponse.split("\n").map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-            </div>
+            </Container>
             </>
             }
             {!props.imageRequestResponse ? 
             <></>
             : 
             <>
-              <Container fluid className='mb-5 p-0 d-flex align-items-center justify-content-center' style={{backgroundImage: `url(${props.imageRequestResponse})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '60rem'}}>
+              <Container fluid style={{minHeight: '100%'}}>
+                <Image src={props.imageRequestResponse} className='img-fluid' />
               </Container>
             </>}
             {props.requestError === false ? 
