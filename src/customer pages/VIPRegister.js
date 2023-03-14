@@ -56,11 +56,13 @@ export default function VIPRegister() {
         // Checks for password and email
         if(!email || !password) {
             alert('Please enter in all of your information.')
+            setLoading(false)
             return
         }
         // Checks for matching passwords
         if(password !== confirmPassword) {
             alert('Your passwords must match. Please make sure your password matches.')
+            setLoading(false)
             return
         }
 
