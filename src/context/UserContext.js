@@ -160,7 +160,6 @@ const retrieveUser = async () => {
           setEventSnap(null)
           setAccountStatus(null)
           setAccountActive(false)
-          alert("Logout successful.")
         }).catch((error) => {
           // An error happened.
           console.log("Logout error:", error)
