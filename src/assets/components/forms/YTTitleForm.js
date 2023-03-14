@@ -20,7 +20,7 @@ export default function YTTitleForm() {
         }
         try {
             const result = await axios.post(`${API_URL}/chat`, {
-                prompt: `Generate 5 potential titles for a ${formData.tone} YouTube video on the topic: ${formData.aiPrompt}. Consider titles that are concise, attention-grabbing, and accurately reflect the content of the video. Aim to include keywords relevant to the topic and make the titles search engine optimized for ranking on YouTube.`,
+                prompt: `Generate 5 potential titles for a YouTube video on the topic: ${formData.aiPrompt}. Consider titles that are concise, attention-grabbing, and accurately reflect the content of the video. Aim to include keywords relevant to the topic and make the titles search engine optimized for ranking on YouTube. Lastly write them in a ${formData.tone}`,
                 temperature: 0,
             }, {
               // You can use the `onUploadProgress` function provided by Axios

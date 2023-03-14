@@ -20,7 +20,7 @@ export default function YTScriptForm() {
         }
         try {
             const result = await axios.post(`${API_URL}/chat`, {
-                prompt: `Generate a list of 5 unique and engaging YouTube video idea topics revolving around this topic: ${formData.aiPrompt}. Consider topics that are relevant, trending, and have potential for creative expression. The ideas should be suitable for a variety of audiences and video formats (e.g. vlog, tutorial, review).`,
+                prompt: `Generate a list of 5 unique and engaging YouTube video idea topics revolving around this topic: ${formData.aiPrompt}. Consider topics that are relevant, trending, and have potential for creative expression. The ideas should be suitable for a variety of audiences and video formats (e.g. vlog, tutorial, review). Try to incorporate a ${formData.tone} tone.`,
                 temperature: 0,
             }, {
               // You can use the `onUploadProgress` function provided by Axios

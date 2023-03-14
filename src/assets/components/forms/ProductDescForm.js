@@ -14,7 +14,7 @@ export default function ProductDescForm() {
       setLoading(true);
       try {
         const result = await axios.post(`${API_URL}/chat`, {
-          prompt: `Write a creative, SEO friendly product description for the product ${formData.title} in a ${formData.tone}. This is what the product does: ${formData.aiPrompt}. This is a Shopify product and I need an optimal description for that platform. Include a list of keywords I can use for SEO.`,
+          prompt: `Write a creative, SEO friendly product description for the product ${formData.title} in a ${formData.tone}. This is what the product does: ${formData.aiPrompt}. The e-commerce platform I'm using is ${formData.extraValueRadio} and I need an optimal description for that platform. Just in case my e-commerce platform is 'Other', just give me a generalized product description that will work on any platform.`,
           temperature: 0,
           },{
             // You can use the `onUploadProgress` function provided by Axios
@@ -41,6 +41,10 @@ export default function ProductDescForm() {
 
     formLabel="Product Description"
     formPlaceholder="Describe your product for me." 
+
+    extraFormFieldRadio={true}
+    extraFormLabelRadio={"Which platform are you using?"}
+    extraValueRadio={["Shopify", "WooCommerce", "Magneto", "BigCommerce", "Amazon", "Squarespace", "Wix", "Other"]}
 
     requestProgress={progress} 
     requestResponse={response} 
