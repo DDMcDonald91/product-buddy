@@ -49,7 +49,7 @@ export default function Checkout() {
           <Spinner align='center' animation="grow" />
         ) : (
           <>
-            <Card style={{ width: '30rem' }}>
+            <Card style={{ width: '30rem', border: 'none' }}>
               <Card.Body>
                 <Card.Title>
                   <h3>Premium Subscription</h3>
@@ -76,7 +76,7 @@ export default function Checkout() {
                 <Form action={`${API_URL}/create-checkout-session`} method="POST">
                   <Form.Control type="hidden" name="lookup_key" value="premium" />
                   <Form.Control type="hidden" name="stripeId" value={stripeId} />
-                  <Button className="mt-5" variant="primary" id="checkout-and-portal-button" type="submit">
+                  <Button className="mt-5 w-100" variant="primary" id="checkout-and-portal-button" type="submit">
                     Purchase Now
                   </Button>
                 </Form>

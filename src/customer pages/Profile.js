@@ -74,7 +74,7 @@ export default function Profile() {
             >
             <Container align="center" className='mt-5'>
                 <h1>Profile</h1>
-                <Card style={{ maxWidth: '30rem' }}>
+                <Card style={{ maxWidth: '30rem', border: 'none'}}>
             <Card.Body>
                 <Card.Title>Welcome back {docSnap.firstName}!</Card.Title>
                 <p align='center' style={{color: 'red'}}>Account is paused. Manage your business information below.</p>
@@ -110,7 +110,7 @@ export default function Profile() {
           transition={{ duration: 0.5, delay: .2 }}
         >
         <h1>Profile</h1>
-        <Card style={{ maxWidth: '30rem' }}>
+        <Card style={{ maxWidth: '30rem', border: 'none'}}>
             <Card.Body>
                 <Card.Title>Welcome back {docSnap.firstName}!</Card.Title>
             </Card.Body>
