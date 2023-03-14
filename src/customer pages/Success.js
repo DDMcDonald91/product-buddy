@@ -16,12 +16,10 @@ export default function Success() {
 
   useEffect(() => {
     // checks for existing customer session ID
-    if(sessionID === null || ""){
-      console.log('Good to go.')
+    if(!sessionID === null || ""){
+      console.log("code is `!sessionID` from userContextData:", sessionID)
     } else{
-      console.log('Redirecting to profile');
-      navigate('/profile')
-      return
+      console.log("code is oppostite of '!sessionID` from userContextData:", sessionID)
     }
 
     const upgrade = async () => {
