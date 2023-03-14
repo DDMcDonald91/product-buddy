@@ -16,10 +16,9 @@ export default function Success() {
 
   useEffect(() => {
     // checks for existing customer session ID
-    if(sessionID !== null){
-      console.log("code is `sessionID !== null` from userContextData:", sessionID)
-      console.log("Hey dev there's a problem here.")
-      
+    if(sessionID){
+      console.log("code is from userContextData:", sessionID)
+      console.log("Hey dev there's a problem here.") 
     }
 
     const upgrade = async () => {
