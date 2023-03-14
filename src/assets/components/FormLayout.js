@@ -134,7 +134,7 @@ export default function FormLayout(props) {
         <Col xs={12} md={8} className='mb-5'>
           <Container className='w-100'>
           <Card className='w-100' style={{minHeight: '60vh'}}>
-              <Card.Body>
+            <Card.Body>
             {!props.requestResponse ?
             <>
             </>
@@ -145,6 +145,13 @@ export default function FormLayout(props) {
             </div>
             </>
             }
+            {!props.imageRequestResponse ? 
+            <></>
+            : 
+            <>
+              <Container fluid className='mb-5 p-0 d-flex align-items-center justify-content-center' style={{backgroundImage: `url(${props.imageRequestResponse})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '100%'}}>
+              </Container>
+            </>}
             {props.requestError === false ? 
             <>
             </>

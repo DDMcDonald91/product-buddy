@@ -49,7 +49,7 @@ export default function ImageForm() {
       formPlaceholder="Describe the image you want to create. Try to be as detailed as possible." 
   
       requestProgress={progress} 
-      requestResponse={response} 
+      imageRequestResponse={response} 
       requestError={error} 
       requestLoading={loading} 
   
