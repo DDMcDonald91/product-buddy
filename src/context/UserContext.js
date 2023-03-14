@@ -76,7 +76,7 @@ const retrieveUser = async () => {
         await setAccountStatus(updatedEventSnap.accountStatus);
         console.log(updatedEventSnap);
   
-        if (accountStatus === "active" || "trialing") {
+        if (accountStatus === "active" || "trialing" && sessionID !== null) {
           await setAccountActive(true);
         }
         if (accountStatus === "paused") {
@@ -84,6 +84,9 @@ const retrieveUser = async () => {
         }
         if (accountStatus === "canceled") {
           await setAccountActive(false);
+        }
+        if (sessionID === null) {
+          await setAccountActive(false)
         }
       } catch (error) {
         console.log(error);
