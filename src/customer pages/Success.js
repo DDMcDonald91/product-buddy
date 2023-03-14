@@ -21,7 +21,7 @@ export default function Success() {
       navigate('/dashboard')
       return
     } else{
-      console.log
+      console.log("good to go")
     }
 
     const upgrade = async () => {
