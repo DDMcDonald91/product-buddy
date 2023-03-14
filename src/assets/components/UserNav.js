@@ -10,7 +10,7 @@ import './components.css'
 import KenzoLogo from '../images/KenzoLogo.png'
 
 export default function UserNav() {
-    const { currentUser, accountActive, logout } = UserContextData()
+    const { currentUser, accountActive, logout, sessionID } = UserContextData()
     
     const [loading, setLoading] = useState(false)
     const [isAvailable, setIsAvailable] = useState(false)
@@ -26,6 +26,9 @@ export default function UserNav() {
         setLoading(true)
         if(currentUser && accountActive === true) {
             setIsAvailable(true)
+        }
+        if(!sessionID) {
+            setIsAvailable(false)
         }
         if(!currentUser && accountActive === false) {
             setIsAvailable(false)

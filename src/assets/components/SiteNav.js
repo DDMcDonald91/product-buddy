@@ -6,7 +6,7 @@ import Kenzo from '../images/Kenzo.png'
 import { motion } from "framer-motion";
 
 export default function SiteNav() {
-    const {currentUser, logout, accountActive} = UserContextData()
+    const {currentUser, accountActive} = UserContextData()
     const [showUserNav, setShowUserNav] = useState(false)
 
     useEffect(() => {
