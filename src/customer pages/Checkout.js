@@ -17,7 +17,7 @@ export default function Checkout() {
         } else {
           accountUpdate();
         }
-      }, [!docSnap, docSnap, currentUser]);
+      }, [!docSnap, currentUser]);
       
 
       const accountUpdate = async () => {
