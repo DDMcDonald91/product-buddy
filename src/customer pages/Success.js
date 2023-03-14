@@ -17,11 +17,11 @@ export default function Success() {
   useEffect(() => {
     // checks for existing customer session ID
     if(sessionID){
-      console.log("code is from userContextData:", sessionID)
+      console.log("Code is from userContextData:", sessionID)
       navigate('/dashboard')
       return
     } else{
-      console.log("good to go")
+      console.log('Good to go.')
     }
 
     const upgrade = async () => {
@@ -77,6 +77,16 @@ export default function Success() {
         transition={{ duration: 0.5, delay: .2 }}
         >
         <h2>Checkout Successful! Redirecting to dashboard.</h2>
+        <Link to='/profile'  style={{margin: '5px'}}>
+          <Button>
+            Profile
+          </Button>
+        </Link>
+        <Link to='/dashboard' style={{margin: '5px'}}>
+          <Button>
+            Dashboard
+          </Button>
+        </Link>
         </motion.div>
     </Container>
   )
