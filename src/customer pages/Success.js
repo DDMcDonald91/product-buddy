@@ -21,6 +21,7 @@ export default function Success() {
     } else{
       console.log('Redirecting to profile');
       navigate('/profile')
+      return
     }
 
     const upgrade = async () => {
