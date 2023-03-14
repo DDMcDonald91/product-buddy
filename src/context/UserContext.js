@@ -1,7 +1,8 @@
 import { useContext, createContext, useState, useEffect } from "react";
-import { signInWithEmailAndPassword, signOut, getAuth, updatePassword, sendPasswordResetEmail } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword, signOut, getAuth, updatePassword, sendPasswordResetEmail, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import axios from "axios";
 
 const UserContext = createContext(null)
 
@@ -14,7 +15,10 @@ export function UserContextProvider({ children }) {
     const [sessionID, setSessionID] = useState(null);
     const [eventSnap, setEventSnap] = useState(null);
     const [accountStatus, setAccountStatus] = useState(null);
-    const [accountActive, setAccountActive] = useState(false)
+    const [accountActive, setAccountActive] = useState(false);
+
+    const API_URL = process.env.REACT_APP_API_URL
+
 
     // check for Firebase user on load
     useEffect(() => {
@@ -89,7 +93,35 @@ const retrieveUser = async () => {
     console.log(accountActive);
     setLoading(false);
   };
+
+  // create a new user
+  const register = async (email, password, firstName, lastName) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await setDoc(doc(db, 'users', user.uid), {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          accountID: user.uid,
+          sessionId: "",
+      });
+      console.log("new user added", user.uid);
   
+      await axios.post(`${API_URL}/create-customer`, {
+          name: firstName + " " + lastName,
+          customerEmail: email,
+          user: user.uid,
+      });
+
+      setLoading(false)
+  } catch (error) {
+      console.error(error);
+      setLoading(false)
+      alert("Sorry, there has been a error. Please try again.")
+      return
+  }
+  }
 
     // login user
     const login = (email, password) => {
@@ -125,10 +157,11 @@ const retrieveUser = async () => {
           setEventSnap(null)
           setAccountStatus(null)
           setAccountActive(false)
-          window.location.reload(false);
+          alert("Logout successful.")
         }).catch((error) => {
           // An error happened.
           console.log("Logout error:", error)
+          alert('There seems to be an issue logging out. Refresh your page and try again.')
         });
     }
 
@@ -176,6 +209,7 @@ const retrieveUser = async () => {
             retrieveUser,
             updateUserPassword,
             resetUserPassword,
+            register,
             loading
             }
         }>{children}</UserContext.Provider>

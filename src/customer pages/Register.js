@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContextData } from "../context/UserContext";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { motion } from "framer-motion";
 
 export default function Register() {
@@ -19,11 +18,10 @@ export default function Register() {
     const [errorMessage, setErrorMessage] = useState("")
     const [disable, setDisable] = useState(false)
     const [loading, setLoading] = useState(false)
-    const auth = getAuth();
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL
 
-    const { currentUser } = UserContextData()
+    const { currentUser, register } = UserContextData()
 
     // Checks for user and redirects if user if present
     useEffect(() => {
@@ -34,7 +32,7 @@ export default function Register() {
     }, [])
 
     // Register the user
-    const register = async (e) => {
+    const userRegister = async (e) => {
         e.preventDefault()
 
         setLoading(true)
@@ -42,36 +40,24 @@ export default function Register() {
         // Checks for password and email
         if(!email || !password) {
             setErrorMessage('Please enter in all of your information.')
+            setLoading(false)
             return
         }
         // Checks for matching passwords
         if(password !== confirmPassword) {
             setErrorMessage('Your passwords must match. Please make sure your password matches.')
+            setLoading(false)
             return
         }
-
+        // Calls register function from user context file
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-            await setDoc(doc(db, 'users', user.uid), {
-                firstName,
-                lastName,
-                email,
-                accountID: user.uid,
-                sessionId: "",
-            });
-            console.log("new user added", user.uid);
-        
-            await axios.post(`${API_URL}/create-customer`, {
-                name: firstName + " " + lastName,
-                customerEmail: email,
-                user: user.uid,
-            });
+            await register(email, password, firstName, lastName)
             setLoading(false)
             navigate('/profile');
         } catch (error) {
             console.error(error);
             setErrorMessage("There has been a error. Please try again");
+            setLoading(false)
             return
         }
 
@@ -106,7 +92,7 @@ export default function Register() {
                 <h1>Sign Up!</h1>
                 <p>Fill out the form below create your account!</p>
             </Container>
-            <Form onSubmit={register} className='w-100 p-2'>
+            <Form onSubmit={userRegister} className='w-100 p-2'>
                 <Form.Group className="mb-3" controlId="formBasicFirstName">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control required type="text" placeholder="Enter your first name" onChange={e => {setFirstName(e.target.value)}} />
@@ -151,6 +137,7 @@ export default function Register() {
                 <>
                 <Container align='center'>
                     <Spinner animation="grow" />
+                    <p>Creating profile, please wait...</p>
                 </Container>
                 </>}
             </Form>

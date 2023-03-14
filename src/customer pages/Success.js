@@ -1,37 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Button, Container } from 'react-bootstrap'
 import { doc, updateDoc, getDoc } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { UserContextData } from '../context/UserContext';
 import { db } from "../Firebase";
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export default function Success() {
+  const { currentUser, sessionID } = UserContextData()
   const [session_id, setSessionID] = useState(null)
-  const [currentUser, setCurrentUser] = useState(null)
   const [docSnap, setDocSnap] = useState(null)
 
-  const auth = getAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+
 
   useEffect(() => {
+    // checks for existing customer session ID
+    if(sessionID !== null || ""){
+      console.log('Redirecting to profile')
+      navigate('/profile')
+    }
+
     const upgrade = async () => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            const uid = user.uid;
-            // ...
-            setCurrentUser(user)
-            console.log(user, uid)
-        } else {
-            // User is signed out
-            // ...
-            console.log('No user logged in currently.')
-            navigate('/register')
-        }
-        });
-  
       const searchParams = new URLSearchParams(window.location.search);
       const sessionId = searchParams.get('session_id');
       setSessionID(sessionId)

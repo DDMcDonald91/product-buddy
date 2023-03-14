@@ -34,11 +34,12 @@ export default function UserNav() {
     }, [currentUser, accountActive])
 
     // Logs out the user
-    const tryLogout = () => {
+    const tryLogout = async () => {
         if(currentUser){
           try {
-            logout()
+            await logout()
             navigate('/')
+            window.location.reload(false);
           } catch (error) {
             console.log('Logout error:', error)
           }
