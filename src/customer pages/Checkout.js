@@ -76,7 +76,7 @@ export default function Checkout() {
                 </ListGroup>
                 <Form action={`${API_URL}/create-checkout-session`} method="POST">
                   <Form.Control type="hidden" name="lookup_key" value="member" />
-                  <Form.Control type="hidden" name="stripeId" value={stripeId} />
+                  <Form.Control type="hidden" name="stripeId" value={docSnap.customerData.id} />
                   <Button className="mt-5 w-100" variant="primary" id="checkout-and-portal-button" type="submit">
                     Purchase Now
                   </Button>
