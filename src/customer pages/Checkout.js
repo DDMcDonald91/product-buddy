@@ -17,7 +17,7 @@ export default function Checkout() {
         } else {
           accountUpdate();
         }
-      }, [!docSnap, currentUser]);
+      }, [docSnap, currentUser]);
       
 
       const accountUpdate = async () => {
@@ -29,16 +29,13 @@ export default function Checkout() {
       
         try {
           console.log(docSnap.customerData.id)
+          await setStripeId(docSnap.customerData.id)
           console.log(docSnap.customerData.id, 'State value:', stripeId)
           setLoading(false);
         } catch (error) {
           console.error(error);
           setLoading(false);
         }
-
-        setStripeId(docSnap.customerData.id)
-        console.log(docSnap.customerData.id)
-        console.log(docSnap.customerData.id, 'State value:', stripeId)
 
       };
 
