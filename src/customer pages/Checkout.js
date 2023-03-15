@@ -21,7 +21,7 @@ export default function Checkout() {
       
 
       const accountUpdate = async () => {
-        if (!docSnap || !docSnap.customerData.i) {
+        if (!docSnap || !docSnap.customerData.id) {
           console.log('Stripe ID not present...');
           window.location.reload(false);
           return;
