@@ -29,8 +29,6 @@ export default function Checkout() {
       
         try {
           console.log(docSnap.customerData.id)
-          setStripeId(docSnap.customerData.id);
-          console.log(stripeId)
           setLoading(false);
         } catch (error) {
           console.error(error);
@@ -38,6 +36,8 @@ export default function Checkout() {
         }
       };
       
+      setStripeId(docSnap.customerData.id);
+
 
   return (
     <Container align="center" className='mt-5'>
@@ -76,7 +76,7 @@ export default function Checkout() {
                 </ListGroup>
                 <Form action={`${API_URL}/create-checkout-session`} method="POST">
                   <Form.Control type="hidden" name="lookup_key" value="member" />
-                  <Form.Control type="hidden" name="stripeId" value={docSnap.customerData.id} />
+                  <Form.Control type="hidden" name="stripeId" value={stripeId} />
                   <Button className="mt-5 w-100" variant="primary" id="checkout-and-portal-button" type="submit">
                     Purchase Now
                   </Button>
