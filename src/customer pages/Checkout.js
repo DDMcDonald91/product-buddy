@@ -37,6 +37,8 @@ export default function Checkout() {
         }
 
         setStripeId(docSnap.customerData.id)
+        console.log(docSnap.customerData.id)
+        console.log(docSnap.customerData.id, 'State value:', stripeId)
 
       };
 
