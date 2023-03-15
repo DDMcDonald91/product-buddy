@@ -21,14 +21,14 @@ export default function Checkout() {
       
 
       const accountUpdate = async () => {
-        if (!docSnap || !docSnap.customerData) {
+        if (!docSnap || !docSnap.customerData.i) {
           console.log('Stripe ID not present...');
           window.location.reload(false);
           return;
         }
       
         try {
-          console.log(docSnap.customerData)
+          console.log(docSnap.customerData.id)
           setStripeId(await docSnap.customerData.id);
           console.log(stripeId)
           setLoading(false);
