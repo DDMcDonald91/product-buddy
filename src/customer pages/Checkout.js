@@ -29,13 +29,15 @@ export default function Checkout() {
       
         try {
           console.log(docSnap.customerData.id)
-          setStripeId(docSnap.customerData.id)
           console.log(docSnap.customerData.id, 'State value:', stripeId)
           setLoading(false);
         } catch (error) {
           console.error(error);
           setLoading(false);
         }
+
+        setStripeId(docSnap.customerData.id)
+
       };
 
   return (
