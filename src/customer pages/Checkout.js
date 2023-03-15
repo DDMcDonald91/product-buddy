@@ -36,9 +36,6 @@ export default function Checkout() {
           setLoading(false);
         }
       };
-      
-      setStripeId(docSnap.customerData.id);
-
 
   return (
     <Container align="center" className='mt-5'>
