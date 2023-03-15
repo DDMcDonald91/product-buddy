@@ -29,7 +29,8 @@ export default function Checkout() {
       
         try {
           const id = docSnap.customerData.id;
-          setStripeId(id);
+          console.log(docSnap.customerData)
+          await setStripeId(id);
           setLoading(false);
         } catch (error) {
           console.error(error);
