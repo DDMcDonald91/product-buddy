@@ -7,8 +7,7 @@ export default function Checkout() {
     //API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const { currentUser, docSnap } = UserContextData()
-    const [stripeId, setStripeId] = useState(null)
+    const { currentUser, docSnap, stripeID } = UserContextData()
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -28,11 +27,7 @@ export default function Checkout() {
         }
       
         try {
-          console.log(docSnap.customerData.id)
-          setStripeId(docSnap.customerData.id, () => {
-            console.log(docSnap.customerData.id, 'State value:', stripeId)
-          })          
-          console.log(docSnap.customerData.id, 'State value:', stripeId)
+          console.log(docSnap.customerData.id, 'State value:', stripeID)
           setLoading(false);
         } catch (error) {
           console.error(error);
@@ -78,7 +73,7 @@ export default function Checkout() {
                 </ListGroup>
                 <Form action={`${API_URL}/create-checkout-session`} method="POST">
                   <Form.Control type="hidden" name="lookup_key" value="member" />
-                  <Form.Control type="hidden" name="stripeId" value={stripeId} />
+                  <Form.Control type="hidden" name="stripeId" value={stripeID} />
                   <Button className="mt-5 w-100" variant="primary" id="checkout-and-portal-button" type="submit">
                     Purchase Now
                   </Button>

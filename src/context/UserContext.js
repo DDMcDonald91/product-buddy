@@ -12,6 +12,7 @@ export function UserContextProvider({ children }) {
     const [loading, setLoading] = useState(false)
     const [currentUser, setCurrentUser] = useState(null);
     const [docSnap, setDocSnap] = useState(null);
+    const [stripeID, setStripeID] = useState(null);
     const [sessionID, setSessionID] = useState(null);
     const [eventSnap, setEventSnap] = useState(null);
     const [accountStatus, setAccountStatus] = useState(null);
@@ -35,7 +36,7 @@ export function UserContextProvider({ children }) {
             return unsubscribe
         }
         userCheck()
-    }, [currentUser, !docSnap, !sessionID, !accountStatus, !eventSnap, accountActive])
+    }, [currentUser, !docSnap, !sessionID, !accountStatus, !eventSnap, accountActive, stripeID])
 
 // retrieves user account data if the user is signed in
 const retrieveUser = async () => {
@@ -45,6 +46,7 @@ const retrieveUser = async () => {
       const usersDoc = await getDoc(userRef);
       const updatedDocSnap = usersDoc.data();
       await setDocSnap(updatedDocSnap);
+      await setStripeID(docSnap.customerData.id)
       await setSessionID(updatedDocSnap.sessionId);
       console.log(updatedDocSnap, sessionID);
     } else {
@@ -212,6 +214,7 @@ const retrieveUser = async () => {
             updateUserPassword,
             resetUserPassword,
             register,
+            stripeID,
             loading
             }
         }>{children}</UserContext.Provider>
