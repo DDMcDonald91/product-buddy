@@ -24,6 +24,7 @@ import SiteNav from './assets/components/SiteNav';
 import PasswordUpdate from './customer pages/PasswordUpdate';
 import PasswordReset from './customer pages/PasswordReset';
 import Demo from './customer pages/Demo';
+import RenewalSuccess from './customer pages/RenewalSuccess';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             <Route path='/reset-password' element={<PasswordReset />} />
             <Route path='/checkout' element={<Checkout />} />
             <Route path='/success/*' element={<Success />} />
+            <Route path='/renewal-success' element={<RenewalSuccess />} />
             <Route path='/support' element={<Support />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/cancel' element={<Cancel />} />

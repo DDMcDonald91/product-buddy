@@ -76,7 +76,7 @@ export default function Success() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: .2 }}
         >
-        <h2>Checkout Successful! Redirecting to dashboard.</h2>
+        <h2>Checkout Successful!</h2>
         <Link to='/profile'  style={{margin: '5px'}}>
           <Button>
             Profile

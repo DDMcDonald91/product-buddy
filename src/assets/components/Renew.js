@@ -18,11 +18,11 @@ export default function Renew() {
         } else {
           accountUpdate();
         }
-      }, [docSnap.customerData.id, currentUser]);
+      }, [docSnap, stripeID, currentUser]);
       
 
       const accountUpdate = async () => {
-        if (!docSnap || !docSnap.customerData.id) {
+        if (!stripeID || !docSnap.customerData.id) {
           console.log('Stripe ID not present...');
           window.location.reload(false);
           return;
