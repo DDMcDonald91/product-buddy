@@ -16,7 +16,7 @@ export default function Checkout() {
         } else {
           accountUpdate();
         }
-      }, [docSnap, currentUser]);
+      }, [docSnap.customerData.id, currentUser]);
       
 
       const accountUpdate = async () => {
@@ -37,7 +37,7 @@ export default function Checkout() {
       };
 
   return (
-    <Container align="center" className='mt-5'>
+    <Container align="center" className='mt-5' style={{ maxWidth: '30rem' }}>
         <motion.div
             initial={{opacity: 0, x: -100}}
             animate={{ opacity: 1, x: 0 }}
@@ -47,7 +47,7 @@ export default function Checkout() {
           <Spinner align='center' animation="grow" />
         ) : (
           <>
-            <Card style={{ width: '30rem', border: 'none' }}>
+            <Card className='w-100' style={{ border: 'none' }}>
               <Card.Body>
                 <Card.Title>
                   <h3>Premium Subscription</h3>
@@ -72,7 +72,7 @@ export default function Checkout() {
                   <ListGroup.Item>Art Generation</ListGroup.Item>
                 </ListGroup>
                 <Form action={`${API_URL}/create-checkout-session`} method="POST">
-                  <Form.Control type="hidden" name="prducts" value="price_1MleXgBqf38RkQF6T7N4HIqd" />
+                  <Form.Control type="hidden" name="products" value="price_1MleXgBqf38RkQF6T7N4HIqd" />
                   <Form.Control type="hidden" name="stripeID" value={stripeID} />
                   <Button className="mt-5 w-100" variant="primary" id="checkout-and-portal-button" type="submit">
                     Purchase Now
