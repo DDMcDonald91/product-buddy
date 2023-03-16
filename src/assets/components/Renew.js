@@ -9,27 +9,33 @@ export default function Renew() {
     // API
     const API_URL = process.env.REACT_APP_API_URL
 
-    const { currentUser, docSnap } = UserContextData(null)
-    const [stripeId, setStripeId] = useState(null)
+    const { currentUser, docSnap, stripeID } = UserContextData(null)
     const [loading, setLoading] = useState(false)
     
     useEffect(() => {
-        const accountCheck = async () => {
-            // Set loading screen while function starts
-            setLoading(true)
-
-            if(currentUser){
-                const id = await docSnap.customerData.id
-                setStripeId(id)
-            }
-
-            // Turn off loading screen for user
-            setLoading(false)
+        if (!docSnap) {
+          console.log('Stripe ID not present...');
+        } else {
+          accountUpdate();
         }
-        accountCheck()
-        console.log(stripeId)
+      }, [docSnap.customerData.id, currentUser]);
+      
 
-    }, [!stripeId, !docSnap])
+      const accountUpdate = async () => {
+        if (!docSnap || !docSnap.customerData.id) {
+          console.log('Stripe ID not present...');
+          window.location.reload(false);
+          return;
+        }
+      
+        try {
+          console.log(docSnap.customerData.id, 'State value:', stripeID)
+          setLoading(false);
+        } catch (error) {
+          console.error(error);
+          setLoading(false);
+        }
+      };
 
   return (
     <Container align="center" className='mt-5' style={{ maxWidth: '30rem' }}>
@@ -61,7 +67,7 @@ export default function Renew() {
                     </ListGroup>
                     <Form action={`${API_URL}/create-checkout-session`} method="POST">
                         <Form.Control type="hidden" name="products" value="price_1MleXmBqf38RkQF6DsjDAcvE" />
-                        <Form.Control type="hidden" name="stripeID" value={stripeId} />
+                        <Form.Control type="hidden" name="stripeID" value={stripeID} />
                         <Button className='mt-5 w-100' variant="primary" id="checkout-and-portal-button" type="submit">Purchase Now</Button>
                     </Form>
                 </Card.Body>

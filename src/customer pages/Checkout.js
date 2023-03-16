@@ -33,7 +33,6 @@ export default function Checkout() {
           console.error(error);
           setLoading(false);
         }
-
       };
 
   return (
