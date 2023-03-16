@@ -16,7 +16,7 @@ export default function Checkout() {
         } else {
           accountUpdate();
         }
-      }, [docSnap.customerData.id, currentUser]);
+      }, [!docSnap.customerData.id, currentUser]);
       
 
       const accountUpdate = async () => {
