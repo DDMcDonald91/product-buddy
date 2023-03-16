@@ -71,7 +71,7 @@ export default function Checkout() {
                   <ListGroup.Item>Art Generation</ListGroup.Item>
                 </ListGroup>
                 <Form action={`${API_URL}/create-checkout-session`} method="POST">
-                  <Form.Control type="hidden" name="lookup_key" value="prod_NWhxuCdHw97HsI" />
+                  <Form.Control type="hidden" name="lookup_key" value="price_1MleXmBqf38RkQF6DsjDAcvE" />
                   <Form.Control type="hidden" name="stripeID" value={stripeID} />
                   <Button className="mt-5 w-100" variant="primary" id="checkout-and-portal-button" type="submit">
                     Purchase Now
