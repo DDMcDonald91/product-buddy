@@ -50,7 +50,7 @@ function App() {
             <Route path='/vip-register' element={<VIPRegister />} />
             <Route path='/login' element={<Login />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/vip-register' element={<Demo />} />
+            <Route path='/demo' element={<Demo />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/update-password' element={<PasswordUpdate />} />
             <Route path='/reset-password' element={<PasswordReset />} />

@@ -94,7 +94,7 @@ export default function UserNav() {
                         </Link>
                     </li>
                     <li>
-                        <Link to='/' className='nav-text' onClick={handleClose}>
+                        <Link to='/demo' className='nav-text' onClick={handleClose}>
                             <Button className='mt-1 mb-1' variant="primary">Demo</Button>
                         </Link>
                     </li>
