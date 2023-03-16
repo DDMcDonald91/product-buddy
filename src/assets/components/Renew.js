@@ -65,8 +65,8 @@ export default function Renew() {
                         <ListGroup.Item>Business Tools</ListGroup.Item>
                         <ListGroup.Item>Art Generation</ListGroup.Item>
                     </ListGroup>
-                    <Form action={`${API_URL}/create-checkout-session`} method="POST">
-                        <Form.Control type="hidden" name="lookup_keys" value="price_1MleXmBqf38RkQF6DsjDAcvE" />
+                    <Form action={`${API_URL}/create-renewal-checkout-session`} method="POST">
+                        <Form.Control type="hidden" name="lookup_keys" value="prod_NWhxUTAQxLE8l9" />
                         <Form.Control type="hidden" name="stripeID" value={stripeID} />
                         <Button className='mt-5 w-100' variant="primary" id="checkout-and-portal-button" type="submit">Purchase Now</Button>
                     </Form>
