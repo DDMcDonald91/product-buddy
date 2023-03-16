@@ -16,11 +16,11 @@ export default function Checkout() {
         } else {
           accountUpdate();
         }
-      }, [docSnap, currentUser]);
+      }, [docSnap, currentUser, stripeID]);
       
 
       const accountUpdate = async () => {
-        if (!docSnap || !docSnap.customerData.id) {
+        if (!stripeID || !docSnap.customerData.id) {
           console.log('Stripe ID not present...');
           window.location.reload(false);
           return;
