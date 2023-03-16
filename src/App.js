@@ -23,6 +23,7 @@ import Contact from './customer pages/Contact';
 import SiteNav from './assets/components/SiteNav';
 import PasswordUpdate from './customer pages/PasswordUpdate';
 import PasswordReset from './customer pages/PasswordReset';
+import Demo from './customer pages/Demo';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             <Route path='/vip-register' element={<VIPRegister />} />
             <Route path='/login' element={<Login />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/vip-register' element={<Demo />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/update-password' element={<PasswordUpdate />} />
             <Route path='/reset-password' element={<PasswordReset />} />
