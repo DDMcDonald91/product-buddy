@@ -18,6 +18,11 @@ import Divider from './assets/components/Divider';
 
 export default function Home() {
 
+  function scrollToSection() {
+    const section = document.getElementById("about-container");
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <Container align='center' fluid className="p-0">
 
@@ -33,15 +38,13 @@ export default function Home() {
             <Button size="lg">Try For Free</Button>
           </Link>
           <br />
-          <Link to='#about-container'>
-            <Button className='mt-3' size="lg">Learn More</Button>
-          </Link>
+            <Button className='mt-3' size="lg" onClick={scrollToSection}>Learn More</Button>
         </motion.div>
       </Container>
 
       <Divider spacingTop={"7rem"} spacingBottom={"7rem"} />
 
-      <Container className='mt-5 mb-5'>
+      <Container className='mt-5 mb-5' id="about-container">
         <TextBlock heading={"What is Kenzo?"} size={"small-heading"} headingColor={"black"} subHeading={"Kenzo is an artificial intelligence program created to help content creators quickly create new and unique ideas for their business."} subHeadingColor={"black"} />
       </Container>
 
