@@ -129,7 +129,7 @@ export default function Register() {
                 }
                 {!loading ? 
                 <>
-                <Button className='w-100 mt-5' variant="primary" type="submit" disabled>
+                <Button className='w-100 mt-5' variant="primary" type="submit">
                     Submit
                 </Button>
                 </> 
