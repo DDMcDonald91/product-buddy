@@ -49,7 +49,7 @@ export default function Checkout() {
             <Card className='w-100' style={{ border: 'none' }}>
               <Card.Body>
                 <Card.Title>
-                  <h3>Premium Subscription</h3>
+                  <h3>Basic Membership Subscription</h3>
                 </Card.Title>
                 <Card.Text className="body-text">
                   Ready to get started with all of the benefits of the Kenzo AI system?

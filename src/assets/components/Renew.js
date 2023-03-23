@@ -55,7 +55,7 @@ export default function Renew() {
                     No problem, let's renew your plan!
                     </Card.Text>
                     <Container>
-                        <h2>$39.99/month</h2>
+                        <h2>$19.99/month</h2>
                     </Container>
                     <Card.Header><h6>Features:</h6></Card.Header>
                     <ListGroup className="list-group-flush body-text">
