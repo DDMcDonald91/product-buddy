@@ -57,7 +57,7 @@ export default function Checkout() {
                   Get started now!
                 </Card.Text>
                 <Container>
-                  <h2>$39.99/month</h2>
+                  <h2>$19.99/month</h2>
                   <h1>+ 3 Day FREE Trial</h1>
                 </Container>
                 <Card.Header>
@@ -77,6 +77,7 @@ export default function Checkout() {
                     Purchase Now
                   </Button>
                 </Form>
+                <Card.Text>Don't like Kenzo AI? You can cancel at anytime!</Card.Text>
               </Card.Body>
             </Card>
           </>
